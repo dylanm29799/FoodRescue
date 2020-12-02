@@ -4,8 +4,8 @@ import { View, Text } from 'react-native';
 const SortScreen = props => {
     return (
         <View style={}
-
-    )
+)
+    
 
 };
 
