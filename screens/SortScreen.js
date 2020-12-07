@@ -1,14 +1,21 @@
-import React from 'React';
-import { View, Text } from 'react-native';
+import React from 'react';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
 
 const SortScreen = props => {
     return (
-        <View style={}
+        <FlatList numColumns={2}/>
 )
     
 
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    screen: {
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
+         }
+
+});
 
 export default SortScreen;

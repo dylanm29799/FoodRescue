@@ -1,12 +1,16 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet} from 'react-native';
+import logo from "../components/Logo"
 
-
-const MainScreen = props => {
+const LoginScreen = props => {
     return (
+        
+      
         <View style={styles.screen}>
-            <Text>The Main Screen</Text>
+           
+            <Text>The Login Screen</Text>
         </View>
+      
 )
     
 
@@ -21,4 +25,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default MainScreen;
+export default LoginScreen;

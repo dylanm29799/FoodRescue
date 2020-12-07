@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet} from 'react-native';
 
-
-const MainScreen = props => {
+const ItemDetailScreen = props => {
     return (
         <View style={styles.screen}>
-            <Text>The Main Screen</Text>
+            <Text>The Item Detail Screen</Text>
         </View>
 )
     
@@ -21,4 +20,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default MainScreen;
+export default ItemDetailScreen;
