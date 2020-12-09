@@ -2,6 +2,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import { createAppContainer } from "react-navigation";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Colour from "../constants/Colour";
 import BusinessListScreen from "../screens/BusinessListScreen";
@@ -21,6 +22,15 @@ SortScreen.navigationOptions = {
 };
 LoginScreen.navigationOptions = {
   headerTitle: "Food Rescue",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
+};
+
+RegisterScreen.navigationOptions = {
+  headerTitle: "Registration",
   headerStyle: {
     backgroundColor: Colour.primaryColour,
   },

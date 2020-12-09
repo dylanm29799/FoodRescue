@@ -7,7 +7,10 @@ import Raleway from "../assets/fonts/Raleway-VariableFont_wght.ttf";
 const LoginScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <Image source={"../assets/Logo.png"} />
+      <View style={styles.Logo}>
+        <Image source={require("../assets/Logo.png")} />
+      </View>
+
       <Text style={styles.all}>Email</Text>
       <TextInput style={styles.input} />
       <Text style={styles.all}>Password</Text>
@@ -46,7 +49,7 @@ const LoginScreen = (props) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    justifyContent: "center",
+
     alignItems: "center",
   },
 
@@ -59,6 +62,10 @@ const styles = StyleSheet.create({
     padding: 20,
     fontFamily: "Raleway",
     fontWeight: "bold",
+  },
+  Logo: {
+    paddingTop: 40,
+    paddingBottom: 40,
   },
 });
 
