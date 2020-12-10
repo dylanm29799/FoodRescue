@@ -4,6 +4,8 @@ import { CATEGORIES } from "../Data/SortDataExample";
 import { MaterialIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import Colour from "../constants/Colour";
+import MapView from "react-native-maps";
+import Raleway from "../assets/fonts/Raleway-VariableFont_wght.ttf";
 
 const MainScreen = (props) => {
   return (
@@ -19,22 +21,28 @@ const MainScreen = (props) => {
         <AntDesign style={styles.profile} name="user" size={50} color="black" />
       </View>
       <View>
-        <Image
-          resizeMode={"cover"}
+        <MapView
           style={{
+            height: 200,
             width: "100%",
-            height: 300,
-            borderWidth: 2,
+            borderWidth: 3,
             borderColor: Colour.secondaryColour,
           }}
-          source={require("../assets/Map.png")}
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
         />
-        <Text style={{ fontSize: 40, textAlign: "center" }}>
-          {"\n"}Close To You
-        </Text>
       </View>
 
       <View>
+        <Text
+          style={{ fontSize: 40, textAlign: "center", fontFamily: "Raleway" }}
+        >
+          {"\n"}Close To You
+        </Text>
         <FlatList></FlatList>
       </View>
     </View>
