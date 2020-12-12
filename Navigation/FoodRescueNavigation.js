@@ -1,5 +1,8 @@
 import { createStackNavigator } from "react-navigation-stack";
-import { createBottomTabNavigator } from "react-navigation-tabs";
+import {
+  createBottomTabNavigator,
+  createTabNavigator,
+} from "react-navigation-tabs";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import { createAppContainer } from "react-navigation";
 
@@ -12,12 +15,14 @@ import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import SortScreen from "../screens/SortScreen";
 
-SortScreen.navigationOptions = {
-  headerTitle: "Sort Page",
-  headerStyle: {
-    backgroundColor: Colour.primaryColour,
-  },
-  headerTintColor: "white",
+SortScreen.navigationOptions = (navData) => {
+  return {
+    headerTitle: "Sort Page",
+    headerStyle: {
+      backgroundColor: Colour.primaryColour,
+    },
+    headerTintColor: "white",
+  };
 };
 LoginScreen.navigationOptions = {
   headerTitle: "Food Rescue",
@@ -46,14 +51,19 @@ MainScreen.navigationOptions = {
   headerTintColor: "white",
 };
 
+const sortNavigator = createDrawerNavigator({
+  Sort: sortStack,
+});
+const sortStack = createStackNavigator({
+  Sort: SortScreen,
+});
 const FoodRescueNavigator = createStackNavigator({
   Login: LoginScreen,
   Register: RegisterScreen,
   BusinessList: BusinessListScreen,
   ItemDetail: ItemDetailScreen,
-  Profile: ProfileScreen,
   Main: MainScreen,
-  Sort: SortScreen,
+  Profile: ProfileScreen,
 });
 
 export default createAppContainer(FoodRescueNavigator);

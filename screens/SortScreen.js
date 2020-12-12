@@ -11,7 +11,7 @@ import { CATEGORIES } from "../Data/SortDataExample";
 import Colours from "../constants/Colour";
 
 const SortScreen = (props) => {
-  /*const renderCategory = (itemData) => {
+  const renderCategory = (itemData) => {
     return (
       <TouchableOpacity
         style={styles.Categories}
@@ -33,7 +33,7 @@ const SortScreen = (props) => {
 
   return (
     <FlatList data={CATEGORIES} renderItem={renderCategory} numColumns={2} />
-  );*/
+  );
 };
 
 const styles = StyleSheet.create({

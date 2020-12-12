@@ -14,6 +14,10 @@ import Colour from "../constants/Colour";
 import MapView from "react-native-maps";
 import Raleway from "../assets/fonts/Raleway-VariableFont_wght.ttf";
 import { BUSINESS } from "../Data/BusinessDataExample";
+import Item from "react";
+
+import { DrawerActions } from "react-navigation-drawer";
+
 const renderCategory = (itemData) => {
   return (
     <TouchableOpacity
@@ -34,7 +38,7 @@ const renderCategory = (itemData) => {
             {itemData.item.items} <Text> Items</Text>
           </Text>
         </View>
-        <Text style={styles.text3}>{itemData.item.distance}</Text>
+        <Text style={styles.text3}>{itemData.item.distance};</Text>
       </View>
     </TouchableOpacity>
   );
@@ -49,11 +53,22 @@ const MainScreen = (props) => {
           name="sort"
           size={50}
           color="black"
+          onPress={() => {
+            props.navigation.dispatch(
+              DrawerActions.openDrawer({ routeName: "SortDrawer" })
+            );
+          }}
         />
-        <Image source={require("../assets/Logo.png")} />
+
         <AntDesign style={styles.profile} name="user" size={50} color="black" />
       </View>
-      <View style={{ borderWidth: 2, borderColor: Colour.primaryColour }}>
+      <View
+        style={{
+          borderWidth: 2,
+          borderColor: Colour.primaryColour,
+          position: "relative",
+        }}
+      >
         <MapView
           style={styles.Map}
           initialRegion={{
@@ -76,9 +91,9 @@ const MainScreen = (props) => {
         >
           Close To You
         </Text>
-
         <FlatList data={BUSINESS} renderItem={renderCategory} numColumns={1} />
       </View>
+      <View></View>
     </View>
   );
 };
@@ -93,6 +108,7 @@ const styles = StyleSheet.create({
   Icons: {
     flexDirection: "row",
     alignContent: "center",
+    paddingBottom: 25,
   },
 
   sort: {
@@ -110,18 +126,17 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   item: {
-    flex: 1,
-
     marginBottom: 30,
     borderWidth: 3,
     borderColor: Colour.primaryColour,
     padding: 5,
+    overflow: "scroll",
   },
   heading: {
     flexDirection: "row",
+    overflow: "hidden",
   },
   text1: {
-    flex: 1,
     width: "50%",
     paddingLeft: "5%",
     fontSize: 20,
