@@ -7,16 +7,10 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { CATEGORIES } from "../Data/SortDataExample";
-import { MaterialIcons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
 import Colour from "../constants/Colour";
 import MapView from "react-native-maps";
 import Raleway from "../assets/fonts/Raleway-VariableFont_wght.ttf";
 import { BUSINESS } from "../Data/BusinessDataExample";
-import Item from "react";
-
-import { DrawerActions } from "react-navigation-drawer";
 
 const renderCategory = (itemData) => {
   return (
@@ -47,28 +41,7 @@ const renderCategory = (itemData) => {
 const MainScreen = (props) => {
   return (
     <View style={styles.screen}>
-      <View style={styles.Icons}>
-        <MaterialIcons
-          style={styles.sort}
-          name="sort"
-          size={50}
-          color="black"
-          onPress={() => {
-            props.navigation.dispatch(
-              DrawerActions.openDrawer({ routeName: "SortDrawer" })
-            );
-          }}
-        />
-
-        <AntDesign style={styles.profile} name="user" size={50} color="black" />
-      </View>
-      <View
-        style={{
-          borderWidth: 2,
-          borderColor: Colour.primaryColour,
-          position: "relative",
-        }}
-      >
+      <View style={styles.MapBorder}>
         <MapView
           style={styles.Map}
           initialRegion={{
@@ -86,7 +59,8 @@ const MainScreen = (props) => {
             fontSize: 40,
             textAlign: "center",
             fontFamily: "Raleway",
-            paddingBottom: 10,
+            paddingTop: "8%",
+            paddingBottom: "3%",
           }}
         >
           Close To You
@@ -105,25 +79,17 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-around",
   },
-  Icons: {
-    flexDirection: "row",
-    alignContent: "center",
-    paddingBottom: 25,
-  },
 
-  sort: {
-    flex: 1,
-    justifyContent: "space-around",
-  },
-
-  profile: {
-    textAlign: "right",
-    flex: 1,
-    justifyContent: "space-around",
-  },
   Map: {
-    height: 200,
+    height: "100%",
     width: "100%",
+  },
+
+  MapBorder: {
+    borderWidth: 4,
+    borderColor: Colour.primaryColour,
+    position: "relative",
+    height: "50%",
   },
   item: {
     marginBottom: 30,
