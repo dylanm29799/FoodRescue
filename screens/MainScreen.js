@@ -11,34 +11,50 @@ import Colour from "../constants/Colour";
 import MapView from "react-native-maps";
 import Raleway from "../assets/fonts/Raleway-VariableFont_wght.ttf";
 import { BUSINESS } from "../Data/BusinessDataExample";
-
-const renderCategory = (itemData) => {
-  return (
-    <TouchableOpacity
-      style={styles.Categories}
-      onPress={() => {
-        props.navigation.navigate({
-          routeName: "Main",
-          params: {
-            BusinessID: itemData.item.id,
-          },
-        });
-      }}
-    >
-      <View style={styles.item}>
-        <View style={styles.heading}>
-          <Text style={styles.text1}>{itemData.item.title}</Text>
-          <Text style={styles.text2}>
-            {itemData.item.items} <Text> Items</Text>
-          </Text>
-        </View>
-        <Text style={styles.text3}>{itemData.item.distance};</Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
+import { CATEGORIES } from "../Data/SortDataExample";
+import {
+  scale,
+  verticalScale,
+  moderateScale,
+} from "../components/ResponsiveText";
 
 const MainScreen = (props) => {
+  const renderCategory = (itemData) => {
+    return (
+      <TouchableOpacity
+        style={styles.Categories}
+        onPress={() => {
+          props.navigation.navigate({
+            routeName: "BusinessList",
+            params: {
+              BusinessID: itemData.item.id,
+            },
+          });
+        }}
+      >
+        <View style={styles.item}>
+          <View style={styles.heading}>
+            <Text style={styles.text1}>{itemData.item.title}</Text>
+            <Text style={styles.text2}>
+              {itemData.item.items} <Text> Items</Text>
+            </Text>
+          </View>
+          <Text style={styles.text3}>{itemData.item.distance};</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+  const SortID = props.navigation.getParam("SortID");
+  //prettier-ignore
+  const selectedCategory = CATEGORIES.find(sort => sort.id === SortID);
+
+  const displayMessage = () => {
+    if (selectedCategory === undefined) {
+      return <Text style={styles.sortName}>Close to you</Text>;
+    } else {
+      return <Text style={styles.sortName}>{selectedCategory.title}</Text>;
+    }
+  };
   return (
     <View style={styles.screen}>
       <View style={styles.MapBorder}>
@@ -53,27 +69,19 @@ const MainScreen = (props) => {
         />
       </View>
 
-      <View>
-        <Text
-          style={{
-            fontSize: 40,
-            textAlign: "center",
-            fontFamily: "Raleway",
-            paddingTop: "8%",
-            paddingBottom: "3%",
-          }}
-        >
-          Close To You
-        </Text>
-        <FlatList data={BUSINESS} renderItem={renderCategory} numColumns={1} />
+      <View style={{ paddingTop: "15%" }}>
+        {displayMessage()}
+        <FlatList
+          style={{ overflow: "scroll" }}
+          data={BUSINESS}
+          renderItem={renderCategory}
+          numColumns={1}
+        />
       </View>
-      <View></View>
     </View>
   );
 };
-//<Text>{selectedCategory.title}</Text>
-//const SortID = props.navigation.getParam("SortID");
-//const selectedCategory = CATEGORIES.find((sort) => sort.id === SortID);
+
 const styles = StyleSheet.create({
   screen: {
     flexDirection: "column",
@@ -86,32 +94,44 @@ const styles = StyleSheet.create({
   },
 
   MapBorder: {
-    borderWidth: 4,
+    borderWidth: scale(2),
     borderColor: Colour.primaryColour,
     position: "relative",
-    height: "50%",
+    height: scale(330),
   },
   item: {
-    marginBottom: 30,
-    borderWidth: 3,
+    marginBottom: scale(20),
+    borderWidth: scale(2),
     borderColor: Colour.primaryColour,
-    padding: 5,
+    padding: scale(2),
     overflow: "scroll",
   },
   heading: {
     flexDirection: "row",
-    overflow: "hidden",
+    overflow: "scroll",
   },
   text1: {
     width: "50%",
     paddingLeft: "5%",
-    fontSize: 20,
+    fontSize: scale(15),
   },
-  text2: { width: "50%", textAlign: "right", paddingRight: "5%", fontSize: 20 },
+  text2: {
+    width: "50%",
+    textAlign: "right",
+    paddingRight: "5%",
+    fontSize: scale(15),
+  },
 
   text3: {
     paddingLeft: "5%",
-    fontSize: 20,
+    fontSize: scale(15),
+  },
+
+  sortName: {
+    fontSize: scale(30),
+    textAlign: "center",
+    fontFamily: "Raleway",
+    paddingVertical: scale(10),
   },
 });
 

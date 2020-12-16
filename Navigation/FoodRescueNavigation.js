@@ -43,6 +43,15 @@ RegisterScreen.navigationOptions = {
   headerTintColor: "white",
 };
 
+ProfileScreen.navigationOptions = {
+  headerTitle: "Profile",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
+};
+
 MainScreen.navigationOptions = (navData) => {
   return {
     headerTitle: "Food Rescue",
