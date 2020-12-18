@@ -7,6 +7,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  SafeAreaView,
 } from "react-native";
 import {
   scale,
@@ -20,6 +21,8 @@ import { FOODCOUNTDOWN } from "../Data/foodcountdowndataexample";
 import { ScrollView } from "react-native-gesture-handler";
 
 const BusinessListScreen = (props) => {
+  const businessName = props.navigation.getParam("BusinessName");
+
   const renderCategory = (itemData) => {
     return (
       <TouchableOpacity
@@ -28,7 +31,12 @@ const BusinessListScreen = (props) => {
           props.navigation.navigate({
             routeName: "ItemDetail",
             params: {
-              BusinessID: itemData.item.id,
+              BusinessName: businessName,
+              Title: itemData.item.title,
+              Image: itemData.item.image,
+              Quantity: itemData.item.quantity,
+              InitialPrice: itemData.item.initialPrice,
+              Price: itemData.item.price,
             },
           });
         }}
@@ -38,7 +46,7 @@ const BusinessListScreen = (props) => {
             style={{ height: "75%", width: "100%" }}
             source={{ uri: itemData.item.image }}
           />
-          <View style={{ paddingBottom: scale(100) }}>
+          <View>
             <View style={styles.heading}>
               <Text style={styles.text1}>{itemData.item.title}</Text>
               <Text style={styles.text2}>
@@ -50,6 +58,69 @@ const BusinessListScreen = (props) => {
               <Text style={styles.text3}>€{itemData.item.initialPrice}</Text>
               <Text style={styles.text4}>€{itemData.item.price}</Text>
             </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+  const renderFoodCategory = (itemData) => {
+    return (
+      <TouchableOpacity
+        style={styles.Categories}
+        onPress={() => {
+          props.navigation.navigate({
+            routeName: "ItemDetail",
+            params: {
+              BusinessName: businessName,
+              Title: itemData.item.title,
+              Image: itemData.item.image,
+              Quantity: itemData.item.quantity,
+              InitialPrice: itemData.item.initialPrice,
+              Price: itemData.item.price,
+              Time: itemData.item.time,
+            },
+          });
+        }}
+      >
+        <View style={styles.item}>
+          <Image
+            style={{ height: "75%", width: "100%" }}
+            source={{ uri: itemData.item.image }}
+          />
+          <View>
+            <View style={styles.heading}>
+              <Text style={styles.text1}>{itemData.item.title}</Text>
+
+              <Text style={styles.text2}>
+                {itemData.item.quantity} <Text>Items left!</Text>
+              </Text>
+            </View>
+            <View style={{ flex: 1, flexDirection: "row" }}>
+              <View
+                style={{
+                  paddingLeft: "5%",
+                  flex: 2,
+                }}
+              >
+                <Text style={styles.text4}>
+                  €{itemData.item.price}
+                  <Text style={styles.text3}>
+                    €{itemData.item.initialPrice}
+                  </Text>
+                </Text>
+              </View>
+              <View style={{ flex: 1 }}>
+                <Text
+                  style={{
+                    paddingRight: "9%",
+                    fontSize: scale(15),
+                    textAlign: "right",
+                  }}
+                >
+                  {itemData.item.time} Hours Left!
+                </Text>
+              </View>
+            </View>
           </View>
         </View>
       </TouchableOpacity>
@@ -70,25 +141,30 @@ const BusinessListScreen = (props) => {
           />
         </View>
 
-        <View style={{ width: "100%", alignItems: "center" }}>
+        <SafeAreaView style={{ alignItems: "center", flex: 1 }}>
           <Text style={styles.sortName}>Available Items</Text>
+
           <FlatList
-            style={{ width: "75%" }}
+            style={{ width: "90%", flex: 1 }}
             data={BUSINESSLIST}
             renderItem={renderCategory}
-            numColumns={1}
           />
-        </View>
+        </SafeAreaView>
 
-        <View style={{ width: "100%", alignItems: "center" }}>
-          <Text style={styles.sortName}>Available Items</Text>
+        <SafeAreaView
+          style={{
+            alignItems: "center",
+            flex: 1,
+            justifyContent: "space-between",
+          }}
+        >
+          <Text style={styles.sortName}>Food Countdown</Text>
           <FlatList
-            style={{ width: "75%" }}
+            style={{ width: "90%", flex: 1 }}
             data={FOODCOUNTDOWN}
-            renderItem={renderCategory}
-            numColumns={1}
+            renderItem={renderFoodCategory}
           />
-        </View>
+        </SafeAreaView>
       </ScrollView>
     </View>
   );
@@ -96,8 +172,7 @@ const BusinessListScreen = (props) => {
 
 const styles = StyleSheet.create({
   screen: {
-    flexDirection: "column",
-    justifyContent: "space-around",
+    flex: 1,
   },
 
   Map: {
@@ -109,19 +184,15 @@ const styles = StyleSheet.create({
     borderWidth: scale(2),
     borderColor: Colour.primaryColour,
     position: "relative",
-    height: scale(330),
+    height: scale(200),
   },
   item: {
-    marginBottom: scale(20),
     borderWidth: scale(2),
     borderColor: Colour.primaryColour,
-    padding: scale(2),
-    borderRadius: scale(25),
-    overflow: "scroll",
+    height: scale(200),
   },
   heading: {
     flexDirection: "row",
-    overflow: "scroll",
   },
   text1: {
     width: "50%",
@@ -143,7 +214,6 @@ const styles = StyleSheet.create({
   },
 
   text4: {
-    paddingLeft: "5%",
     fontSize: scale(15),
   },
 
@@ -152,6 +222,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontFamily: "Raleway",
     paddingVertical: scale(10),
+  },
+  Categories: { flex: 1 },
+  row: {
+    flex: 1,
+    justifyContent: "space-around",
   },
 });
 

@@ -29,7 +29,7 @@ const MainScreen = (props) => {
           props.navigation.navigate({
             routeName: "BusinessList",
             params: {
-              BusinessID: itemData.item.id,
+              BusinessName: itemData.item.title,
             },
           });
         }}

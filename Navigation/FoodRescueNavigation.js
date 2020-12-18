@@ -16,6 +16,8 @@ import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import SortScreen from "../screens/SortScreen";
 import { MaterialIcons } from "@expo/vector-icons";
+import { BUSINESS } from "../Data/BusinessDataExample";
+import { scale } from "../components/ResponsiveText";
 
 SortScreen.navigationOptions = {
   headerTitle: "Sort Page",
@@ -52,6 +54,20 @@ ProfileScreen.navigationOptions = {
   headerTintColor: "white",
 };
 
+BusinessListScreen.navigationOptions = (props) => {
+  const title = props.navigation.getParam("BusinessName");
+
+  return {
+    headerTitle: title,
+    headerStyle: {
+      backgroundColor: Colour.primaryColour,
+      fontSize: scale(22),
+    },
+    headerTitleAlign: "center",
+    headerTintColor: "white",
+  };
+};
+
 MainScreen.navigationOptions = (navData) => {
   return {
     headerTitle: "Food Rescue",
@@ -72,6 +88,28 @@ MainScreen.navigationOptions = (navData) => {
       backgroundColor: Colour.primaryColour,
     },
 
+    headerTitleAlign: "center",
+    headerTintColor: "white",
+  };
+};
+
+ProfileScreen.navigationOptions = {
+  headerTitle: "Profile",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
+};
+
+ItemDetailScreen.navigationOptions = (props) => {
+  const title = props.navigation.getParam("BusinessName");
+  return {
+    headerTitle: title,
+    headerStyle: {
+      backgroundColor: Colour.primaryColour,
+      fontSize: scale(22),
+    },
     headerTitleAlign: "center",
     headerTintColor: "white",
   };
