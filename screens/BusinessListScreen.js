@@ -19,6 +19,7 @@ import MapView from "react-native-maps";
 import { BUSINESSLIST } from "../Data/businesslistDataExample";
 import { FOODCOUNTDOWN } from "../Data/foodcountdowndataexample";
 import { ScrollView } from "react-native-gesture-handler";
+import { OpenSans } from "..//assets/fonts/Open_Sans/OpenSans-Italic.ttf";
 
 const BusinessListScreen = (props) => {
   const businessName = props.navigation.getParam("BusinessName");
@@ -220,8 +221,9 @@ const styles = StyleSheet.create({
   sortName: {
     fontSize: scale(30),
     textAlign: "center",
-    fontFamily: "Raleway",
     paddingVertical: scale(10),
+    fontFamily: "Raleway",
+    fontWeight: "900",
   },
   Categories: { flex: 1 },
   row: {

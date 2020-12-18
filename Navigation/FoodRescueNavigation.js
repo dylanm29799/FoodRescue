@@ -15,6 +15,7 @@ import MainScreen from "../screens/MainScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import SortScreen from "../screens/SortScreen";
+import CartScreen from "../screens/CartScreen";
 import { MaterialIcons } from "@expo/vector-icons";
 import { BUSINESS } from "../Data/BusinessDataExample";
 import { scale } from "../components/ResponsiveText";
@@ -102,6 +103,15 @@ ProfileScreen.navigationOptions = {
   headerTintColor: "white",
 };
 
+CartScreen.navigationOptions = {
+  headerTitle: "Checkout",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
+};
+
 ItemDetailScreen.navigationOptions = (props) => {
   const title = props.navigation.getParam("BusinessName");
   return {
@@ -122,6 +132,7 @@ const FoodRescueNavigator = createStackNavigator({
   ItemDetail: ItemDetailScreen,
   Main: MainScreen,
   Profile: ProfileScreen,
+  Cart: CartScreen,
 });
 const sortStack = createStackNavigator({
   Sort: SortScreen,

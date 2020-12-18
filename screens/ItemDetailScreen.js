@@ -23,7 +23,7 @@ const ItemDetailScreen = (props) => {
       return props.navigation.getParam("Time") + " hours left!";
     }
   };
-
+  //Getting All Params
   const image = props.navigation.getParam("Image");
   const title = props.navigation.getParam("Title");
   const quantity = props.navigation.getParam("Quantity");
@@ -73,9 +73,20 @@ const ItemDetailScreen = (props) => {
         />
       </View>
       <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate({
+            routeName: "Cart",
+            params: {
+              Title: title,
+              quantity: quantity,
+              price: price,
+              initialPrice: initialPrice,
+            },
+          });
+        }}
         style={{
-          height: scale(20),
-          width: scale(60),
+          height: scale(30),
+          width: scale(70),
           backgroundColor: Colour.primaryColour,
           justifyContent: "center",
           marginTop: scale(30),
@@ -87,6 +98,7 @@ const ItemDetailScreen = (props) => {
             fontFamily: "Raleway",
             fontWeight: "bold",
             textAlign: "center",
+            fontSize: scale(12),
           }}
         >
           Add to Cart
