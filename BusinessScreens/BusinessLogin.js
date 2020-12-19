@@ -4,7 +4,9 @@ import { TextInput } from "react-native-gesture-handler";
 import Colour from "../constants/Colour";
 import Raleway from "../assets/fonts/Raleway-VariableFont_wght.ttf";
 import { scale } from "../components/ResponsiveText";
-const LoginScreen = (props) => {
+import { useFonts, FiraSans_400Regular } from "@expo-google-fonts/dev";
+
+const BusinessLogin = (props) => {
   return (
     <View style={styles.screen}>
       <View style={styles.Logo}>
@@ -21,14 +23,14 @@ const LoginScreen = (props) => {
         color={Colour.primaryColour}
         title="Login"
         onPress={() => {
-          props.navigation.navigate({ routeName: "Main" });
+          props.navigation.navigate({ routeName: "BusinessHome" });
         }}
       />
 
       <Text
         style={styles.all}
         onPress={() => {
-          props.navigation.navigate({ routeName: "Main" });
+          props.navigation.navigate({ routeName: "BusinessHome" });
         }}
       >
         Forgotten Your Password?
@@ -37,19 +39,10 @@ const LoginScreen = (props) => {
       <Text
         style={styles.all}
         onPress={() => {
-          props.navigation.navigate({ routeName: "Register" });
+          props.navigation.navigate({ routeName: "BusinessRegister" });
         }}
       >
-        New to Food Rescue?
-      </Text>
-
-      <Text
-        style={styles.all}
-        onPress={() => {
-          props.navigation.navigate({ routeName: "BusinessLogin" });
-        }}
-      >
-        Click Here for Business Login
+        Does your business want to reduce waste while making money?
       </Text>
     </View>
   );
@@ -73,6 +66,8 @@ const styles = StyleSheet.create({
 
   all: {
     padding: 20,
+    fontFamily: FiraSans_400Regular,
+    fontSize: scale(11),
   },
   Logo: {
     paddingTop: 40,
@@ -80,4 +75,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default BusinessLogin;

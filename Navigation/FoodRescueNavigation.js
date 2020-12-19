@@ -8,6 +8,7 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 import { createAppContainer } from "react-navigation";
 import { AntDesign } from "@expo/vector-icons";
 import Colour from "../constants/Colour";
+
 import BusinessListScreen from "../screens/BusinessListScreen";
 import ItemDetailScreen from "../screens/ItemDetailScreen";
 import ProfileScreen from "../screens/ProfileScreen";
@@ -16,6 +17,12 @@ import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import SortScreen from "../screens/SortScreen";
 import CartScreen from "../screens/CartScreen";
+
+import BusinessHome from "../BusinessScreens/BusinessHome";
+import BusinessLogin from "../BusinessScreens/BusinessLogin";
+import BusinessRegister from "../BusinessScreens/BusinessRegister";
+import BusinessLocation from "../BusinessScreens/BusinessLocation";
+
 import { MaterialIcons } from "@expo/vector-icons";
 import { BUSINESS } from "../Data/BusinessDataExample";
 import { scale } from "../components/ResponsiveText";
@@ -125,6 +132,42 @@ ItemDetailScreen.navigationOptions = (props) => {
   };
 };
 
+//Business Side Headers
+BusinessLogin.navigationOptions = {
+  headerTitle: "Login To Your Business",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
+};
+
+BusinessRegister.navigationOptions = {
+  headerTitle: "Register Your Business",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
+};
+
+BusinessLocation.navigationOptions = {
+  headerTitle: "Business Name",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
+};
+
+BusinessHome.navigationOptions = {
+  headerTitle: "Business Name",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
+};
 const FoodRescueNavigator = createStackNavigator({
   Login: LoginScreen,
   Register: RegisterScreen,
@@ -133,6 +176,12 @@ const FoodRescueNavigator = createStackNavigator({
   Main: MainScreen,
   Profile: ProfileScreen,
   Cart: CartScreen,
+
+  //BusinessScreens
+  BusinessHome: BusinessHome,
+  BusinessLogin: BusinessLogin,
+  BusinessRegister: BusinessRegister,
+  BusinessLocation: BusinessLocation,
 });
 const sortStack = createStackNavigator({
   Sort: SortScreen,
