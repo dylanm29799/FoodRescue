@@ -4,7 +4,6 @@ import { TextInput } from "react-native-gesture-handler";
 import Colour from "../constants/Colour";
 import Raleway from "../assets/fonts/Raleway-VariableFont_wght.ttf";
 import { scale } from "../components/ResponsiveText";
-import { useFonts, FiraSans_400Regular } from "@expo-google-fonts/dev";
 
 const BusinessLogin = (props) => {
   return (
@@ -66,8 +65,7 @@ const styles = StyleSheet.create({
 
   all: {
     padding: 20,
-    fontFamily: FiraSans_400Regular,
-    fontSize: scale(11),
+    fontSize: scale(10),
   },
   Logo: {
     paddingTop: 40,

@@ -1,4 +1,4 @@
-//Taken From Expo Documentation https://docs.expo.io/versions/latest/sdk/location/#usage
+//with help From Expo Documentation https://docs.expo.io/versions/latest/sdk/location/#usage
 
 import React from "react";
 import { Platform, Text, View, StyleSheet } from "react-native";
@@ -7,6 +7,7 @@ import MapView, { Marker } from "react-native-maps";
 import Colour from "../constants/Colour";
 import { scale } from "../components/ResponsiveText";
 import Map from "../components/Map";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const BusinessLocation = (props) => {
   return (
@@ -14,8 +15,22 @@ const BusinessLocation = (props) => {
       <Map style={styles.Map} />
 
       <View style={styles.textOverMap}>
-        <Text style={styles.text}>This is Your Location?</Text>
-        <Text style={styles.text}>This is Not your Location?</Text>
+        <TouchableOpacity
+          style={styles.touchable}
+          onPress={() => {
+            props.navigation.navigate({ routeName: "BusinessHome" });
+          }}
+        >
+          <Text style={styles.text}>This is Your Location?</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.touchable}
+          onPress={() => {
+            props.navigation.navigate({ routeName: "CorrectLocation" });
+          }}
+        >
+          <Text style={styles.text}>This is Not your Location?</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -36,20 +51,25 @@ const styles = StyleSheet.create({
   },
   textOverMap: {
     position: "absolute",
-    flex: 1,
     flexDirection: "row",
-    width: "70%",
-    backgroundColor: "#fff",
+    width: "100%",
+    justifyContent: "center",
     alignItems: "center",
-    borderRadius: scale(100),
-  },
 
+    marginTop: scale(20),
+  },
+  touch: { flex: 1, marginHorizontal: scale(5) },
   text: {
     fontSize: scale(20),
-    color: Colour.primaryColour,
+    borderColor: Colour.primaryColour,
     borderWidth: scale(2),
-    flex: 1,
-    justifyContent: "center",
+    width: scale(150),
+    backgroundColor: "#fff",
+    borderRadius: scale(50),
+    height: scale(100),
+    textAlign: "center",
+    paddingTop: scale(30),
+    marginHorizontal: scale(5),
   },
 });
 

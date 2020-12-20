@@ -90,8 +90,6 @@ const styles = StyleSheet.create({
   },
   touchableText: {
     color: "#fff",
-    fontFamily: "Raleway",
-    fontWeight: "bold",
     textAlign: "center",
     fontSize: scale(12),
   },

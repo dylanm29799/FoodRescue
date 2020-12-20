@@ -17,11 +17,16 @@ import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import SortScreen from "../screens/SortScreen";
 import CartScreen from "../screens/CartScreen";
+import aboutus from "../screens/aboutus";
 
 import BusinessHome from "../BusinessScreens/BusinessHome";
 import BusinessLogin from "../BusinessScreens/BusinessLogin";
 import BusinessRegister from "../BusinessScreens/BusinessRegister";
 import BusinessLocation from "../BusinessScreens/BusinessLocation";
+import BusinessCurrentProduct from "../BusinessScreens/BusinessCurrentProduct";
+import BusinessAddProduct from "../BusinessScreens/BusinessAddProduct";
+import BusinessManage from "../BusinessScreens/BusinessManage";
+import CorrectLocation from "../BusinessScreens/CorrectLocation";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { BUSINESS } from "../Data/BusinessDataExample";
@@ -132,6 +137,15 @@ ItemDetailScreen.navigationOptions = (props) => {
   };
 };
 
+aboutus.navigationOptions = {
+  headerTitle: "Manage Your Products",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
+};
+
 //Business Side Headers
 BusinessLogin.navigationOptions = {
   headerTitle: "Login To Your Business",
@@ -169,6 +183,42 @@ BusinessHome.navigationOptions = {
   headerTintColor: "white",
 };
 
+CorrectLocation.navigationOptions = {
+  headerTitle: "Correct Your Location",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
+};
+
+BusinessCurrentProduct.navigationOptions = {
+  headerTitle: "Current Products",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
+};
+
+BusinessAddProduct.navigationOptions = {
+  headerTitle: "Add your product",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
+};
+
+BusinessManage.navigationOptions = {
+  headerTitle: "Manage Your Products",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
+};
+
 const FoodRescueNavigator = createStackNavigator({
   Login: LoginScreen,
   Register: RegisterScreen,
@@ -183,13 +233,22 @@ const FoodRescueNavigator = createStackNavigator({
   BusinessLogin: BusinessLogin,
   BusinessRegister: BusinessRegister,
   BusinessLocation: BusinessLocation,
+  BusinessAddProduct: BusinessAddProduct,
+  BusinessCurrentProduct: BusinessCurrentProduct,
+  BusinessManage: BusinessManage,
+  CorrectLocation: CorrectLocation,
 });
 const sortStack = createStackNavigator({
   Sort: SortScreen,
 });
+
+const aboutUsStack = createStackNavigator({
+  "About Us": aboutus,
+});
 const MainNavigator = createDrawerNavigator({
   FoodRescue: FoodRescueNavigator,
   Sort: sortStack,
+  "About us": aboutUsStack,
 });
 
 export default createAppContainer(MainNavigator);
