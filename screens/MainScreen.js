@@ -19,6 +19,7 @@ import {
   moderateScale,
 } from "../components/ResponsiveText";
 import { ScrollView } from "react-native-gesture-handler";
+import Map from "../components/Map";
 
 const MainScreen = (props) => {
   const renderCategory = (itemData) => {
@@ -67,15 +68,7 @@ const MainScreen = (props) => {
     <View>
       <ScrollView>
         <View style={styles.MapBorder}>
-          <MapView
-            style={styles.Map}
-            initialRegion={{
-              latitude: 53.34900146651947,
-              longitude: -6.243367195129395,
-              latitudeDelta: 0,
-              longitudeDelta: 0.05,
-            }}
-          />
+          <Map style={styles.Map} />
         </View>
 
         <View

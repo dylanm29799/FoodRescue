@@ -168,6 +168,7 @@ BusinessHome.navigationOptions = {
   headerTitleAlign: "center",
   headerTintColor: "white",
 };
+
 const FoodRescueNavigator = createStackNavigator({
   Login: LoginScreen,
   Register: RegisterScreen,
