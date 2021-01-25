@@ -4,10 +4,9 @@ import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
 
-import Firebase from "@react-native-firebase/app";
+import firebase from "firebase";
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+var firebaseConfig = {
   apiKey: "AIzaSyCNATnerGchx1ogJt7qfX753b2hKA_6lCM",
   authDomain: "food-rescue-34ffd.firebaseapp.com",
   projectId: "food-rescue-34ffd",
@@ -17,7 +16,10 @@ const firebaseConfig = {
   measurementId: "G-WLL8GZ4PH7",
 };
 
+firebase.initializeApp(firebaseConfig);
+
 import FoodRescueNavigator from "./Navigation/FoodRescueNavigation";
+
 const fetchFonts = () => {
   return Font.loadAsync({
     Raleway: require("./assets/fonts/Raleway-VariableFont_wght.ttf"),

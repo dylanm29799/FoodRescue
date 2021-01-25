@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, Button } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import Colour from "../constants/Colour";
@@ -6,28 +6,54 @@ import Raleway from "../assets/fonts/Raleway-VariableFont_wght.ttf";
 import { scale } from "../components/ResponsiveText";
 
 const RegisterScreen = (props) => {
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [number, setNumber] = useState("");
+
   return (
     <View style={styles.screen}>
       <View style={styles.Logo}>
         <Image source={require("../assets/Logo.png")} />
       </View>
       <Text style={styles.all}>First Name</Text>
-      <TextInput style={styles.input} placeholder="John" />
+      <TextInput
+        onChangeText={(firstName) => setFirstName(firstName)}
+        style={styles.input}
+        placeholder="John"
+      />
 
       <Text style={styles.all}>Last Name</Text>
-      <TextInput style={styles.input} placeholder="Doe" />
+      <TextInput
+        onChangeText={(lastName) => setLastName(lastName)}
+        style={styles.input}
+        placeholder="Doe"
+      />
 
       <Text style={styles.all}>Email</Text>
-      <TextInput style={styles.input} placeholder="JohnDoe@gmail.com" />
+      <TextInput
+        onChangeText={(email) => setEmail(email)}
+        style={styles.input}
+        placeholder="JohnDoe@gmail.com"
+      />
 
       <Text style={styles.all}>Password</Text>
-      <TextInput style={styles.input} />
+      <TextInput
+        onChangeText={(password) => setPassword(password)}
+        style={styles.input}
+        secureTextEntry={true}
+      />
 
       <Text style={styles.all}>Repeat Password</Text>
-      <TextInput style={styles.input} />
+      <TextInput style={styles.input} secureTextEntry={true} />
 
       <Text style={styles.all}>Phone Number</Text>
-      <TextInput style={styles.input} placeholder="0832122122" />
+      <TextInput
+        onChangeText={(number) => setNumber(number)}
+        style={styles.input}
+        placeholder="0832122122"
+      />
 
       <Text>{"\n"}</Text>
 
