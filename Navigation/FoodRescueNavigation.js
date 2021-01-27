@@ -18,6 +18,7 @@ import RegisterScreen from "../screens/RegisterScreen";
 import SortScreen from "../screens/SortScreen";
 import CartScreen from "../screens/CartScreen";
 import aboutus from "../screens/aboutus";
+import forgotPassword from "../screens/forgotPassword";
 
 import BusinessHome from "../BusinessScreens/BusinessHome";
 import BusinessLogin from "../BusinessScreens/BusinessLogin";
@@ -108,6 +109,15 @@ MainScreen.navigationOptions = (navData) => {
 
 ProfileScreen.navigationOptions = {
   headerTitle: "Profile",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
+};
+
+forgotPassword.navigationOptions = {
+  headerTitle: "Forgot Password",
   headerStyle: {
     backgroundColor: Colour.primaryColour,
   },
@@ -227,6 +237,7 @@ const FoodRescueNavigator = createStackNavigator({
   Main: MainScreen,
   Profile: ProfileScreen,
   Cart: CartScreen,
+  forgotPassword: forgotPassword,
 
   //BusinessScreens
   BusinessHome: BusinessHome,

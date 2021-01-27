@@ -5,7 +5,7 @@ import MapView, { Marker } from "react-native-maps";
 import Colour from "../constants/Colour";
 import { scale } from "./ResponsiveText";
 
-export default function Map() {
+Map = () => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -29,8 +29,6 @@ export default function Map() {
 
   if (errorMsg) {
     text = errorMsg;
-    long = -6.243367195129395;
-    lat = 53.34900146651947;
   } else if (location) {
     text = JSON.stringify(location);
     long = location.coords.longitude;
@@ -56,7 +54,7 @@ export default function Map() {
       </MapView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -72,3 +70,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
+
+export default function Map() {
+  long, lat;
+}

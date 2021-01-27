@@ -29,7 +29,7 @@ const BusinessLogin = (props) => {
       <Text
         style={styles.all}
         onPress={() => {
-          props.navigation.navigate({ routeName: "BusinessHome" });
+          props.navigation.navigate({ routeName: "forgotPassword" });
         }}
       >
         Forgotten Your Password?

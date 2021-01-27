@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, Button } from "react-native";
+import { View, Text, StyleSheet, Image, Button, Alert } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import Colour from "../constants/Colour";
 import Raleway from "../assets/fonts/Raleway-VariableFont_wght.ttf";
@@ -9,6 +9,8 @@ import "firebase/firestore";
 
 const RegisterScreen = (props) => {
   const dbconnection = firebase.firestore();
+  //validation is used for validation of emails
+  let validation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -25,51 +27,51 @@ const RegisterScreen = (props) => {
 
   signUp = () => {
     //Check for the Name firstName
-    if (!firstName.trim()) {
-      alert("Please Enter Name");
+    if (!firstName.trim() || firstName.length < 3) {
+      Alert.alert("Error", "Your first name must be longer than 3 letters");
       setErrorColorFirstName("inputError");
       return;
     } else {
       setErrorColorFirstName("input");
     }
-    if (!lastName.trim()) {
-      alert("Please Enter Last Name");
+    if (!lastName.trim() || firstName.length < 3) {
+      alert("Your ast name must be longer than 3 letters");
       setErrorColorLastName("inputError");
       return;
     } else {
       setErrorColorLastName("input");
     }
     //Check for the Email TextInput
-    if (!email.trim()) {
-      alert("Please Enter Email");
+    if (!email.trim() || validation.test(email) === false) {
+      Alert.alert("Error", "Please Enter a valid Email");
       setErrorColorEmail("inputError");
       return;
     } else {
       setErrorColorEmail("input");
     }
-    if (!password.trim()) {
-      alert("Please Enter Password");
+    if (!password.trim() || password.length < 6) {
+      Alert.alert("Error", "Password must be at least 6 digits");
       setErrorColorPassword("inputError");
       return;
     } else {
       setErrorColorPassword("input");
     }
-    if (!confPassword.trim()) {
-      alert("Please Enter Password");
+    if (!confPassword.trim() || confPassword.length < 6) {
+      Alert.alert("Error", "Please Confirm your password");
       setErrorColorConfPassword("inputError");
       return;
     } else {
       setErrorColorConfPassword("input");
     }
-    if (!number.trim()) {
-      alert("Please Enter Number");
+    if (number.length != 10) {
+      Alert.alert("Error", "Please Enter a valid Irish Number");
       setErrorColorNumber("inputError");
       return;
     } else {
       setErrorColorNumber("input");
     }
     if (confPassword != password) {
-      alert("Please Confirm your Password");
+      Alert.alert("Error", "Please Confirm your Password");
     }
     //Checked Successfully
     console.log(password, email, firstName, lastName, number);
@@ -87,6 +89,7 @@ const RegisterScreen = (props) => {
           number: number,
           email: email,
         });
+        props.navigation.navigate({ routeName: "Main" });
         // ...
       })
       .catch((error) => {
@@ -96,6 +99,7 @@ const RegisterScreen = (props) => {
         // ..
       });
   };
+
   return (
     <View style={styles.screen}>
       <View style={styles.Logo}>
@@ -141,6 +145,7 @@ const RegisterScreen = (props) => {
         onChangeText={(number) => setNumber(number)}
         style={styles[errorColorNumber]}
         placeholder="0832122122"
+        keyboardType={"numeric"}
       />
 
       <Text>{"\n"}</Text>

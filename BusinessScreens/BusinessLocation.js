@@ -3,13 +3,17 @@
 import React from "react";
 import { Platform, Text, View, StyleSheet } from "react-native";
 import * as Location from "expo-location";
-import MapView, { Marker } from "react-native-maps";
 import Colour from "../constants/Colour";
 import { scale } from "../components/ResponsiveText";
-import Map from "../components/Map";
+import Map, { long, lat } from "../components/Map";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import * as firebase from "firebase";
+import "firebase/firestore";
 
 const BusinessLocation = (props) => {
+  const dbconnection = firebase.firestore();
+  console.log(long, lat);
+
   return (
     <View style={styles.container}>
       <Map style={styles.Map} />
