@@ -14,6 +14,7 @@ const ProfileScreen = (props) => {
       let docref = dbconnection.collection("userDetails").doc(user.uid);
     } else {
       // No user is signed in.
+      console.log("Piyush is nice");
       console.log("No User Logged In");
     }
   };
