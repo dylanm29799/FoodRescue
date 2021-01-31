@@ -1,49 +1,25 @@
-import React from "react";
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import Colour from "../constants/Colour";
-
-const FLATLISTDATA = [
-  {
-    title: "Name:",
-    input: "Name",
-  },
-  {
-    title: "Email:",
-    input: "Email",
-  },
-  {
-    title: "Phone Number:",
-    input: "Phone Number",
-  },
-];
-const Item = ({ title, input }) => (
-  <View style={styles.item}>
-    <Text>{title}</Text>
-    <TextInput
-      multiline={true}
-      style={styles.title}
-      placeholder={input}
-    ></TextInput>
-  </View>
-);
-const renderItem = ({ item }) => <Item title={item.title} />;
+import ButtonCustom from "../constants/ButtonCustom";
+import * as firebase from "firebase";
 
 const ProfileScreen = (props) => {
+  const dbconnection = firebase.firestore();
+  var user = firebase.auth().currentUser;
+  changeProfile = () => {
+    if (user) {
+      // User is signed in.
+      let docref = dbconnection.collection("userDetails").doc(user.uid);
+    } else {
+      // No user is signed in.
+      console.log("No User Logged In");
+    }
+  };
   return (
     <View style={styles.screen}>
-      <View style={styles.flat}>
-        <FlatList data={FLATLISTDATA} renderItem={renderItem} />
-      </View>
-
-      <Button
-        style={{ position: "absolute" }}
-        color={Colour.primaryColour}
-        title="Submit"
-        onPress={() => {
-          props.navigation.navigate({ routeName: "Main" });
-        }}
-      />
+      <ButtonCustom title="Submit" onPress={changeProfile} />
     </View>
   );
 };

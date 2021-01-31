@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import Colour from "../constants/Colour";
 import MapView from "react-native-maps";
-import Raleway from "../assets/fonts/Raleway-VariableFont_wght.ttf";
+
 import { BUSINESS } from "../Data/BusinessDataExample";
 import { CATEGORIES } from "../Data/SortDataExample";
 import {
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   sortName: {
     fontSize: scale(30),
     textAlign: "center",
-    fontFamily: "Raleway",
+    fontFamily: "OpenSans",
     paddingVertical: scale(10),
   },
   Categories: {

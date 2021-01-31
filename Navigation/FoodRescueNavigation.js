@@ -42,21 +42,11 @@ SortScreen.navigationOptions = {
 };
 
 LoginScreen.navigationOptions = {
-  headerTitle: "Food Rescue",
-  headerStyle: {
-    backgroundColor: Colour.primaryColour,
-  },
-  headerTitleAlign: "center",
-  headerTintColor: "white",
+  headerShown: false,
 };
 
 RegisterScreen.navigationOptions = {
-  headerTitle: "Registration",
-  headerStyle: {
-    backgroundColor: Colour.primaryColour,
-  },
-  headerTitleAlign: "center",
-  headerTintColor: "white",
+  headerShown: false,
 };
 
 ProfileScreen.navigationOptions = {
@@ -167,12 +157,7 @@ BusinessLogin.navigationOptions = {
 };
 
 BusinessRegister.navigationOptions = {
-  headerTitle: "Register Your Business",
-  headerStyle: {
-    backgroundColor: Colour.primaryColour,
-  },
-  headerTitleAlign: "center",
-  headerTintColor: "white",
+  headerShown: false,
 };
 
 BusinessLocation.navigationOptions = {

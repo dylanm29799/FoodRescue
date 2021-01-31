@@ -2,14 +2,14 @@ import React from "react";
 import { View, Text, StyleSheet, Button, Image } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import Colour from "../constants/Colour";
-import Raleway from "../assets/fonts/Raleway-VariableFont_wght.ttf";
+
 import { scale } from "../components/ResponsiveText";
 
 const BusinessLogin = (props) => {
   return (
     <View style={styles.screen}>
       <View style={styles.Logo}>
-        <Image source={require("../assets/Logo.png")} />
+        <Image source={require("../assets/BackGround.png")} />
       </View>
 
       <Text style={styles.all}>Email</Text>

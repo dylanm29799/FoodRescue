@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { scale } from "../components/ResponsiveText";
-import Raleway from "../assets/fonts/Raleway-VariableFont_wght.ttf";
+
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import Colour from "../constants/Colour";
@@ -95,7 +95,7 @@ const ItemDetailScreen = (props) => {
         <Text
           style={{
             color: "#fff",
-            fontFamily: "Raleway",
+            fontFamily: "OpenSans",
             fontWeight: "bold",
             textAlign: "center",
             fontSize: scale(12),
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontFamily: "Raleway",
+    fontFamily: "OpenSans",
     fontWeight: "600",
     textAlign: "center",
     fontSize: scale(20),
@@ -140,21 +140,21 @@ const styles = StyleSheet.create({
   },
 
   quantity: {
-    fontFamily: "Raleway",
+    fontFamily: "OpenSans",
     fontWeight: "600",
     textAlign: "center",
     fontSize: scale(25),
     marginTop: scale(30),
   },
   initialPrice: {
-    fontFamily: "Raleway",
+    fontFamily: "OpenSans",
     fontWeight: "600",
     textAlign: "center",
     fontSize: scale(25),
   },
 
   price: {
-    fontFamily: "Raleway",
+    fontFamily: "OpenSans",
     fontWeight: "600",
     textAlign: "center",
     fontSize: scale(25),
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
   },
 
   time: {
-    fontFamily: "Raleway",
+    fontFamily: "OpenSans",
     fontWeight: "600",
     textAlign: "center",
     fontSize: scale(25),

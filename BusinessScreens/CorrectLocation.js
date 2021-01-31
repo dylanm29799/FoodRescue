@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   touchableText: {
     color: "#fff",
-    fontFamily: "Raleway",
+    fontFamily: "OpenSans",
     fontWeight: "bold",
     textAlign: "center",
     fontSize: scale(12),

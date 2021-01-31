@@ -22,7 +22,7 @@ import FoodRescueNavigator from "./Navigation/FoodRescueNavigation";
 
 const fetchFonts = () => {
   return Font.loadAsync({
-    Raleway: require("./assets/fonts/Raleway-VariableFont_wght.ttf"),
+    OpenSans: require("./assets/fonts/OpenSans-Regular.ttf"),
   });
 };
 

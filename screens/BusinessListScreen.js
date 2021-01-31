@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     fontSize: scale(30),
     textAlign: "center",
     paddingVertical: scale(10),
-    fontFamily: "Raleway",
+    fontFamily: "OpenSans",
     fontWeight: "900",
   },
   Categories: { flex: 1 },

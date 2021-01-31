@@ -1,11 +1,23 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, Button, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Button,
+  Alert,
+  ImageBackground,
+} from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import Colour from "../constants/Colour";
-import Raleway from "../assets/fonts/Raleway-VariableFont_wght.ttf";
+
 import { scale } from "../components/ResponsiveText";
 import * as firebase from "firebase";
 import "firebase/firestore";
+import { AntDesign } from "@expo/vector-icons";
+import ButtonCustom from "../constants/ButtonCustom";
+import Footer from "../components/Footer";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const RegisterScreen = (props) => {
   const dbconnection = firebase.firestore();
@@ -18,57 +30,61 @@ const RegisterScreen = (props) => {
   const [lastName, setLastName] = useState("");
   const [number, setNumber] = useState("");
   const [confPassword, setConfPassword] = useState("");
-  const [errorColorFirstName, setErrorColorFirstName] = useState("input");
-  const [errorColorLastName, setErrorColorLastName] = useState("input");
-  const [errorColorPassword, setErrorColorPassword] = useState("input");
-  const [errorColorConfPassword, setErrorColorConfPassword] = useState("input");
-  const [errorColorNumber, setErrorColorNumber] = useState("input");
-  const [errorColorEmail, setErrorColorEmail] = useState("input");
+  const [errorColorFirstName, setErrorColorFirstName] = useState(
+    "logotextinput"
+  );
+  const [errorColorLastName, setErrorColorLastName] = useState("logotextinput");
+  const [errorColorPassword, setErrorColorPassword] = useState("logotextinput");
+  const [errorColorConfPassword, setErrorColorConfPassword] = useState(
+    "logotextinput"
+  );
+  const [errorColorNumber, setErrorColorNumber] = useState("logotextinput");
+  const [errorColorEmail, setErrorColorEmail] = useState("logotextinput");
 
   signUp = () => {
     //Check for the Name firstName
     if (!firstName.trim() || firstName.length < 3) {
       Alert.alert("Error", "Your first name must be longer than 3 letters");
-      setErrorColorFirstName("inputError");
+      setErrorColorFirstName("logotextinputerror");
       return;
     } else {
-      setErrorColorFirstName("input");
+      setErrorColorFirstName("logotextinput");
     }
     if (!lastName.trim() || firstName.length < 3) {
       alert("Your ast name must be longer than 3 letters");
-      setErrorColorLastName("inputError");
+      setErrorColorLastName("logotextinputerror");
       return;
     } else {
-      setErrorColorLastName("input");
+      setErrorColorLastName("logotextinput");
     }
     //Check for the Email TextInput
     if (!email.trim() || validation.test(email) === false) {
       Alert.alert("Error", "Please Enter a valid Email");
-      setErrorColorEmail("inputError");
+      setErrorColorEmail("logotextinputerror");
       return;
     } else {
-      setErrorColorEmail("input");
+      setErrorColorEmail("logotextinput");
     }
     if (!password.trim() || password.length < 6) {
       Alert.alert("Error", "Password must be at least 6 digits");
-      setErrorColorPassword("inputError");
+      setErrorColorPassword("logotextinputerror");
       return;
     } else {
-      setErrorColorPassword("input");
+      setErrorColorPassword("logotextinput");
     }
     if (!confPassword.trim() || confPassword.length < 6) {
       Alert.alert("Error", "Please Confirm your password");
-      setErrorColorConfPassword("inputError");
+      setErrorColorConfPassword("logotextinputerror");
       return;
     } else {
-      setErrorColorConfPassword("input");
+      setErrorColorConfPassword("logotextinput");
     }
     if (number.length != 10) {
       Alert.alert("Error", "Please Enter a valid Irish Number");
-      setErrorColorNumber("inputError");
+      setErrorColorNumber("logotextinputerror");
       return;
     } else {
-      setErrorColorNumber("input");
+      setErrorColorNumber("logotextinput");
     }
     if (confPassword != password) {
       Alert.alert("Error", "Please Confirm your Password");
@@ -96,61 +112,91 @@ const RegisterScreen = (props) => {
         var errorCode = error.code;
         var errorMessage = error.message;
         console.log("Not Signed Up", errorCode, errorMessage);
+        if (errorCode === "auth/email-already-in-use") {
+          Alert.alert(
+            "Existing Email",
+            "This email already exists, Please Login."
+          );
+        }
         // ..
       });
   };
 
   return (
     <View style={styles.screen}>
-      <View style={styles.Logo}>
-        <Image source={require("../assets/Logo.png")} />
-      </View>
-      <Text style={styles.all}>First Name</Text>
-      <TextInput
-        onChangeText={(firstName) => setFirstName(firstName)}
-        style={styles[errorColorFirstName]}
-        placeholder="John"
-      />
+      <ImageBackground
+        source={require("../assets/BackGround.png")}
+        style={styles.backGround}
+      >
+        <Text style={{ paddingTop: scale(200) }} />
+        <View style={styles[errorColorFirstName]}>
+          <AntDesign name="user" size={30} color={Colour.primaryColour} />
+          <TextInput
+            style={styles.input}
+            onChangeText={(firstName) => setFirstName(firstName)}
+            placeholder={"First Name"}
+          />
+        </View>
 
-      <Text style={styles.all}>Last Name</Text>
-      <TextInput
-        onChangeText={(lastName) => setLastName(lastName)}
-        style={styles[errorColorLastName]}
-        placeholder="Doe"
-      />
+        <View style={styles[errorColorLastName]}>
+          <AntDesign name="user" size={30} color={Colour.primaryColour} />
+          <TextInput
+            style={styles.input}
+            onChangeText={(lastName) => setLastName(lastName)}
+            placeholder={"Last Name"}
+          />
+        </View>
 
-      <Text style={styles.all}>Email</Text>
-      <TextInput
-        onChangeText={(email) => setEmail(email)}
-        style={styles[errorColorEmail]}
-        placeholder="JohnDoe@gmail.com"
-      />
+        <View style={styles[errorColorEmail]}>
+          <MaterialCommunityIcons
+            name="email-outline"
+            size={30}
+            color={Colour.primaryColour}
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={(email) => setEmail(email)}
+            placeholder={"Email"}
+            autoCompleteType={"email"}
+            keyboardType={"email-address"}
+          />
+        </View>
 
-      <Text style={styles.all}>Password</Text>
-      <TextInput
-        onChangeText={(password) => setPassword(password)}
-        style={styles[errorColorPassword]}
-        secureTextEntry={true}
-      />
+        <View style={styles[errorColorPassword]}>
+          <AntDesign name="lock1" size={30} color={Colour.primaryColour} />
+          <TextInput
+            style={styles.input}
+            secureTextEntry={true}
+            placeholder={"Password"}
+            onChangeText={(password) => setPassword(password)}
+          />
+        </View>
 
-      <Text style={styles.all}>Repeat Password</Text>
-      <TextInput
-        style={styles[errorColorConfPassword]}
-        secureTextEntry={true}
-        onChangeText={(confPassword) => setConfPassword(confPassword)}
-      />
+        <View style={styles[errorColorConfPassword]}>
+          <AntDesign name="lock1" size={30} color={Colour.primaryColour} />
+          <TextInput
+            style={styles.input}
+            secureTextEntry={true}
+            placeholder={"Confirm Your Password"}
+            onChangeText={(confPassword) => setConfPassword(confPassword)}
+          />
+        </View>
 
-      <Text style={styles.all}>Phone Number</Text>
-      <TextInput
-        onChangeText={(number) => setNumber(number)}
-        style={styles[errorColorNumber]}
-        placeholder="0832122122"
-        keyboardType={"numeric"}
-      />
+        <View style={styles[errorColorNumber]}>
+          <AntDesign name="phone" size={30} color={Colour.primaryColour} />
+          <TextInput
+            style={styles.input}
+            placeholder="Your Personal Phone Number"
+            keyboardType={"numeric"}
+            onChangeText={(number) => setNumber(number)}
+          />
+        </View>
 
-      <Text>{"\n"}</Text>
+        <Text>{"\n"}</Text>
 
-      <Button color={Colour.primaryColour} title="Register" onPress={signUp} />
+        <ButtonCustom title="Register" onPress={signUp} />
+        <Footer footerColor={Colour.primaryColour} />
+      </ImageBackground>
     </View>
   );
 };
@@ -161,17 +207,47 @@ const styles = StyleSheet.create({
 
     alignItems: "center",
   },
-
+  backGround: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   input: {
-    borderWidth: 2,
-    borderColor: "transparent",
-    borderBottomColor: Colour.primaryColour,
-    width: "80%",
-    paddingVertical: scale(3),
+    borderRadius: 20,
+    width: "75%",
+    fontSize: scale(15),
+    paddingVertical: scale(5),
     paddingHorizontal: scale(10),
     textAlign: "center",
+    marginRight: scale(10),
+    paddingRight: scale(2),
+  },
+  logotextinput: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderWidth: 3,
+    borderColor: Colour.primaryColour,
+    height: 45,
+    paddingRight: scale(20),
+    margin: 10,
+    borderRadius: 15,
   },
 
+  logotextinputerror: {
+    borderColor: "red",
+    borderWidth: 3,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    height: 45,
+    paddingRight: scale(20),
+    margin: 10,
+    borderRadius: 15,
+  },
   inputError: {
     width: "80%",
     paddingVertical: scale(3),

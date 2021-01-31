@@ -8,12 +8,17 @@ import {
   Button,
   Alert,
   Linking,
+  ImageBackground,
 } from "react-native";
 import Colour from "../constants/Colour";
 import { scale } from "../components/ResponsiveText";
 import * as firebase from "firebase";
 import "firebase/firestore";
 import { ScrollView } from "react-native-gesture-handler";
+import ButtonCustom from "../constants/ButtonCustom";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import Footer from "../components/Footer";
 
 const BusinessRegister = (props) => {
   const dbconnection = firebase.firestore();
@@ -29,13 +34,17 @@ const BusinessRegister = (props) => {
   const [id, setID] = useState("");
   const [privateID, setPrivateID] = useState("");
 
-  const [errorColorID, setErrorColorID] = useState("input");
-  const [errorColorName, setErrorColorName] = useState("input");
-  const [errorColorPublicNumber, setErrorColorPublicNumber] = useState("input");
-  const [errorColorPassword, setErrorColorPassword] = useState("input");
-  const [errorColorConfPassword, setErrorColorConfPassword] = useState("input");
-  const [errorColorNumber, setErrorColorNumber] = useState("input");
-  const [errorColorEmail, setErrorColorEmail] = useState("input");
+  const [errorColorID, setErrorColorID] = useState("logotextinput");
+  const [errorColorName, setErrorColorName] = useState("logotextinput");
+  const [errorColorPublicNumber, setErrorColorPublicNumber] = useState(
+    "logotextinput"
+  );
+  const [errorColorPassword, setErrorColorPassword] = useState("logotextinput");
+  const [errorColorConfPassword, setErrorColorConfPassword] = useState(
+    "logotextinput"
+  );
+  const [errorColorNumber, setErrorColorNumber] = useState("logotextinput");
+  const [errorColorEmail, setErrorColorEmail] = useState("logotextinput");
 
   var businessIDRef = dbconnection.collection("BusinessID").doc("ESSENTIALID");
 
@@ -58,46 +67,46 @@ const BusinessRegister = (props) => {
     //Check for the Name firstName
     if (!name.trim() || name.length < 3) {
       Alert.alert("Error", "Your business name must be longer than 3 letters");
-      setErrorColorName("inputError");
+      setErrorColorName("logotextinputerror");
       return;
     } else {
-      setErrorColorName("input");
+      setErrorColorName("logotextinput");
     }
     //Check for the Email TextInput
     if (!email.trim() || validation.test(email) === false) {
       Alert.alert("Error", "Please Enter a valid Email");
-      setErrorColorEmail("inputError");
+      setErrorColorEmail("logotextinputerror");
       return;
     } else {
-      setErrorColorEmail("input");
+      setErrorColorEmail("logotextinput");
     }
     if (!password.trim() || password.length < 6) {
       Alert.alert("Error", "Password must be at least 6 digits");
-      setErrorColorPassword("inputError");
+      setErrorColorPassword("logotextinputerror");
       return;
     } else {
-      setErrorColorPassword("input");
+      setErrorColorPassword("logotextinput");
     }
     if (!confPassword.trim() || confPassword.length < 6) {
       Alert.alert("Error", "Please Confirm your password");
-      setErrorColorConfPassword("inputError");
+      setErrorColorConfPassword("logotextinputerror");
       return;
     } else {
-      setErrorColorConfPassword("input");
+      setErrorColorConfPassword("logotextinput");
     }
     if (number.length != 10) {
       Alert.alert("Error", "Please Enter a valid Irish Number");
-      setErrorColorNumber("inputError");
+      setErrorColorNumber("logotextinputerror");
       return;
     } else {
-      setErrorColorNumber("input");
+      setErrorColorNumber("logotextinput");
     }
     if (publicNumber.length != 10) {
       Alert.alert("Error", "Please Enter a valid Irish Number");
-      setErrorColorPublicNumber("inputError");
+      setErrorColorPublicNumber("logotextinputerror");
       return;
     } else {
-      setErrorColorPublicNumber("input");
+      setErrorColorPublicNumber("logotextinput");
     }
     if (id != privateID) {
       Alert.alert(
@@ -141,52 +150,74 @@ const BusinessRegister = (props) => {
 
   return (
     <View style={styles.screen}>
-      <ScrollView>
-        <View style={styles.Logo}>
-          <Image source={require("../assets/Logo.png")} />
+      <ImageBackground
+        source={require("../assets/BackGround.png")}
+        style={styles.backGround}
+      >
+        <Text style={{ paddingTop: scale(210) }} />
+        <View style={styles[errorColorName]}>
+          <AntDesign name="user" size={30} color={Colour.primaryColour} />
+          <TextInput
+            style={styles.input}
+            onChangeText={(name) => setName(name)}
+            placeholder={"Business Name"}
+          />
         </View>
-        <Text style={styles.all}>Business Name </Text>
-        <TextInput
-          style={styles[errorColorName]}
-          placeholder="John's Delights"
-          onChangeText={(name) => setName(name)}
-        />
+        <View style={styles[errorColorEmail]}>
+          <MaterialCommunityIcons
+            name="email-outline"
+            size={30}
+            color={Colour.primaryColour}
+          />
+          <TextInput
+            style={styles.input}
+            onChangeText={(email) => setEmail(email)}
+            placeholder={"Email"}
+            autoCompleteType={"email"}
+            keyboardType={"email-address"}
+          />
+        </View>
 
-        <Text style={styles.all}>Business Email</Text>
-        <TextInput
-          onChangeText={(email) => setEmail(email)}
-          style={styles[errorColorEmail]}
-          placeholder="JohnDoeBusiness@gmail.com"
-        />
+        <View style={styles[errorColorPassword]}>
+          <AntDesign name="lock1" size={30} color={Colour.primaryColour} />
+          <TextInput
+            style={styles.input}
+            secureTextEntry={true}
+            placeholder={"Password"}
+            onChangeText={(password) => setPassword(password)}
+          />
+        </View>
 
-        <Text style={styles.all}>Password</Text>
-        <TextInput
-          style={styles[errorColorPassword]}
-          onChangeText={(password) => setPassword(password)}
-          secureTextEntry={true}
-        />
+        <View style={styles[errorColorConfPassword]}>
+          <AntDesign name="lock1" size={30} color={Colour.primaryColour} />
+          <TextInput
+            style={styles.input}
+            secureTextEntry={true}
+            placeholder={"Confirm Your Password"}
+            onChangeText={(confPassword) => setConfPassword(confPassword)}
+          />
+        </View>
 
-        <Text style={styles.all}>Repeat Password</Text>
-        <TextInput
-          style={styles[errorColorConfPassword]}
-          onChangeText={(confPassword) => setConfPassword(confPassword)}
-        />
+        <View style={styles[errorColorNumber]}>
+          <AntDesign name="phone" size={30} color={Colour.primaryColour} />
+          <TextInput
+            style={styles.input}
+            placeholder="Contact Number"
+            keyboardType={"numeric"}
+            onChangeText={(number) => setNumber(number)}
+          />
+        </View>
 
-        <Text style={styles.all}>Contact Phone </Text>
-        <TextInput
-          style={styles[errorColorNumber]}
-          keyboardType="numeric"
-          placeholder="0890823212"
-          onChangeText={(number) => setNumber(number)}
-        />
+        <View style={styles[errorColorID]}>
+          <AntDesign name="phone" size={30} color={Colour.primaryColour} />
+          <TextInput
+            style={styles.input}
+            placeholder="Registration Code"
+            keyboardType={"numeric"}
+            onChangeText={(id) => setID(id)}
+          />
+        </View>
 
-        <Text style={styles.all}>Public Phone Number for Customers</Text>
-        <TextInput
-          style={styles[errorColorPublicNumber]}
-          keyboardType="numeric"
-          placeholder="0890823212"
-          onChangeText={(publicNumber) => setPublicNumber(publicNumber)}
-        />
         <Text style={styles.all}>
           1st time registration code - Get in contact through
           <Text
@@ -201,26 +232,14 @@ const BusinessRegister = (props) => {
           or{" "}
           <Text
             style={{ color: "blue" }}
-            onPress={() => Linking.openURL("tel: 08709090909")}
+            onPress={() => Linking.openURL("tel: ")}
           >
             over the phone
           </Text>
         </Text>
-        <TextInput
-          style={styles[errorColorID]}
-          keyboardType="numeric"
-          placeholder="12121212121212"
-          onChangeText={(id) => setID(id)}
-        />
-        <Text>{"\n"}</Text>
-
-        <Button
-          color={Colour.primaryColour}
-          title="Register"
-          onPress={signUp}
-          style={{ marginBottom: scale(20) }}
-        />
-      </ScrollView>
+        <ButtonCustom title="Register" onPress={signUp} />
+        <Footer footerColor={Colour.primaryColour} />
+      </ImageBackground>
     </View>
   );
 };
@@ -232,34 +251,81 @@ const styles = StyleSheet.create({
     alignContent: "center",
     width: "100%",
   },
-
+  backGround: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   input: {
-    borderWidth: 2,
-    borderColor: "transparent",
-    borderBottomColor: Colour.primaryColour,
-
-    paddingVertical: scale(3),
+    borderRadius: 20,
+    width: "75%",
+    fontSize: scale(15),
+    paddingVertical: scale(5),
     paddingHorizontal: scale(10),
     textAlign: "center",
+    marginRight: scale(10),
+    paddingRight: scale(2),
+  },
+  logotextinput: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderWidth: 3,
+    borderColor: Colour.primaryColour,
+    height: 45,
+    paddingRight: scale(20),
+    margin: 10,
+    borderRadius: 15,
   },
 
-  inputError: {
-    paddingVertical: scale(3),
-    paddingHorizontal: scale(10),
-    textAlign: "center",
+  logotextinputerror: {
     borderColor: "red",
     borderWidth: 3,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    height: 45,
+    paddingRight: scale(20),
+    margin: 10,
+    borderRadius: 15,
   },
 
   all: {
     padding: 20,
     alignItems: "center",
-    textAlign: "center",
   },
   Logo: {
     paddingTop: 40,
     paddingBottom: 40,
     alignItems: "center",
+  },
+  logotextinput: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderWidth: 3,
+    borderColor: Colour.primaryColour,
+    height: 45,
+    paddingRight: scale(20),
+    margin: 10,
+    borderRadius: 15,
+  },
+
+  logotextinputerror: {
+    borderColor: "red",
+    borderWidth: 3,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    height: 45,
+    paddingRight: scale(20),
+    margin: 10,
+    borderRadius: 15,
   },
 });
 
