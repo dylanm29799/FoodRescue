@@ -10,11 +10,11 @@ import {
   ImageBackground,
   Dimensions,
   TouchableOpacity,
-  ColorPropType,
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import Colour from "../constants/Colour";
 
+import UserSignedIn from "../components/UserSignedIn";
 import { scale } from "../components/ResponsiveText";
 import * as firebase from "firebase";
 import { AntDesign } from "@expo/vector-icons";
@@ -25,6 +25,7 @@ import * as GoogleSignIn from "expo-google-sign-in";
 import Expo from "expo";
 import { BlurView } from "expo-blur";
 import Footer from "../components/Footer";
+import { acc } from "react-native-reanimated";
 const LoginScreen = (props) => {
   let validation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const [signedIn, setSignedIn] = useState("false");
@@ -32,7 +33,11 @@ const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
   const [errorColorEmail, setErrorColorEmail] = useState("logotextinput");
   const [errorColorPassword, setErrorColorPassword] = useState("logotextinput");
-  const SCREEN_WIDTH = Dimensions.get("window").width;
+
+  var userid;
+  var user1;
+
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
   signIn = () => {
     if (!email.trim() || validation.test(email) === false) {
@@ -49,24 +54,52 @@ const LoginScreen = (props) => {
       return;
     } else {
       setErrorColorPassword("logotextinput");
+
       firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
           // Signed in
-          var user = userCredential.user;
+          user1 = userCredential.user;
+          userid = user1.uid;
+          console.log(userid);
           console.log("Logged In");
           setSignedIn("true");
           console.log(email, password, signedIn);
-          props.navigation.navigate({ routeName: "Main" });
-          // ...
         })
+        .then(function () {
+          const dbconnection = firebase.firestore();
+          var docRef = dbconnection.collection("accountDetails").doc(userid);
+          docRef
+            .get()
+            .then(function (doc) {
+              if (doc.exists) {
+                console.log(doc.data().accountType);
+                console.log("worked", userid);
+              }
+              if (doc.data().accountType === "Business") {
+                props.navigation.navigate({ routeName: "BusinessHome" });
+                console.log("business");
+              } else if (doc.data().accountType === "User") {
+                console.log("user");
+                props.navigation.navigate({ routeName: "Main" });
+              } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+              }
+            })
+
+            .catch(function (error) {
+              // The document probably doesn't exist.
+              console.error("Error With document: ", error);
+            });
+        })
+
         .catch((error) => {
           var errorCode = error.code;
           var errorMessage = error.message;
           console.log("Not Logged In", errorCode, errorMessage);
           Alert.alert("Error", "This email and password does not exist");
-          // ..
         });
     }
   };
@@ -82,6 +115,7 @@ const LoginScreen = (props) => {
           color="#00ff00"
           style={styles.loading}
         />*/}
+
         <View style={styles.content}>
           <View style={styles[errorColorEmail]}>
             <MaterialCommunityIcons

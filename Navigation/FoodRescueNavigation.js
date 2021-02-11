@@ -76,13 +76,13 @@ MainScreen.navigationOptions = (navData) => {
   return {
     headerTitle: "Food Rescue",
     //prettier-ignore
-    headerLeft:(<MaterialIcons onPress = {() => {navData.navigation.toggleDrawer() } } style={{paddingLeft:5}} name="sort" size={40}/>  ),
+    headerLeft:(<MaterialIcons onPress = {() => {navData.navigation.toggleDrawer() } } style={{paddingLeft:5}} name="sort" size={40} color= "white"/>  ),
     headerRight: (
       <AntDesign
         style={{ paddingRight: 5 }}
         name="user"
         size={40}
-        color="black"
+        color="white"
         onPress={() => {
           navData.navigation.navigate({ routeName: "Profile" });
         }}

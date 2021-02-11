@@ -33,6 +33,8 @@ Map = () => {
     text = JSON.stringify(location);
     long = location.coords.longitude;
     lat = location.coords.latitude;
+    [(global.longitude = long)];
+    [(global.latitude = lat)];
   }
 
   return (
@@ -71,6 +73,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Map() {
-  long, lat;
-}
+export default function Map() {}

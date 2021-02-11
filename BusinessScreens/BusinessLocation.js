@@ -5,33 +5,58 @@ import { Platform, Text, View, StyleSheet } from "react-native";
 import * as Location from "expo-location";
 import Colour from "../constants/Colour";
 import { scale } from "../components/ResponsiveText";
-import Map, { long, lat } from "../components/Map";
+import Map from "../components/Map";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import * as firebase from "firebase";
 import "firebase/firestore";
 
 const BusinessLocation = (props) => {
   const dbconnection = firebase.firestore();
+  var user = firebase.auth().currentUser;
+  var docRef = dbconnection.collection("businessDetails").doc(user.uid);
+  let longitude = null;
+  let latitude = null;
+  [(longitude = global.longitude)];
+  [(latitude = global.latitude)];
+  [console.log(global.latitude, global.longitude)];
+  const long = longitude;
+  const lat = latitude;
   console.log(long, lat);
+
+  correctLocation = () => {
+    docRef.get().then(function (doc) {
+      if (doc.exists) {
+        console.log("Your details have been updated.");
+        return docRef
+          .update({
+            longitude: longitude,
+            latitude: latitude,
+          })
+          .then(function () {
+            console.log("Document successfully updated!");
+            props.navigation.navigate({ routeName: "BusinessHome" });
+          })
+          .catch(function (error) {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+          });
+      }
+    });
+  };
 
   return (
     <View style={styles.container}>
       <Map style={styles.Map} />
 
       <View style={styles.textOverMap}>
-        <TouchableOpacity
-          style={styles.touchable}
-          onPress={() => {
-            props.navigation.navigate({ routeName: "BusinessHome" });
-          }}
-        >
+        <TouchableOpacity style={styles.touchable} onPress={correctLocation}>
           <Text style={styles.text}>This is Your Location?</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.touchable}
-          onPress={() => {
-            props.navigation.navigate({ routeName: "CorrectLocation" });
-          }}
+          onPress={() =>
+            props.navigation.navigate({ routeName: "CorrectLocation" })
+          }
         >
           <Text style={styles.text}>This is Not your Location?</Text>
         </TouchableOpacity>

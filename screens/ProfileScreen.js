@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Button,
+  Alert,
+  KeyboardAvoidingView,
+} from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import Colour from "../constants/Colour";
 import ButtonCustom from "../constants/ButtonCustom";
 import * as firebase from "firebase";
 import { scale } from "../components/ResponsiveText";
 import Dialog from "react-native-dialog";
-
+import { AntDesign } from "@expo/vector-icons";
 const ProfileScreen = (props) => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -18,6 +26,7 @@ const ProfileScreen = (props) => {
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
   var docRef = dbconnection.collection("userDetails").doc(user.uid);
+  let validation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   useEffect(() => {
     if (user) {
@@ -84,7 +93,19 @@ const ProfileScreen = (props) => {
   };
 
   onButtonPress = () => {
-    setConfirm(true);
+    if (!email.trim() || validation.test(email) === false) {
+      alert("Please Enter a valid Email");
+      return;
+    } else if (number.length != 10) {
+      Alert.alert("Error", "Please Enter a valid Irish Number");
+    } else if (!firstName.trim() || firstName.length < 3) {
+      Alert.alert("Error", "Your first name must be longer than 3 letters");
+    }
+    if (!lastName.trim() || firstName.length < 3) {
+      alert("Your Last name must be longer than 3 letters");
+    } else {
+      setConfirm(true);
+    }
   };
   deleteProfile = () => {
     Alert.alert(
@@ -129,7 +150,10 @@ const ProfileScreen = (props) => {
   };
 
   return (
-    <View style={styles.screen}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.screen}
+    >
       <View
         style={{
           width: "100%",
@@ -170,10 +194,16 @@ const ProfileScreen = (props) => {
         </TextInput>
       </View>
       <ButtonCustom title="Submit" onPress={onButtonPress} />
-
+      <View style={styles.logout} onPress={onSignOut}>
+        <AntDesign name="logout" size={30} color="black" onPress={onSignOut} />
+        <Text onPress={onSignOut} style={styles.signOut}>
+          Log Out
+        </Text>
+      </View>
       <Text onPress={deleteProfile} style={styles.delete}>
         Delete Account
       </Text>
+
       <View>
         <Dialog.Container visible={confirm}>
           <Dialog.Title>Enter Password</Dialog.Title>
@@ -189,7 +219,7 @@ const ProfileScreen = (props) => {
           <Dialog.Button label="Submit" onPress={handleSubmit} />
         </Dialog.Container>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -198,6 +228,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    height: "100%",
   },
 
   textInput: {
@@ -227,9 +258,24 @@ const styles = StyleSheet.create({
     fontFamily: "OpenSans",
     fontSize: scale(14),
     color: "red",
-    position: "absolute",
+    justifyContent: "flex-end",
     bottom: 0,
+    position: "absolute",
     marginBottom: scale(40),
+  },
+  logout: {
+    justifyContent: "center",
+    flexDirection: "row",
+    padding: scale(10),
+    marginTop: scale(20),
+    alignItems: "center",
+    textAlign: "center",
+    borderColor: "black",
+    borderWidth: 1,
+    fontFamily: "OpenSans",
+  },
+  signOut: {
+    paddingLeft: scale(10),
   },
 });
 
