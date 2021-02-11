@@ -51,7 +51,7 @@ const RegisterScreen = (props) => {
       setErrorColorFirstName("logotextinput");
     }
     if (!lastName.trim() || firstName.length < 3) {
-      alert("Your ast name must be longer than 3 letters");
+      alert("Your Last name must be longer than 3 letters");
       setErrorColorLastName("logotextinputerror");
       return;
     } else {
@@ -104,6 +104,9 @@ const RegisterScreen = (props) => {
           lastName: lastName,
           number: number,
           email: email,
+        });
+        dbconnection.collection("accountDetails").doc(user.uid).set({
+          accountType: "User",
         });
         props.navigation.navigate({ routeName: "Main" });
         // ...

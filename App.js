@@ -5,6 +5,9 @@ import * as Font from "expo-font";
 import { AppLoading } from "expo";
 import { firebaseConfig } from "./config";
 import firebase from "firebase";
+import { LogBox } from "react-native";
+
+LogBox.ignoreLogs(["Setting a timer"]);
 
 firebase.initializeApp(firebaseConfig);
 

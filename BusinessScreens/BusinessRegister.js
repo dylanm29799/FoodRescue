@@ -36,9 +36,7 @@ const BusinessRegister = (props) => {
 
   const [errorColorID, setErrorColorID] = useState("logotextinput");
   const [errorColorName, setErrorColorName] = useState("logotextinput");
-  const [errorColorPublicNumber, setErrorColorPublicNumber] = useState(
-    "logotextinput"
-  );
+
   const [errorColorPassword, setErrorColorPassword] = useState("logotextinput");
   const [errorColorConfPassword, setErrorColorConfPassword] = useState(
     "logotextinput"
@@ -101,22 +99,15 @@ const BusinessRegister = (props) => {
     } else {
       setErrorColorNumber("logotextinput");
     }
-    if (publicNumber.length != 10) {
-      Alert.alert("Error", "Please Enter a valid Irish Number");
-      setErrorColorPublicNumber("logotextinputerror");
-      return;
-    } else {
-      setErrorColorPublicNumber("logotextinput");
-    }
     if (id != privateID) {
       Alert.alert(
         "Error",
         "Please Enter the ID given to you either over the phone or through email"
       );
-      setErrorColorID("inputError");
+      setErrorColorID("logotextinputerror");
       return;
     } else {
-      setErrorColorPublicNumber("input");
+      setErrorColorID("logotextinput");
     }
     if (confPassword != password) {
       Alert.alert("Error", "Please make sure your passwords match");
@@ -134,7 +125,11 @@ const BusinessRegister = (props) => {
           name: name,
           email: email,
           number: number,
-          publicNumber: publicNumber,
+          longitude: "",
+          latitude: "",
+        });
+        dbconnection.collection("accountDetails").doc(user.uid).set({
+          accountType: "Business",
         });
         props.navigation.navigate({ routeName: "BusinessLocation" });
         // ...
