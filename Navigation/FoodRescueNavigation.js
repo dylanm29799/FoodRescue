@@ -21,7 +21,6 @@ import aboutus from "../screens/aboutus";
 import forgotPassword from "../screens/forgotPassword";
 
 import BusinessHome from "../BusinessScreens/BusinessHome";
-import BusinessLogin from "../BusinessScreens/BusinessLogin";
 import BusinessRegister from "../BusinessScreens/BusinessRegister";
 import BusinessLocation from "../BusinessScreens/BusinessLocation";
 import BusinessCurrentProduct from "../BusinessScreens/BusinessCurrentProduct";
@@ -147,14 +146,6 @@ aboutus.navigationOptions = {
 };
 
 //Business Side Headers
-BusinessLogin.navigationOptions = {
-  headerTitle: "Login To Your Business",
-  headerStyle: {
-    backgroundColor: Colour.primaryColour,
-  },
-  headerTitleAlign: "center",
-  headerTintColor: "white",
-};
 
 BusinessRegister.navigationOptions = {
   headerShown: false,
@@ -226,7 +217,6 @@ const FoodRescueNavigator = createStackNavigator({
 
   //BusinessScreens
   BusinessHome: BusinessHome,
-  BusinessLogin: BusinessLogin,
   BusinessRegister: BusinessRegister,
   BusinessLocation: BusinessLocation,
   BusinessAddProduct: BusinessAddProduct,

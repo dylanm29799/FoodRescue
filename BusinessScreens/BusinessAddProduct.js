@@ -1,67 +1,89 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Button,
+  Image,
+  ColorPropType,
 } from "react-native";
 import Colour from "../constants/Colour";
 import { scale } from "../components/ResponsiveText";
-import Map from "../components/Map";
+import * as ImagePicker from "expo-image-picker";
 import CheckBox from "@react-native-community/checkbox";
 import foodcountdown from "../models/foodcountdown";
+import * as firebase from "firebase";
+import "firebase/firestore";
+import ButtonCustom from "../constants/ButtonCustom";
+import "firebase/storage";
+import { Picker } from "@react-native-picker/picker";
+import { set } from "react-native-reanimated";
+import NormalProduct from "../components/NormalProduct";
+import FoodCountdown from "../components/FoodCountdown";
 
 const BusinessAddProduct = (props) => {
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const [npview, setNpview] = useState("picked");
+  const [nptext, setNptext] = useState("pickedText");
+  const [fcview, setFcview] = useState("notPicked");
+  const [fctext, setFctext] = useState("notPickedText");
+  const [borderCorner, setBorderCorner] = useState({ borderTopLeftRadius: 30 });
+  const [borderCornerFood, setBorderCornerFood] = useState({
+    borderTopRightRadius: 30,
+  });
+  const [renderedPage, setRenderedPage] = useState("Normal");
 
-  let foodCountdown = "";
-  let textStyle = "";
+  onFoodCountdown = () => {
+    setFctext("pickedText");
+    setFcview("picked");
+    setNptext("notPickedText");
+    setNpview("notPicked");
+    setBorderCorner({ borderTopLeftRadius: 30 });
+    console.log("FoodCountdown Pressed");
 
-  let place = "";
+    setRenderedPage("FoodCountdown");
+    console.log(renderedPage);
+  };
 
-  if (toggleCheckBox == false) {
-    foodCountdown = "";
-    textStyle = "";
-    place = "";
-  } else {
-    foodCountdown = "How Many hours will this product be available";
-    place = "3";
-  }
+  onNormalProduct = () => {
+    setFctext("notPickedText");
+    setFcview("notPicked");
+    setNptext("pickedText");
+    setNpview("picked");
+    setBorderCornerFood({ borderTopRightRadius: 30 });
+
+    console.log("Normal Pressed");
+
+    setRenderedPage("Normal");
+    console.log(renderedPage);
+  };
+
+  const Render = () => {
+    if (renderedPage == "Normal") {
+      return <NormalProduct />;
+    } else {
+      return <FoodCountdown />;
+    }
+  };
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Product Name</Text>
-      <TextInput style={styles.input} placeholder="Pizza Slice" />
-      <Text style={styles.text}>Quantity Available</Text>
-      <TextInput style={styles.input} placeholder="8" />
-      <Text style={styles.text}>Initial Price before discount</Text>
-      <TextInput style={styles.input} placeholder="4.00" />
-      <Text style={styles.text}>New Price for Food Rescue</Text>
-      <TextInput style={styles.input} placeholder="2.40" />
-      <Text style={styles.text}>Food Countdown?</Text>
-      <CheckBox
-        title="Food Countdown?"
-        disabled={false}
-        value={toggleCheckBox}
-        onValueChange={(True) => setToggleCheckBox(True)}
-      />
-
-      <Text style={styles.text}>{foodCountdown}</Text>
-      <TextInput
-        styles={styles.input}
-        placeholder={place}
-        keyboardType="numeric"
-      ></TextInput>
-      <TouchableOpacity
-        onPress={() => {
-          props.navigation.navigate({
-            routeName: "BusinessHome",
-          });
-        }}
-        style={styles.touchable}
-      >
-        <TextInput style={styles.touchableText}>Submit</TextInput>
-      </TouchableOpacity>
+      <View style={styles.category}>
+        <TouchableOpacity
+          //prettier-ignore
+          style={[styles[npview],  borderCorner ]}
+          onPress={onNormalProduct}
+        >
+          <Text style={styles[nptext]}>Normal Product</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles[fcview], borderCornerFood]}
+          onPress={onFoodCountdown}
+        >
+          <Text style={styles[fctext]}>Food Countdown</Text>
+        </TouchableOpacity>
+      </View>
+      <Render />
     </View>
   );
 };
@@ -69,6 +91,16 @@ const BusinessAddProduct = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  content: {
+    borderTopWidth: 0,
+    borderWidth: 2,
+    borderColor: Colour.primaryColour,
+
+    height: scale(500),
+    width: scale(250),
     justifyContent: "center",
     alignItems: "center",
   },
@@ -81,7 +113,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 
-  text: { marginTop: scale(10), fontSize: scale(13) },
+  text: {
+    marginTop: scale(10),
+    fontSize: scale(13),
+    textAlign: "center",
+    fontFamily: "OpenSans",
+  },
 
   touchable: {
     height: scale(30),
@@ -96,6 +133,41 @@ const styles = StyleSheet.create({
 
     textAlign: "center",
     fontSize: scale(12),
+  },
+  picked: {
+    backgroundColor: Colour.primaryColour,
+    flex: 1,
+    justifyContent: "center",
+    elevation: 100,
+  },
+
+  notPicked: {
+    backgroundColor: "#fff",
+    flex: 1,
+    justifyContent: "center",
+
+    borderWidth: 2,
+    borderColor: Colour.primaryColour,
+  },
+
+  pickedText: {
+    color: "#fff",
+    textAlign: "center",
+    fontSize: scale(12),
+    fontFamily: "OpenSans",
+  },
+  notPickedText: {
+    color: Colour.primaryColour,
+    textAlign: "center",
+    fontSize: scale(12),
+    fontFamily: "OpenSans",
+  },
+
+  category: {
+    justifyContent: "center",
+    flexDirection: "row",
+    width: "90%",
+    height: scale(50),
   },
 });
 
