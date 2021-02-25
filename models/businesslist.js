@@ -1,11 +1,20 @@
 class businesslist {
-  constructor(id, title, quantity, initialPrice, price, image) {
+  constructor(
+    id,
+    itemName,
+    quantity,
+    usualPrice,
+    newPrice,
+    image,
+    foodCountdown
+  ) {
     this.id = id;
-    this.title = title;
+    this.itemName = itemName;
     this.quantity = quantity;
-    this.initialPrice = initialPrice;
-    this.price = price;
+    this.usualPrice = usualPrice;
+    this.newPrice = newPrice;
     this.image = image;
+    this.foodCountdown = foodCountdown;
   }
 }
 

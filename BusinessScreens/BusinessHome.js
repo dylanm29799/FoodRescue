@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { scale } from "../components/ResponsiveText";
 import Colour from "../constants/Colour";
 import { AntDesign } from "@expo/vector-icons";
-
+import * as firebase from "firebase";
 const BusinessHome = (props) => {
   onSignOut = () => {
     firebase

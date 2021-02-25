@@ -42,34 +42,47 @@ const FoodCountdown = () => {
       setImage(result.uri);
     }
   };
-  onSubmit = () => {
+  onSubmit = async () => {
     x = randomString({ length: 30 });
     console.log(x);
-    dbconnection
-      .collection("Products")
-      .doc(x)
-      .set({
-        itemName: itemName,
-        quantity: quantity,
-        usualPrice: usualPrice,
-        newPrice: newPrice,
-        hours: time.itemValue,
-        foodCountdown: "Yes",
-        businessID: user.uid,
-        docId: x,
-      })
-      .then(async function () {
-        const response = await fetch(image);
-        const blob = await response.blob();
-        var storageRef = firebase.storage().ref();
-        var productRef = storageRef.child("products/" + x);
-        productRef.put(blob);
-        console.log("Success");
-      })
-      .then(function () {
-        Alert.alert("Uploaded!", "Your product has been uploaded");
 
-        // uploads file
+    const response = await fetch(image);
+    const blob = await response.blob();
+    var storageRef = firebase.storage().ref();
+    var productRef = storageRef.child("products/" + x);
+    productRef
+      .put(blob)
+      .then(async function () {
+        dbconnection.collection("Products").doc(x).set({
+          itemName: itemName,
+          quantity: quantity,
+          usualPrice: usualPrice,
+          newPrice: newPrice,
+          hours: time.itemValue,
+          foodCountdown: "Yes",
+          businessID: user.uid,
+          docId: x,
+          image: x,
+        });
+        console.log("Success");
+        Alert.alert("Uploaded!", "Your product has been uploaded");
+      })
+
+      .then(() => {
+        var storage = firebase.storage();
+        var docRef = dbconnection.collection("Products").doc(x);
+        var gsReference = storage.refFromURL(
+          "gs://food-rescue-34ffd.appspot.com/products/" + x
+        );
+        gsReference.getDownloadURL().then((url) => {
+          docRef.get().then(function (doc) {
+            if (doc.exists) {
+              return docRef.update({
+                image: url,
+              });
+            }
+          });
+        });
       });
   };
   return (

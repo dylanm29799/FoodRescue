@@ -27,6 +27,7 @@ import BusinessCurrentProduct from "../BusinessScreens/BusinessCurrentProduct";
 import BusinessAddProduct from "../BusinessScreens/BusinessAddProduct";
 import BusinessManage from "../BusinessScreens/BusinessManage";
 import CorrectLocation from "../BusinessScreens/CorrectLocation";
+import BusinessEdit from "../BusinessScreens/BusinessEditProduct";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { BUSINESS } from "../Data/BusinessDataExample";
@@ -103,6 +104,19 @@ ProfileScreen.navigationOptions = {
   },
   headerTitleAlign: "center",
   headerTintColor: "white",
+};
+
+BusinessEdit.navigationOptions = (props) => {
+  const productTitle = props.navigation.getParam("productName");
+  return {
+    headerTitle: productTitle,
+    headerStyle: {
+      backgroundColor: Colour.primaryColour,
+      fontSize: scale(22),
+    },
+    headerTitleAlign: "center",
+    headerTintColor: "white",
+  };
 };
 
 forgotPassword.navigationOptions = {
@@ -223,6 +237,7 @@ const FoodRescueNavigator = createStackNavigator({
   BusinessCurrentProduct: BusinessCurrentProduct,
   BusinessManage: BusinessManage,
   CorrectLocation: CorrectLocation,
+  BusinessEdit: BusinessEdit,
 });
 const sortStack = createStackNavigator({
   Sort: SortScreen,
