@@ -15,13 +15,18 @@ import {
   moderateScale,
 } from "../components/ResponsiveText";
 import Colour from "../constants/Colour";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import { BUSINESSLIST } from "../Data/businesslistDataExample";
 import { FOODCOUNTDOWN } from "../Data/foodcountdowndataexample";
 import { ScrollView } from "react-native-gesture-handler";
 
 const BusinessListScreen = (props) => {
   const businessName = props.navigation.getParam("BusinessName");
+  var long;
+  var lat;
+
+  [(long = global.longitude)];
+  [(lat = global.latitude)];
 
   const renderCategory = (itemData) => {
     return (
@@ -128,19 +133,27 @@ const BusinessListScreen = (props) => {
   };
   return (
     <View style={styles.screen}>
-      <ScrollView>
-        <View style={styles.MapBorder}>
-          <MapView
-            style={styles.Map}
-            initialRegion={{
-              latitude: 53.34900146651947,
-              longitude: -6.243367195129395,
-              latitudeDelta: 0,
-              longitudeDelta: 0.05,
+      <View style={styles.MapBorder}>
+        <MapView
+          style={styles.Map}
+          initialRegion={{
+            latitude: 53.34900146651947,
+            longitude: -6.243367195129395,
+            latitudeDelta: 0,
+            longitudeDelta: 0.05,
+          }}
+        >
+          <Marker
+            coordinate={{
+              latitude: lat,
+              longitude: long,
             }}
-          />
-        </View>
-
+            title={"You"}
+            description={"Your Location"}
+          ></Marker>
+        </MapView>
+      </View>
+      <ScrollView>
         <SafeAreaView style={{ alignItems: "center", flex: 1 }}>
           <Text style={styles.sortName}>Available Items</Text>
 

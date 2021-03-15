@@ -11,19 +11,20 @@ import {
 } from "react-native";
 import Colour from "../constants/Colour";
 import { scale } from "../components/ResponsiveText";
-import * as ImagePicker from "expo-image-picker";
-import CheckBox from "@react-native-community/checkbox";
-import foodcountdown from "../models/foodcountdown";
-import * as firebase from "firebase";
+
 import "firebase/firestore";
-import ButtonCustom from "../constants/ButtonCustom";
+import * as firebase from "firebase";
 import "firebase/storage";
 import { Picker } from "@react-native-picker/picker";
-import { set } from "react-native-reanimated";
+
 import NormalProduct from "../components/NormalProduct";
 import FoodCountdown from "../components/FoodCountdown";
+import { render } from "react-dom";
 
 const BusinessAddProduct = (props) => {
+  const dbconnection = firebase.firestore();
+  var user = firebase.auth().currentUser;
+  var uid = user.uid;
   const [npview, setNpview] = useState("picked");
   const [nptext, setNptext] = useState("pickedText");
   const [fcview, setFcview] = useState("notPicked");
@@ -33,6 +34,7 @@ const BusinessAddProduct = (props) => {
     borderTopRightRadius: 30,
   });
   const [renderedPage, setRenderedPage] = useState("Normal");
+  var newQuantity;
 
   onFoodCountdown = () => {
     setFctext("pickedText");
@@ -58,14 +60,27 @@ const BusinessAddProduct = (props) => {
     setRenderedPage("Normal");
     console.log(renderedPage);
   };
-
-  const Render = () => {
+  function RenderTime() {
     if (renderedPage == "Normal") {
       return <NormalProduct />;
     } else {
       return <FoodCountdown />;
     }
-  };
+  }
+  useEffect(() => {
+    dbconnection
+      .collection("businessDetails")
+      .doc(uid)
+      .get()
+      .then(function (doc) {
+        if (doc.exists) {
+          newQuantity = doc.data().quantity;
+
+          [(global.quantity = newQuantity + 1)];
+        }
+      });
+  }, [RenderTime]);
+
   return (
     <View style={styles.container}>
       <View style={styles.category}>
@@ -83,7 +98,7 @@ const BusinessAddProduct = (props) => {
           <Text style={styles[fctext]}>Food Countdown</Text>
         </TouchableOpacity>
       </View>
-      <Render />
+      <RenderTime />
     </View>
   );
 };

@@ -7,6 +7,8 @@ import {
   Button,
   Alert,
   KeyboardAvoidingView,
+  Touchable,
+  TouchableOpacity,
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import Colour from "../constants/Colour";
@@ -17,46 +19,39 @@ import Dialog from "react-native-dialog";
 import { AntDesign } from "@expo/vector-icons";
 const ProfileScreen = (props) => {
   const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
+
   const [number, setNumber] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [password, setPassword] = useState("");
 
+  const [textName, setTextName] = useState("Name");
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
-  var docRef = dbconnection.collection("userDetails").doc(user.uid);
+  var uid = user.uid;
+  var docRef;
   let validation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  const onSignOut = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        // Sign-out successful.
-        props.navigation.navigate({ routeName: "Login" });
-      })
-      .catch((error) => {
-        // An error happened.
-      });
-  };
+
   useEffect(() => {
     if (user) {
       // User is signed in.
+      docRef = dbconnection.collection("businessDetails").doc(uid);
 
-      console.log(user.uid);
       docRef
         .get()
         .then(function (doc) {
           if (doc.exists) {
+            setTextName("First Name");
             setEmail(doc.data().email);
-            setFirstName(doc.data().firstName);
-            setLastName(doc.data().lastName);
+            setName(doc.data().name);
+
             setNumber(doc.data().number);
           } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
           }
         })
+
         .catch(function (error) {
           console.log("Error getting document:", error);
         });
@@ -72,48 +67,54 @@ const ProfileScreen = (props) => {
   };
 
   const handleSubmit = () => {
-    setConfirm(false);
-    // The user has pressed the "Submit" button
-    docRef.get().then(function (doc) {
-      if (doc.exists) {
-        Alert.alert("Worked", "Your details have been updated.");
-        console.log(email, firstName, lastName, number, password);
-        return docRef
-          .update({
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            number: number,
-          })
-          .then(function () {
-            console.log("Document successfully updated!");
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(function (userCredential) {
+        userCredential.user.updateEmail(email);
+      })
 
-            firebase
-              .auth()
-              .signInWithEmailAndPassword(doc.data().email, password)
-              .then(function (userCredential) {
-                userCredential.user.updateEmail(email);
-              });
-          })
-          .catch(function (error) {
-            // The document probably doesn't exist.
-            console.error("Error updating document: ", error);
-          });
-      }
-    });
+      .then(function () {
+        // The user has pressed the "Submit" button
+
+        docRef = dbconnection.collection("businessDetails").doc(uid);
+        setConfirm(false);
+        console.log(collectionName);
+
+        Alert.alert("Worked", "Your details have been updated.");
+        console.log(email, name, number, password);
+        docRef.update({
+          name: name,
+          email: email,
+          number: number,
+        });
+      })
+      .catch(function (error) {
+        // The document probably doesn't exist.
+        Alert.alert("Error", "Your Password is incorrect, please try again");
+      });
   };
 
+  const onSignOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        // Sign-out successful.
+        props.navigation.navigate({ routeName: "Login" });
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
   onButtonPress = () => {
     if (!email.trim() || validation.test(email) === false) {
       alert("Please Enter a valid Email");
       return;
     } else if (number.length != 10) {
       Alert.alert("Error", "Please Enter a valid Irish Number");
-    } else if (!firstName.trim() || firstName.length < 3) {
-      Alert.alert("Error", "Your first name must be longer than 3 letters");
-    }
-    if (!lastName.trim() || firstName.length < 3) {
-      alert("Your Last name must be longer than 3 letters");
+    } else if (!name.trim() || name.length < 3) {
+      Alert.alert("Error", "Name must be longer than 3 letters");
     } else {
       setConfirm(true);
     }
@@ -138,7 +139,7 @@ const ProfileScreen = (props) => {
                 // User deleted.
                 console.log("User Deleted");
                 dbconnection
-                  .collection("userDetails")
+                  .collection("businessDetails")
                   .doc(user.uid)
                   .delete()
                   .then(function () {
@@ -169,29 +170,22 @@ const ProfileScreen = (props) => {
         style={{
           width: "100%",
           justifyContent: "center",
-
           paddingBottom: scale(30),
         }}
       >
-        <Text style={styles.all}> First Name:</Text>
+        <Text style={styles.all}> Business Name</Text>
         <TextInput
           style={styles.textInput}
-          onChangeText={(firstName) => setFirstName(firstName)}
+          onChangeText={(name) => setName(name)}
         >
-          {firstName}
-        </TextInput>
-        <Text style={styles.all}> Last Name:</Text>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={(lastName) => setLastName(lastName)}
-        >
-          {lastName}
+          {name}
         </TextInput>
 
         <Text style={styles.all}> Your Phone Number:</Text>
         <TextInput
           style={styles.textInput}
           onChangeText={(number) => setNumber(number)}
+          keyboardType="numeric"
         >
           {number}
         </TextInput>
@@ -205,12 +199,12 @@ const ProfileScreen = (props) => {
         </TextInput>
       </View>
       <ButtonCustom title="Submit" onPress={onButtonPress} />
-      <View style={styles.logout} onPress={onSignOut}>
+      <TouchableOpacity style={styles.logout} onPress={onSignOut}>
         <AntDesign name="logout" size={30} color="black" onPress={onSignOut} />
         <Text onPress={onSignOut} style={styles.signOut}>
           Log Out
         </Text>
-      </View>
+      </TouchableOpacity>
       <Text onPress={deleteProfile} style={styles.delete}>
         Delete Account
       </Text>

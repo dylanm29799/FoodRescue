@@ -1,41 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { Platform, Text, View, StyleSheet } from "react-native";
 import * as Location from "expo-location";
+import * as firebase from "firebase";
 import MapView, { Marker } from "react-native-maps";
 import Colour from "../constants/Colour";
 import { scale } from "./ResponsiveText";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 
 Map = () => {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-
+  const [businessLoc, setBusinessLoc] = useState([]);
+  const dbconnection = firebase.firestore();
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestPermissionsAsync();
-      if (status !== "granted") {
-        setErrorMsg("Permission to access location was denied");
-        return;
-      }
+    //prettier-ignore
+    dbconnection.collection('businessDetails').onSnapshot((querySnapshot) => {
+    const businessLoc = [];
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-    })();
+    querySnapshot.forEach((doc) => {
+      businessLoc.push({
+        ...doc.data(),
+        key: doc.data().email,
+      });
+     
+    });
+    console.log("BusinessLocation: ", businessLoc);
+    setBusinessLoc(businessLoc);
+  });
   }, []);
 
   let long = -6.243367195129395;
   let lat = 53.34900146651947;
 
-  let text = "Please Wait";
-
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
-    long = location.coords.longitude;
-    lat = location.coords.latitude;
-    [(global.longitude = long)];
-    [(global.latitude = lat)];
-  }
+  [(long = global.longitude)];
+  [(lat = global.latitude)];
 
   return (
     <View style={styles.container}>
@@ -50,9 +49,27 @@ Map = () => {
       >
         <Marker
           coordinate={{ latitude: lat, longitude: long }}
-          pinColor={Colour.primaryColour}
-          title={"Business Name"}
-        />
+          title={"You"}
+          description={"Your Location"}
+        >
+          <MaterialCommunityIcons
+            name="home-map-marker"
+            size={50}
+            color={Colour.primaryColour}
+          />
+        </Marker>
+        {businessLoc.map((marker) => (
+          <Marker
+            key={marker.email}
+            coordinate={{
+              latitude: parseFloat(marker.latitude),
+              longitude: parseFloat(marker.longitude),
+            }}
+            title={marker.name}
+          >
+            <Feather name="map-pin" size={40} color="green" />
+          </Marker>
+        ))}
       </MapView>
     </View>
   );

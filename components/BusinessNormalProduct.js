@@ -51,6 +51,7 @@ const BusinessNormalProduct = (props) => {
             routeName: "BusinessEdit",
             params: {
               productName: item.item.itemName,
+              productKey: item.item.docId,
             },
           });
         }}

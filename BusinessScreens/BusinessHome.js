@@ -2,8 +2,10 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { scale } from "../components/ResponsiveText";
 import Colour from "../constants/Colour";
-import { AntDesign } from "@expo/vector-icons";
 import * as firebase from "firebase";
+import { Fontisto } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 const BusinessHome = (props) => {
   onSignOut = () => {
     firebase
@@ -19,43 +21,70 @@ const BusinessHome = (props) => {
   };
   return (
     <View style={styles.Screen}>
-      <TouchableOpacity
-        onPress={() => {
-          props.navigation.navigate({
-            routeName: "BusinessAddProduct",
-          });
-        }}
-        style={styles.touchable}
+      <View
+        style={[
+          styles.items2,
+          {
+            borderBottomWidth: 4,
+            borderBottomColor: "#fff",
+          },
+        ]}
       >
-        <Text style={styles.touchableText}>Add a Product</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate({
+              routeName: "BusinessAddProduct",
+            });
+          }}
+          style={styles.touchable}
+        >
+          <Fontisto
+            name="shopping-basket-add"
+            size={scale(100)}
+            style={styles.icon}
+          />
+          <Text style={styles.touchableText}>Add a Product</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={() => {
-          props.navigation.navigate({
-            routeName: "BusinessCurrentProduct",
-          });
-        }}
-        style={styles.touchable}
-      >
-        <Text style={styles.touchableText}>View Your Current Products</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => {
-          props.navigation.navigate({
-            routeName: "BusinessManage",
-          });
-        }}
-        style={styles.touchable}
-      >
-        <Text style={styles.touchableText}>Manage Your Products</Text>
-      </TouchableOpacity>
-      <View style={styles.logout} onPress={onSignOut}>
-        <AntDesign name="logout" size={30} color="black" onPress={onSignOut} />
-        <Text onPress={onSignOut} style={styles.signOut}>
-          Log Out
-        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate({
+              routeName: "BusinessCurrentProduct",
+            });
+          }}
+          style={styles.touchable}
+        >
+          <Fontisto
+            name="shopping-bag-1"
+            size={scale(100)}
+            style={styles.icon}
+          />
+          <Text style={styles.touchableText}>View Your Current Products</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.items2}>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate({
+              routeName: "BusinessManage",
+            });
+          }}
+          style={styles.touchable}
+        >
+          <Feather name="users" size={100} style={styles.icon} />
+          <Text style={styles.touchableText}>View Your Orders</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate({
+              routeName: "BusinessProfile",
+            });
+          }}
+          style={styles.touchable}
+        >
+          <AntDesign name="profile" size={100} style={styles.icon} />
+          <Text style={styles.touchableText}>Manage Your Profile</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -63,33 +92,37 @@ const BusinessHome = (props) => {
 const styles = StyleSheet.create({
   Screen: {
     flex: 1,
-    justifyContent: "space-evenly",
     alignItems: "center",
+    backgroundColor: Colour.primaryColour,
   },
-
+  items2: { height: "50%", flexDirection: "row" },
   text: {
     fontSize: scale(15),
-    borderBottomColor: Colour.primaryColour,
-    borderBottomWidth: scale(2),
-    width: "60%",
+
     textAlign: "center",
   },
 
   touchable: {
-    height: scale(30),
-    width: scale(200),
-    borderBottomWidth: 2,
-    borderBottomColor: Colour.primaryColour,
+    width: "50%",
+    height: "100%",
+    borderColor: "white",
+
+    borderLeftWidth: 2,
+    borderRightWidth: 2,
+    borderBottomWidth: 0,
+    borderTopWidth: 0,
     justifyContent: "center",
-    marginTop: scale(30),
-    marginHorizontal: scale(10),
   },
   touchableText: {
-    color: "#000",
+    color: "#fff",
     textAlign: "center",
+    marginTop: scale(50),
     fontSize: scale(14),
   },
-
+  icon: {
+    color: "#fff",
+    alignSelf: "center",
+  },
   logout: {
     justifyContent: "center",
     flexDirection: "row",

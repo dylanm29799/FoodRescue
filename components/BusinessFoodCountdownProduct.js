@@ -48,6 +48,7 @@ const BusinessFoodCountdownProduct = (props) => {
             routeName: "BusinessEdit",
             params: {
               productName: itemData.item.itemName,
+              productKey: itemData.item.docId,
             },
           });
         }}
