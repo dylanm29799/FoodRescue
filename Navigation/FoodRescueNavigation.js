@@ -28,7 +28,7 @@ import BusinessAddProduct from "../BusinessScreens/BusinessAddProduct";
 import BusinessManage from "../BusinessScreens/BusinessManage";
 import CorrectLocation from "../BusinessScreens/CorrectLocation";
 import BusinessEdit from "../BusinessScreens/BusinessEditProduct";
-
+import BusinessProfile from "../BusinessScreens/businessProfile";
 import { MaterialIcons } from "@expo/vector-icons";
 import { BUSINESS } from "../Data/BusinessDataExample";
 import { scale } from "../components/ResponsiveText";
@@ -98,11 +98,18 @@ MainScreen.navigationOptions = (navData) => {
 };
 
 ProfileScreen.navigationOptions = {
-  headerTitle: "Profile",
+  headerTitle: "Edit Your Profile",
   headerStyle: {
     backgroundColor: Colour.primaryColour,
   },
   headerTitleAlign: "center",
+  headerTintColor: "white",
+};
+BusinessProfile.navigationOptions = {
+  headerTitle: "Edit Your Profile",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
   headerTintColor: "white",
 };
 
@@ -175,7 +182,7 @@ BusinessLocation.navigationOptions = {
 };
 
 BusinessHome.navigationOptions = {
-  headerTitle: "Business Name",
+  headerTitle: "Edit Your Business Settings",
   headerStyle: {
     backgroundColor: Colour.primaryColour,
   },
@@ -238,6 +245,7 @@ const FoodRescueNavigator = createStackNavigator({
   BusinessManage: BusinessManage,
   CorrectLocation: CorrectLocation,
   BusinessEdit: BusinessEdit,
+  BusinessProfile: BusinessProfile,
 });
 const sortStack = createStackNavigator({
   Sort: SortScreen,

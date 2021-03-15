@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -7,10 +7,11 @@ import {
   FlatList,
   TouchableOpacity,
   ImageBackground,
+  ActivityIndicator,
 } from "react-native";
 import Colour from "../constants/Colour";
-import MapView from "react-native-maps";
-
+import MapView, { Marker } from "react-native-maps";
+import * as firebase from "firebase";
 import { BUSINESS } from "../Data/BusinessDataExample";
 import { CATEGORIES } from "../Data/SortDataExample";
 import {
@@ -18,10 +19,54 @@ import {
   verticalScale,
   moderateScale,
 } from "../components/ResponsiveText";
-import { ScrollView } from "react-native-gesture-handler";
+
 import Map from "../components/Map";
+import { ScrollView } from "react-native-gesture-handler";
+import haversine from "haversine";
 
 const MainScreen = (props) => {
+  const dbconnection = firebase.firestore();
+  const [businessLoc, setBusinessLoc] = useState({});
+
+  var newSize;
+  var longitude;
+  var latitude;
+  [(longitude = global.longitude)];
+  [(latitude = global.latitude)];
+  useEffect(() => {
+    const haversine = require("haversine");
+
+    const userLoc = {
+      longitude: longitude,
+      latitude: latitude,
+    };
+
+    dbconnection.collection("businessDetails").onSnapshot((querySnapshot) => {
+      var businessLoc = [];
+      querySnapshot.forEach(function (doc) {
+        const BusinessLocation = {
+          longitude: parseFloat(doc.data().longitude),
+          latitude: parseFloat(doc.data().latitude),
+        };
+
+        console.log(BusinessLocation);
+        const distance = haversine(userLoc, BusinessLocation).toFixed(2);
+
+        businessLoc.push({
+          ...doc.data(),
+          key: doc.id,
+          distance: distance,
+        });
+      });
+
+      businessLoc = businessLoc.sort((a, b) => a.distance - b.distance);
+
+      console.log("BusinessLocation: ", businessLoc);
+
+      setBusinessLoc(businessLoc);
+    });
+  }, []);
+
   const renderCategory = (itemData) => {
     return (
       <TouchableOpacity
@@ -30,24 +75,38 @@ const MainScreen = (props) => {
           props.navigation.navigate({
             routeName: "BusinessList",
             params: {
-              BusinessName: itemData.item.title,
+              BusinessName: itemData.item.name,
+              ID: itemData.item.key,
             },
           });
         }}
       >
         <View style={styles.item}>
-          <Image
-            style={{ height: "75%", width: "100%" }}
-            source={{ uri: itemData.item.image }}
-          />
-          <View style={{ paddingBottom: scale(100) }}>
-            <View style={styles.heading}>
-              <Text style={styles.text1}>{itemData.item.title}</Text>
-              <Text style={styles.text2}>
-                {itemData.item.items} <Text> Items</Text>
-              </Text>
-            </View>
-            <Text style={styles.text3}>{itemData.item.distance}</Text>
+          <View
+            style={{
+              height: "100%",
+              width: "50%",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "white",
+              borderColor: Colour.primaryColour,
+              borderWidth: 2,
+              borderRadius: 5,
+            }}
+          >
+            <Image
+              style={{
+                height: "90%",
+                width: "90%",
+                backgroundColor: "transparent",
+              }}
+              source={{ uri: itemData.item.image }}
+            />
+          </View>
+          <View style={{ height: "90%", paddingLeft: "2%" }}>
+            <Text style={styles.text1}>{itemData.item.name} </Text>
+            <Text style={styles.text2}>{itemData.item.quantity} Items</Text>
+            <Text style={styles.text3}>{itemData.item.distance} km</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -59,33 +118,33 @@ const MainScreen = (props) => {
 
   const displayMessage = () => {
     if (selectedCategory === undefined) {
-      return <Text style={styles.sortName}>Close to you</Text>;
+      return <Text style={styles.sortName}></Text>;
     } else {
       return <Text style={styles.sortName}>{selectedCategory.title}</Text>;
     }
   };
   return (
-    <View>
-      <ScrollView>
-        <View style={styles.MapBorder}>
-          <Map style={styles.Map} />
-        </View>
+    <View style={{ width: "100%", justifyContent: "flex-end" }}>
+      <View style={styles.MapBorder}>
+        <Map style={styles.Map} />
+      </View>
 
-        <View
-          style={{
-            alignItems: "center",
-            flex: 1,
-          }}
-        >
-          {displayMessage()}
+      <View
+        style={{
+          alignItems: "center",
+          position: "absolute",
+          width: "100%",
+          height: "40%",
+        }}
+      >
+        {displayMessage()}
 
-          <FlatList
-            style={{ width: "90%", flex: 1 }}
-            data={BUSINESS}
-            renderItem={renderCategory}
-          />
-        </View>
-      </ScrollView>
+        <FlatList
+          style={{ width: "90%" }}
+          data={businessLoc}
+          renderItem={renderCategory}
+        />
+      </View>
     </View>
   );
 };
@@ -101,32 +160,29 @@ const styles = StyleSheet.create({
   MapBorder: {
     borderWidth: scale(2),
     borderColor: Colour.primaryColour,
-    height: scale(330),
+    height: "100%",
   },
   item: {
-    marginBottom: scale(100),
-    borderWidth: scale(2),
-    borderColor: Colour.primaryColour,
-  },
-  heading: {
+    width: "100%",
+    height: "100%",
     flexDirection: "row",
+    alignItems: "center",
   },
+  heading: { justifyContent: "space-evenly", padding: 10 },
   text1: {
-    width: "50%",
-    paddingLeft: "5%",
-    fontSize: scale(15),
+    fontFamily: "OpenSans",
+    fontSize: scale(20),
+    height: "33%",
+    color: "white",
   },
   text2: {
-    width: "50%",
-    textAlign: "right",
-    paddingRight: "5%",
-    fontSize: scale(15),
+    fontFamily: "OpenSans",
+    height: "33%",
+    color: "white",
+    paddingTop: scale(10),
   },
 
-  text3: {
-    paddingLeft: "5%",
-    fontSize: scale(15),
-  },
+  text3: { fontFamily: "OpenSans", height: "33%", color: "white" },
 
   sortName: {
     fontSize: scale(30),
@@ -135,7 +191,18 @@ const styles = StyleSheet.create({
     paddingVertical: scale(10),
   },
   Categories: {
-    flex: 1,
+    width: "100%",
+
+    height: scale(80),
+    textAlign: "center",
+    justifyContent: "flex-end",
+    borderWidth: scale(2),
+    borderColor: "white",
+    borderRadius: 5,
+    marginBottom: scale(22),
+    backgroundColor: Colour.primaryColour,
+    flexDirection: "row",
+    elevation: 20,
   },
 });
 

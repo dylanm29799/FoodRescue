@@ -16,16 +16,22 @@ import "firebase/firestore";
 import ButtonCustom from "../constants/ButtonCustom";
 import "firebase/storage";
 import { Picker } from "@react-native-picker/picker";
+import { withNavigation } from "react-navigation";
 
-const FoodCountdown = () => {
+const FoodCountdown = (props) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
+  var uid = user.uid;
+  var finalQuan;
+  [(finalQuan = global.quantity)];
+
   const [itemName, setItemName] = useState(null);
   const [quantity, setQuantity] = useState(null);
   const [usualPrice, setUsualPrice] = useState(null);
   const [newPrice, setNewPrice] = useState(null);
   var x;
+
   var randomString = require("random-string");
   const [image, setImage] = useState(null);
   const [time, setTime] = useState({ itemValue: "0" });
@@ -42,6 +48,7 @@ const FoodCountdown = () => {
       setImage(result.uri);
     }
   };
+
   onSubmit = async () => {
     x = randomString({ length: 30 });
     console.log(x);
@@ -60,7 +67,7 @@ const FoodCountdown = () => {
           newPrice: newPrice,
           hours: time.itemValue,
           foodCountdown: "Yes",
-          businessID: user.uid,
+          businessID: uid,
           docId: x,
           image: x,
         });
@@ -69,6 +76,11 @@ const FoodCountdown = () => {
       })
 
       .then(() => {
+        console.log(finalQuan);
+
+        dbconnection.collection("businessDetails").doc(uid).update({
+          quantity: finalQuan,
+        });
         var storage = firebase.storage();
         var docRef = dbconnection.collection("Products").doc(x);
         var gsReference = storage.refFromURL(
@@ -83,35 +95,40 @@ const FoodCountdown = () => {
             }
           });
         });
+      })
+      .then(function () {
+        props.navigation.navigate({ routeName: "BusinessHome" });
       });
   };
   return (
     <View style={styles.content}>
-      <Text style={styles.text}>Product Name</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={(itemName) => setItemName(itemName)}
-        placeholder="Chocolate Chip Cookie"
-      />
-      <Text style={styles.text}>Quantity Available</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={(quantity) => setQuantity(quantity)}
-        placeholder="5"
-      />
-      <Text style={styles.text}>Initial Price before Food Countdown</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={(usualPrice) => setUsualPrice(usualPrice)}
-        placeholder="4.00"
-      />
+      <View style={styles.con}>
+        <Text style={styles.text}>Product Name</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={(itemName) => setItemName(itemName)}
+          placeholder="Chocolate Chip Cookie"
+        />
+        <Text style={styles.text}>Quantity Available</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={(quantity) => setQuantity(quantity)}
+          placeholder="5"
+        />
+        <Text style={styles.text}>Initial Price before Food Countdown</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={(usualPrice) => setUsualPrice(usualPrice)}
+          placeholder="4.00"
+        />
 
-      <Text style={styles.text}>Ending Price</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={(newPrice) => setNewPrice(newPrice)}
-        placeholder="2.00"
-      />
+        <Text style={styles.text}>Ending Price</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={(newPrice) => setNewPrice(newPrice)}
+          placeholder="2.00"
+        />
+      </View>
       <Text style={styles.text}>Time Available</Text>
       <Picker
         selectedValue={time.itemValue}
@@ -158,11 +175,7 @@ const FoodCountdown = () => {
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  con: { width: "70%", justifyContent: "center", paddingBottom: scale(10) },
   content: {
     borderTopWidth: 0,
     borderWidth: 2,
@@ -174,19 +187,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   input: {
-    borderBottomWidth: 2,
-    borderBottomColor: Colour.primaryColour,
-    width: "70%",
-    paddingVertical: scale(3),
-    paddingHorizontal: scale(10),
-    textAlign: "center",
+    borderColor: Colour.primaryColour,
+    paddingLeft: 15,
+    borderRadius: 5,
+    borderWidth: 2,
+    justifyContent: "center",
+    padding: scale(3),
+    fontFamily: "OpenSans",
+    fontSize: scale(15),
   },
 
   text: {
-    marginTop: scale(10),
-    fontSize: scale(13),
-    textAlign: "center",
+    paddingTop: scale(10),
     fontFamily: "OpenSans",
+    fontSize: scale(12),
   },
 
   touchable: {
@@ -239,4 +253,4 @@ const styles = StyleSheet.create({
     height: scale(50),
   },
 });
-export default FoodCountdown;
+export default withNavigation(FoodCountdown);

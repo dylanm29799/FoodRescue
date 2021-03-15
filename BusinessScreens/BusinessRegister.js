@@ -14,12 +14,15 @@ import Colour from "../constants/Colour";
 import { scale } from "../components/ResponsiveText";
 import * as firebase from "firebase";
 import "firebase/firestore";
+import * as ImagePicker from "expo-image-picker";
 import { ScrollView } from "react-native-gesture-handler";
 import ButtonCustom from "../constants/ButtonCustom";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import Footer from "../components/Footer";
-
+import "firebase/storage";
+import { Picker } from "@react-native-picker/picker";
+import { useEffect } from "react/cjs/react.development";
 const BusinessRegister = (props) => {
   const dbconnection = firebase.firestore();
   //validation is used for validation of emails
@@ -33,7 +36,7 @@ const BusinessRegister = (props) => {
   const [publicNumber, setPublicNumber] = useState("");
   const [id, setID] = useState("");
   const [privateID, setPrivateID] = useState("");
-
+  const [image, setImage] = useState(null);
   const [errorColorID, setErrorColorID] = useState("logotextinput");
   const [errorColorName, setErrorColorName] = useState("logotextinput");
 
@@ -45,21 +48,36 @@ const BusinessRegister = (props) => {
   const [errorColorEmail, setErrorColorEmail] = useState("logotextinput");
 
   var businessIDRef = dbconnection.collection("BusinessID").doc("ESSENTIALID");
-
-  businessIDRef
-    .get()
-    .then(function (doc) {
-      if (doc.exists) {
-        setPrivateID(doc.get("ID"));
-        console.log("Worked!");
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    })
-    .catch(function (error) {
-      console.log("Error getting document:", error);
+  var randomString = require("random-string");
+  const pickImage = async () => {
+    result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Image,
+      allowsEditing: true,
+      aspect: [16, 9],
+      quality: 1,
     });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+  useEffect(() => {
+    businessIDRef
+      .get()
+      .then(function (doc) {
+        if (doc.exists) {
+          setPrivateID(doc.get("ID"));
+          console.log("Worked!");
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      })
+      .catch(function (error) {
+        console.log("Error getting document:", error);
+      });
+  });
 
   signUp = () => {
     //Check for the Name firstName
@@ -117,22 +135,52 @@ const BusinessRegister = (props) => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in
         var user = userCredential.user;
-        console.log("Signed Up");
-        dbconnection.collection("businessDetails").doc(user.uid).set({
-          name: name,
-          email: email,
-          number: number,
-          longitude: "",
-          latitude: "",
-        });
-        dbconnection.collection("accountDetails").doc(user.uid).set({
-          accountType: "Business",
-        });
-        props.navigation.navigate({ routeName: "BusinessLocation" });
-        // ...
+
+        const response = await fetch(image);
+        const blob = await response.blob();
+        var storageRef = firebase.storage().ref();
+        var BusRef = storageRef.child("businessLogo/" + user.uid);
+        BusRef.put(blob)
+          .then(async function () {
+            console.log("Signed Up");
+            dbconnection.collection("businessDetails").doc(user.uid).set({
+              name: name,
+              email: email,
+              number: number,
+              longitude: "",
+              latitude: "",
+              quantity: 0,
+              image: "",
+            });
+            dbconnection.collection("accountDetails").doc(user.uid).set({
+              accountType: "Business",
+            });
+          })
+          .then(() => {
+            var storage = firebase.storage();
+            var docRef = dbconnection
+              .collection("businessDetails")
+              .doc(user.uid);
+            var gsReference = storage.refFromURL(
+              "gs://food-rescue-34ffd.appspot.com/businessLogo/" + user.uid
+            );
+            gsReference.getDownloadURL().then((url) => {
+              docRef.get().then(function (doc) {
+                if (doc.exists) {
+                  return docRef.update({
+                    image: url,
+                  });
+                }
+              });
+            });
+          })
+          .then(function () {
+            props.navigation.navigate({ routeName: "BusinessLocation" });
+            // ...
+          });
       })
       .catch((error) => {
         var errorCode = error.code;
@@ -232,6 +280,26 @@ const BusinessRegister = (props) => {
             over the phone
           </Text>
         </Text>
+        <Text
+          onPress={pickImage}
+          style={{ fontFamily: "OpenSans", fontSize: 16, paddingVertical: 10 }}
+        >
+          Pick an image
+        </Text>
+        {image && (
+          <Image
+            source={{ uri: image }}
+            style={{
+              height: scale(180),
+              width: scale(280),
+
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.8,
+              shadowRadius: 2,
+            }}
+            resizeMode="stretch"
+          />
+        )}
         <ButtonCustom title="Register" onPress={signUp} />
         <Footer footerColor={Colour.primaryColour} />
       </ImageBackground>
