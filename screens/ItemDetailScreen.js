@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,172 +6,223 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { scale } from "../components/ResponsiveText";
-
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import * as firebase from "firebase";
+import { EvilIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import Colour from "../constants/Colour";
 
-//Getting All Params
-
 const ItemDetailScreen = (props) => {
-  const time = () => {
-    if (props.navigation.getParam("Time") === undefined) {
-      return;
+  const dbconnection = firebase.firestore();
+  const businessID = props.navigation.getParam("BusinessID");
+  const productID = props.navigation.getParam("productID");
+  const itemName = props.navigation.getParam("itemName");
+  var quantity = props.navigation.getParam("quantity");
+  var newQuantity = quantity;
+  const hours = props.navigation.getParam("hours");
+  var docRef = dbconnection.collection("Products").doc(productID);
+  const image = props.navigation.getParam("image");
+  const newPrice = props.navigation.getParam("newPrice");
+  const usualPrice = props.navigation.getParam("usualPrice");
+  const foodCountdown = props.navigation.getParam("foodCountdown");
+  var saveAmount = 1 - newPrice / usualPrice;
+  var newSaveAmount = 100 * saveAmount;
+  var finalSave = Math.round(newSaveAmount);
+  const [specifiedQuantity, setSpecifiedQuantity] = useState(1);
+  var randomString = require("random-string");
+  var x;
+  const [busName, setBusName] = useState("");
+  const [busLong, setBusLong] = useState(0);
+  const [busLat, setBusLat] = useState(0);
+  const [busNumber, setBusNumber] = useState("");
+
+  const [productName, setProductName] = useState("");
+  const [productUsualPrice, setProductUsualPrice] = useState("");
+  useEffect(() => {
+    console.log(productID);
+    dbconnection
+      .collection("businessDetails")
+      .doc(businessID)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setBusName(doc.data().name);
+          setBusLong(parseFloat(doc.data().longitude));
+          setBusLat(parseFloat(doc.data().latitude));
+          setBusNumber(doc.data().number);
+        } else {
+          console.log("Nothing There");
+        }
+      });
+
+    docRef.get().then(function (doc) {
+      if (doc.exists) {
+        setProductName(doc.data().itemName);
+        setProductUsualPrice(doc.data().usualPrice);
+      }
+    });
+  }, []);
+  const increase = () => {
+    if (specifiedQuantity != newQuantity) {
+      setSpecifiedQuantity(specifiedQuantity + 1);
     } else {
-      return props.navigation.getParam("Time") + " hours left!";
+      alert("Thats all we have!");
     }
   };
-  //Getting All Params
-  const image = props.navigation.getParam("Image");
-  const title = props.navigation.getParam("Title");
-  const quantity = props.navigation.getParam("Quantity");
-  const initialPrice = props.navigation.getParam("InitialPrice");
-  const price = props.navigation.getParam("Price");
-  const newTime = time();
+  const decrease = () => {
+    if (specifiedQuantity > 1) {
+      setSpecifiedQuantity(specifiedQuantity - 1);
+    }
+  };
+
+  const buy = () => {
+    if (newQuantity <= 0) {
+      props.navigation.navigate({ routeName: "BusinessList" });
+      alert("This Product is sold out");
+    } else if (newQuantity > 0) {
+      x = randomString({ length: 30 });
+      docRef.get().then(function (doc) {
+        console.log(doc.id);
+        if (doc.exists) {
+          newQuantity = newQuantity - specifiedQuantity;
+          var long;
+          var lat;
+          [(long = global.longitude)];
+          [(lat = global.latitude)];
+
+          console.log(long, lat);
+          return docRef
+
+            .update({
+              quantity: newQuantity,
+            })
+            .then(function () {
+              console.log("Document successfully updated!");
+              dbconnection.collection("OrderDetails").doc(x).set({
+                productID: productID,
+                businessID: businessID,
+                quantityOrdered: specifiedQuantity,
+                pricePerItem: newPrice,
+                userLongitude: long,
+                userLatitude: lat,
+                created: firebase.firestore.FieldValue.serverTimestamp(),
+                busName: busName,
+                busLong: busLong,
+                busLat: busLat,
+                busNumber: busNumber,
+                productName: productName,
+                productUsualPrice: productUsualPrice,
+              });
+              props.navigation.navigate({
+                routeName: "Receipt",
+                params: { orderID: x },
+              });
+            })
+            .catch(function (error) {
+              // The document probably doesn't exist.
+              console.error("Error updating document: ", error);
+            });
+        }
+      });
+    }
+  };
 
   return (
     <View style={styles.screen}>
-      <View style={styles.combined}>
-        <View style={styles.shadow}>
-          <Image
-            style={{
-              alignSelf: "center",
-              height: "100%",
-              width: "100%",
-              borderWidth: 1,
-
-              flex: 1,
-            }}
-            source={{ uri: image }}
-            resizeMode="stretch"
-          />
-        </View>
-        <Text style={styles.title}>{title}</Text>
+      <View style={styles.above}>
+        <Text style={styles.heading}>{itemName}</Text>
+        <Text style={styles.price}>€{newPrice}</Text>
+        <Text style={styles.saving}>You save {finalSave}%</Text>
       </View>
-      <Text style={styles.quantity}>There are only {quantity} left!</Text>
-      <View style={styles.icons}>
-        <Entypo name="minus" size={scale(30)} color={Colour.primaryColour} />
-        <TextInput
-          style={{
-            width: "12%",
-            textAlign: "center",
-            fontSize: scale(20),
-            borderBottomWidth: 1,
-            borderColor: Colour.primaryColour,
-            paddingTop: scale(1),
-          }}
-          keyboardType="numeric"
-        >
-          0
-        </TextInput>
-        <MaterialCommunityIcons
-          name="plus-outline"
-          size={scale(30)}
-          color={Colour.primaryColour}
+      <View style={styles.image}>
+        <Image
+          style={{ height: "85%", width: "95%", borderRadius: 15 }}
+          source={{ uri: image }}
         />
       </View>
-      <TouchableOpacity
-        onPress={() => {
-          props.navigation.navigate({
-            routeName: "Cart",
-            params: {
-              Title: title,
-              quantity: quantity,
-              price: price,
-              initialPrice: initialPrice,
-            },
-          });
-        }}
-        style={{
-          height: scale(30),
-          width: scale(70),
-          backgroundColor: Colour.primaryColour,
-          justifyContent: "center",
-          marginTop: scale(30),
-        }}
-      >
-        <Text
+      <View style={styles.below}>
+        <View style={styles.quantity}>
+          <EvilIcons name="minus" onPress={decrease} size={35} color="black" />
+          <Text
+            style={{
+              borderBottomWidth: 1.5,
+              width: 30,
+              paddingBottom: 2,
+              marginHorizontal: 10,
+              textAlign: "center",
+              fontSize: 30,
+            }}
+          >
+            {specifiedQuantity}
+          </Text>
+          <EvilIcons name="plus" onPress={increase} size={35} color="black" />
+        </View>
+        <TouchableOpacity
           style={{
-            color: "#fff",
-            fontFamily: "OpenSans",
-            fontWeight: "bold",
-            textAlign: "center",
-            fontSize: scale(12),
+            width: "80%",
+            borderWidth: 2,
+            height: "30%",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "#ffc575",
           }}
+          onPress={buy}
         >
-          Add to Cart
-        </Text>
-      </TouchableOpacity>
-      <Text style={styles.time}>{newTime}</Text>
+          <Text style={{ fontFamily: "MonB", fontSize: scale(25) }}>Buy</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   screen: {
+    alignItems: "center",
     flex: 1,
+    backgroundColor: "#ffecd2",
+  },
+  heading: {
+    fontFamily: "MonM",
+    fontSize: scale(25),
+    color: "#3b3b3b",
+    maxWidth: "66%",
+    paddingBottom: 10,
+  },
+  price: {
+    fontFamily: "MonB",
+    fontSize: scale(30),
+    color: "#3b3b3b",
+    maxWidth: "66%",
+  },
+  quantity: {
+    flexDirection: "row",
+    paddingBottom: scale(20),
+  },
+  saving: {
+    color: "red",
+    fontFamily: "MonB",
+    fontSize: scale(12),
+    color: "red",
+    maxWidth: "66%",
+  },
+  above: {
+    height: "25%",
+    justifyContent: "center",
 
+    width: "100%",
     alignItems: "center",
   },
-  shadow: {
-    elevation: 20,
-    shadowColor: Colour.primaryColour,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    height: scale(220),
-    width: scale(250),
-    borderWidth: 2,
-    borderColor: Colour.primaryColour,
+  image: {
+    height: "50%",
+    width: "100%",
+    alignItems: "center",
   },
-  combined: {
-    textAlign: "center",
-    marginTop: scale(30),
-  },
-
-  title: {
-    fontFamily: "OpenSans",
-    fontWeight: "600",
-    textAlign: "center",
-    fontSize: scale(20),
-    marginTop: scale(30),
-  },
-
-  quantity: {
-    fontFamily: "OpenSans",
-    fontWeight: "600",
-    textAlign: "center",
-    fontSize: scale(25),
-    marginTop: scale(30),
-  },
-  initialPrice: {
-    fontFamily: "OpenSans",
-    fontWeight: "600",
-    textAlign: "center",
-    fontSize: scale(25),
-  },
-
-  price: {
-    fontFamily: "OpenSans",
-    fontWeight: "600",
-    textAlign: "center",
-    fontSize: scale(25),
-  },
-
-  icons: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: scale(30),
-  },
-
-  time: {
-    fontFamily: "OpenSans",
-    fontWeight: "600",
-    textAlign: "center",
-    fontSize: scale(25),
-    marginTop: scale(30),
+  below: {
+    height: "25%",
+    width: "100%",
+    alignItems: "center",
   },
 });
 

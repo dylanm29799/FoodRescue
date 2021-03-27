@@ -16,6 +16,10 @@ import FoodRescueNavigator from "./Navigation/FoodRescueNavigation";
 const fetchFonts = () => {
   return Font.loadAsync({
     OpenSans: require("./assets/fonts/OpenSans-Regular.ttf"),
+    Raleway: require("./assets/fonts/Raleway-VariableFont_wght.ttf"),
+    MonL: require("./assets/fonts/Montserrat-Light.ttf"),
+    MonB: require("./assets/fonts/Montserrat-Medium.ttf"),
+    MonM: require("./assets/fonts/Montserrat-Regular.ttf"),
   });
 };
 
@@ -35,11 +39,8 @@ export default function App() {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
     })();
-  });
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
+  }, []);
+  if (location) {
     long = location.coords.longitude;
     lat = location.coords.latitude;
     [(global.longitude = long)];

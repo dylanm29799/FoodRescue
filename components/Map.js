@@ -25,7 +25,7 @@ Map = () => {
       });
      
     });
-    console.log("BusinessLocation: ", businessLoc);
+    
     setBusinessLoc(businessLoc);
   });
   }, []);
