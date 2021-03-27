@@ -37,8 +37,6 @@ const LoginScreen = (props) => {
   var userid;
   var user1;
 
-  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-
   signIn = () => {
     if (!email.trim() || validation.test(email) === false) {
       alert("Please Enter a valid Email");

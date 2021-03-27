@@ -60,17 +60,21 @@ const FoodCountdown = (props) => {
     productRef
       .put(blob)
       .then(async function () {
-        dbconnection.collection("Products").doc(x).set({
-          itemName: itemName,
-          quantity: quantity,
-          usualPrice: usualPrice,
-          newPrice: newPrice,
-          hours: time.itemValue,
-          foodCountdown: "Yes",
-          businessID: uid,
-          docId: x,
-          image: x,
-        });
+        dbconnection
+          .collection("Products")
+          .doc(x)
+          .set({
+            itemName: itemName,
+            quantity: parseInt(quantity),
+            usualPrice: usualPrice,
+            newPrice: newPrice,
+            hours: time.itemValue,
+            foodCountdown: "Yes",
+            businessID: uid,
+            docId: x,
+            image: x,
+            created: firebase.firestore.FieldValue.serverTimestamp(),
+          });
         console.log("Success");
         Alert.alert("Uploaded!", "Your product has been uploaded");
       })

@@ -78,6 +78,7 @@ const NormalProduct = (props, { finalQuan }) => {
           businessID: uid,
           image: x,
           docId: x,
+          created: firebase.firestore.FieldValue.serverTimestamp(),
         });
         console.log("Success");
         Alert.alert("Uploaded!", "Your product has been uploaded");

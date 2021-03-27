@@ -12,8 +12,7 @@ import {
 import Colour from "../constants/Colour";
 import MapView, { Marker } from "react-native-maps";
 import * as firebase from "firebase";
-import { BUSINESS } from "../Data/BusinessDataExample";
-import { CATEGORIES } from "../Data/SortDataExample";
+
 import {
   scale,
   verticalScale,
@@ -41,30 +40,31 @@ const MainScreen = (props) => {
       latitude: latitude,
     };
 
-    dbconnection.collection("businessDetails").onSnapshot((querySnapshot) => {
-      var businessLoc = [];
-      querySnapshot.forEach(function (doc) {
-        const BusinessLocation = {
-          longitude: parseFloat(doc.data().longitude),
-          latitude: parseFloat(doc.data().latitude),
-        };
+    dbconnection
+      .collection("businessDetails")
+      .where("quantity", ">", 0)
+      .onSnapshot((querySnapshot) => {
+        var businessLoc = [];
 
-        console.log(BusinessLocation);
-        const distance = haversine(userLoc, BusinessLocation).toFixed(2);
+        querySnapshot.forEach(function (doc) {
+          const BusinessLocation = {
+            longitude: parseFloat(doc.data().longitude),
+            latitude: parseFloat(doc.data().latitude),
+          };
 
-        businessLoc.push({
-          ...doc.data(),
-          key: doc.id,
-          distance: distance,
+          const distance = haversine(userLoc, BusinessLocation).toFixed(2);
+
+          businessLoc.push({
+            ...doc.data(),
+            key: doc.id,
+            distance: distance,
+          });
         });
+
+        businessLoc = businessLoc.sort((a, b) => a.distance - b.distance);
+        console.log(businessLoc);
+        setBusinessLoc(businessLoc);
       });
-
-      businessLoc = businessLoc.sort((a, b) => a.distance - b.distance);
-
-      console.log("BusinessLocation: ", businessLoc);
-
-      setBusinessLoc(businessLoc);
-    });
   }, []);
 
   const renderCategory = (itemData) => {
@@ -77,6 +77,8 @@ const MainScreen = (props) => {
             params: {
               BusinessName: itemData.item.name,
               ID: itemData.item.key,
+              busLong: parseFloat(itemData.item.longitude),
+              busLat: parseFloat(itemData.item.latitude),
             },
           });
         }}
@@ -112,17 +114,7 @@ const MainScreen = (props) => {
       </TouchableOpacity>
     );
   };
-  const SortID = props.navigation.getParam("SortID");
-  //prettier-ignore
-  const selectedCategory = CATEGORIES.find(sort => sort.id === SortID);
 
-  const displayMessage = () => {
-    if (selectedCategory === undefined) {
-      return <Text style={styles.sortName}></Text>;
-    } else {
-      return <Text style={styles.sortName}>{selectedCategory.title}</Text>;
-    }
-  };
   return (
     <View style={{ width: "100%", justifyContent: "flex-end" }}>
       <View style={styles.MapBorder}>
@@ -137,8 +129,6 @@ const MainScreen = (props) => {
           height: "40%",
         }}
       >
-        {displayMessage()}
-
         <FlatList
           style={{ width: "90%" }}
           data={businessLoc}

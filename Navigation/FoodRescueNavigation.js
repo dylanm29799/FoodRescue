@@ -19,6 +19,7 @@ import SortScreen from "../screens/SortScreen";
 import CartScreen from "../screens/CartScreen";
 import aboutus from "../screens/aboutus";
 import forgotPassword from "../screens/forgotPassword";
+import Receipt from "../screens/Receipt";
 
 import BusinessHome from "../BusinessScreens/BusinessHome";
 import BusinessRegister from "../BusinessScreens/BusinessRegister";
@@ -44,7 +45,9 @@ SortScreen.navigationOptions = {
 LoginScreen.navigationOptions = {
   headerShown: false,
 };
-
+Receipt.navigationOptions = {
+  headerShown: false,
+};
 RegisterScreen.navigationOptions = {
   headerShown: false,
 };
@@ -65,7 +68,6 @@ BusinessListScreen.navigationOptions = (props) => {
     headerTitle: title,
     headerStyle: {
       backgroundColor: Colour.primaryColour,
-      fontSize: scale(22),
     },
     headerTitleAlign: "center",
     headerTintColor: "white",
@@ -119,7 +121,6 @@ BusinessEdit.navigationOptions = (props) => {
     headerTitle: productTitle,
     headerStyle: {
       backgroundColor: Colour.primaryColour,
-      fontSize: scale(22),
     },
     headerTitleAlign: "center",
     headerTintColor: "white",
@@ -150,7 +151,6 @@ ItemDetailScreen.navigationOptions = (props) => {
     headerTitle: title,
     headerStyle: {
       backgroundColor: Colour.primaryColour,
-      fontSize: scale(22),
     },
     headerTitleAlign: "center",
     headerTintColor: "white",
@@ -246,6 +246,7 @@ const FoodRescueNavigator = createStackNavigator({
   CorrectLocation: CorrectLocation,
   BusinessEdit: BusinessEdit,
   BusinessProfile: BusinessProfile,
+  Receipt: Receipt,
 });
 const sortStack = createStackNavigator({
   Sort: SortScreen,
