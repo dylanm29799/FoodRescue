@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     justifyContent: "center",
     padding: scale(3),
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     fontSize: scale(15),
   },
   textInputAlert: {
@@ -259,16 +259,16 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     width: "70%",
     alignSelf: "center",
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     fontSize: scale(15),
   },
   all: {
     padding: scale(3),
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     fontSize: scale(12),
   },
   delete: {
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     fontSize: scale(14),
     color: "red",
     justifyContent: "flex-end",
@@ -285,7 +285,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderColor: "black",
     borderWidth: 1,
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
   },
   signOut: {
     paddingLeft: scale(10),

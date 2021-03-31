@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, componentDidMount } from "react";
 import {
   View,
   Text,
@@ -15,9 +15,9 @@ import MapView, { Marker } from "react-native-maps";
 import { ScrollView } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { concat } from "react-native-reanimated";
-
-const Receipt = (props) => {
+import Dialog from "react-native-dialog";
+import ButtonCustom from "../constants/ButtonCustom";
+const businessReceipt = (props) => {
   var orderID = props.navigation.getParam("orderID");
   var user = firebase.auth().currentUser;
   const dbconnection = firebase.firestore();
@@ -29,6 +29,7 @@ const Receipt = (props) => {
   const [quantity, setQuantity] = useState("");
   const [long, setLong] = useState(0);
   const [lat, setLat] = useState(0);
+  const [userID, setUserID] = useState("Standard");
 
   const [busName, setBusName] = useState("");
   const [busLong, setBusLong] = useState(0);
@@ -38,9 +39,11 @@ const Receipt = (props) => {
   const [productName, setProductName] = useState("");
   const [productUsualPrice, setProductUsualPrice] = useState("");
   const [finalDate, setFinalDate] = useState("");
-  const [Status, setStatus] = useState("");
+  const [newStatus, setStatus] = useState("");
+  const [name, setName] = useState("");
   var newDate = new Date();
   const [time, setTime] = useState(0);
+  const [confirm, setConfirm] = useState(false);
   useEffect(() => {
     dbconnection
       .collection("OrderDetails")
@@ -63,6 +66,7 @@ const Receipt = (props) => {
           setProductName(doc.data().productName);
           setProductUsualPrice(parseInt(doc.data().productUsualPrice));
           setStatus(doc.data().Status);
+          setUserID(doc.data().userID);
         } else {
           console.log("Nothing There");
         }
@@ -83,12 +87,63 @@ const Receipt = (props) => {
         setTime(created.getHours() + ":" + mins);
         console.log(time);
       });
-  }, []);
 
-  var saveAmount = 1 - price / productUsualPrice;
-  var newSaveAmount = 100 * saveAmount;
-  var finalSave = Math.round(newSaveAmount);
+    dbconnection
+      .collection("userDetails")
+      .doc(userID)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setName(doc.data().firstName + " " + doc.data().lastName);
+        }
+      });
+  }, [userID]);
+
+  const submit = (userClick) => {
+    dbconnection
+      .collection("OrderDetails")
+      .doc(ID)
+      .update({
+        Status: userClick,
+      })
+      .then(() => {
+        console.log("Document successfully updated!");
+        props.navigation.navigate({ routeName: "BusinessManage" });
+      })
+      .catch((error) => {
+        // The document probably doesn't exist.
+        console.error("Error updating document: ", error);
+      });
+  };
+
+  const handleCancel = () => {
+    setConfirm(false);
+    submit("Cancelled");
+  };
+
+  const handleComplete = () => {
+    setConfirm(false);
+    submit("Completed");
+  };
+  const handleProgress = () => {
+    setConfirm(false);
+    submit("In Progress");
+  };
+
   var totalPrice = parseInt(quantity) * parseInt(price);
+
+  const haversine = require("haversine");
+  var userLoc = { longitude: long, latitude: lat };
+  var BusinessLocation = { longitude: busLong, latitude: busLat };
+  const distance = haversine(userLoc, BusinessLocation).toFixed(2);
+  var Colour = "#fff";
+  if (newStatus == "In Progress") {
+    Colour = "#ffc575";
+  } else if (newStatus == "Completed") {
+    Colour = "#d3f8d3";
+  } else if (newStatus == "Cancelled") {
+    Colour = "#ff6961";
+  }
   return (
     <View style={{ flex: 1, backgroundColor: "#fff2e0" }}>
       <ScrollView
@@ -109,7 +164,7 @@ const Receipt = (props) => {
             borderBottomWidth: 1,
           }}
         >
-          Thank you for your order
+          Order has been placed by {name}
         </Text>
 
         <View
@@ -139,7 +194,7 @@ const Receipt = (props) => {
               fontFamily: "MonL",
             }}
           >
-            Your order ID is {ID}
+            The order ID is {ID}
           </Text>
         </View>
 
@@ -174,38 +229,105 @@ const Receipt = (props) => {
           </Marker>
         </MapView>
         <Text style={styles.heading}>
-          Your order at {busName} has been confirmed!
+          {name} was {distance}km away when they ordered
         </Text>
-        <View style={styles.order}>
-          <View
+
+        <View style={[styles.order, { backgroundColor: Colour }]}>
+          <Text
             style={{
-              alignItems: "center",
-              marginBottom: scale(10),
+              fontFamily: "MonB",
+              fontSize: scale(17),
+              textAlign: "center",
             }}
           >
-            <Text style={styles.left}>WHAT YOU BOUGHT:</Text>
+            Order Details
+          </Text>
+          <View
+            style={{
+              justifyContent: "space-between",
+              marginBottom: scale(10),
+              flexDirection: "row",
+              marginTop: scale(10),
+            }}
+          >
             <Text style={styles.right}>
-              {quantity}x {productName}
+              {quantity}x {productName}:
             </Text>
-          </View>
-          <View style={{ alignItems: "center", marginBottom: scale(10) }}>
-            <Text style={styles.left}>TOTAL PRICE:</Text>
             <Text style={styles.right}>€{totalPrice}</Text>
           </View>
+          <View
+            style={{ alignItems: "center", marginBottom: scale(10) }}
+          ></View>
+
           <View style={{ alignItems: "center", marginBottom: scale(10) }}>
-            <Text style={styles.left}>YOUR SAVINGS WITH US:</Text>
-            <Text style={styles.right}>{finalSave}%</Text>
-          </View>
-          <View style={{ alignItems: "center", marginBottom: scale(10) }}>
-            <Text style={styles.left}>TIME OF PURCHASE:</Text>
             <Text style={styles.right}>
               {finalDate.toString()} {time}
             </Text>
           </View>
           <View style={{ alignItems: "center", justifyContent: "flex-end" }}>
-            <Text style={styles.left}>STATUS:</Text>
-            <Text style={styles.right}>{Status}</Text>
+            <Text style={styles.right}>Order {newStatus}</Text>
           </View>
+
+          <TouchableOpacity
+            onPress={() => setConfirm(true)}
+            style={{
+              width: "50%",
+              alignSelf: "center",
+              borderColor: "white",
+              borderWidth: 1,
+              borderRadius: 20,
+              width: "50%",
+              marginTop: 30,
+              backgroundColor: "#6B6B6B",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: scale(13),
+                fontFamily: "MonM",
+                textAlign: "center",
+                color: "white",
+              }}
+            >
+              CHANGE STATUS?
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <Dialog.Container
+            style={{ textAlign: "center", alignItems: "center" }}
+            visible={confirm}
+          >
+            <Dialog.Title
+              style={{ fontSize: 20, fontFamily: "MonM", textAlign: "center" }}
+            >
+              Update the status of this order
+            </Dialog.Title>
+            <Dialog.Description
+              style={{ fontSize: 15, fontFamily: "MonM", textAlign: "center" }}
+            >
+              Please Click one of the options below
+            </Dialog.Description>
+            <View
+              style={{ justifyContent: "space-around", flexDirection: "row" }}
+            >
+              <Dialog.Button
+                style={styles.button}
+                label="Cancelled"
+                onPress={handleCancel}
+              />
+              <Dialog.Button
+                style={styles.button}
+                label="In Progress"
+                onPress={handleProgress}
+              />
+              <Dialog.Button
+                style={styles.button}
+                label="Completed"
+                onPress={handleComplete}
+              />
+            </View>
+          </Dialog.Container>
         </View>
       </ScrollView>
     </View>
@@ -227,14 +349,14 @@ const styles = StyleSheet.create({
     fontSize: scale(18),
     textAlign: "center",
     paddingTop: "5%",
-    borderBottomWidth: 1,
+
     marginBottom: "5%",
   },
 
   order: {
-    width: "75%",
-    justifyContent: "space-evenly",
-    backgroundColor: "#d3f8d3",
+    height: "30%",
+    width: "80%",
+    backgroundColor: "#fff",
     padding: 60,
   },
   left: {
@@ -245,6 +367,11 @@ const styles = StyleSheet.create({
     fontFamily: "MonM",
     fontSize: scale(16),
   },
+
+  button: {
+    fontFamily: "MonL",
+    fontSize: scale(16),
+  },
 });
 
-export default Receipt;
+export default businessReceipt;

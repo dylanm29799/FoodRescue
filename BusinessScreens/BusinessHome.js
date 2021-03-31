@@ -7,18 +7,6 @@ import { Fontisto } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 const BusinessHome = (props) => {
-  onSignOut = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        // Sign-out successful.
-        props.navigation.navigate({ routeName: "Login" });
-      })
-      .catch((error) => {
-        // An error happened.
-      });
-  };
   return (
     <View style={styles.Screen}>
       <View
@@ -26,7 +14,7 @@ const BusinessHome = (props) => {
           styles.items2,
           {
             borderBottomWidth: 4,
-            borderBottomColor: "#fff",
+            borderBottomColor: Colour.primaryColour,
           },
         ]}
       >
@@ -93,7 +81,7 @@ const styles = StyleSheet.create({
   Screen: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: Colour.primaryColour,
+    backgroundColor: "#ffecd2",
   },
   items2: { height: "50%", flexDirection: "row" },
   text: {
@@ -105,22 +93,25 @@ const styles = StyleSheet.create({
   touchable: {
     width: "50%",
     height: "100%",
-    borderColor: "white",
+    borderColor: Colour.primaryColour,
 
     borderLeftWidth: 2,
     borderRightWidth: 2,
     borderBottomWidth: 0,
     borderTopWidth: 0,
     justifyContent: "center",
+    alignItems: "center",
   },
   touchableText: {
-    color: "#fff",
+    color: "black",
     textAlign: "center",
+    maxWidth: "80%",
     marginTop: scale(50),
     fontSize: scale(14),
+    fontFamily: "MonM",
   },
   icon: {
-    color: "#fff",
+    color: Colour.primaryColour,
     alignSelf: "center",
   },
   logout: {
@@ -132,7 +123,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderColor: "black",
     borderWidth: 1,
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
   },
   signOut: {
     paddingLeft: scale(10),

@@ -139,13 +139,13 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     justifyContent: "center",
     padding: scale(3),
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     fontSize: scale(15),
   },
 
   all: {
     paddingTop: scale(10),
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     fontSize: scale(12),
   },
 });

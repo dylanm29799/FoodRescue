@@ -23,6 +23,7 @@ const ItemDetailScreen = (props) => {
   var newQuantity = quantity;
   const hours = props.navigation.getParam("hours");
   var docRef = dbconnection.collection("Products").doc(productID);
+  var user = firebase.auth().currentUser;
   const image = props.navigation.getParam("image");
   const newPrice = props.navigation.getParam("newPrice");
   const usualPrice = props.navigation.getParam("usualPrice");
@@ -114,6 +115,8 @@ const ItemDetailScreen = (props) => {
                 busNumber: busNumber,
                 productName: productName,
                 productUsualPrice: productUsualPrice,
+                userID: user.uid,
+                Status: "In Progress",
               });
               props.navigation.navigate({
                 routeName: "Receipt",
@@ -189,6 +192,7 @@ const styles = StyleSheet.create({
     color: "#3b3b3b",
     maxWidth: "66%",
     paddingBottom: 10,
+    textAlign: "center",
   },
   price: {
     fontFamily: "MonB",

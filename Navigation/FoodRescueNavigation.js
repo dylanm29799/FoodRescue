@@ -1,5 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "react-navigation-stack";
+import { Text } from "react-native";
 import {
   createBottomTabNavigator,
   createTabNavigator,
@@ -20,6 +21,7 @@ import CartScreen from "../screens/CartScreen";
 import aboutus from "../screens/aboutus";
 import forgotPassword from "../screens/forgotPassword";
 import Receipt from "../screens/Receipt";
+import UserOrders from "../screens/UserOrders";
 
 import BusinessHome from "../BusinessScreens/BusinessHome";
 import BusinessRegister from "../BusinessScreens/BusinessRegister";
@@ -30,6 +32,7 @@ import BusinessManage from "../BusinessScreens/BusinessManage";
 import CorrectLocation from "../BusinessScreens/CorrectLocation";
 import BusinessEdit from "../BusinessScreens/BusinessEditProduct";
 import BusinessProfile from "../BusinessScreens/businessProfile";
+import businessReceipt from "../BusinessScreens/businessReceipt";
 import { MaterialIcons } from "@expo/vector-icons";
 import { BUSINESS } from "../Data/BusinessDataExample";
 import { scale } from "../components/ResponsiveText";
@@ -46,6 +49,9 @@ LoginScreen.navigationOptions = {
   headerShown: false,
 };
 Receipt.navigationOptions = {
+  headerShown: false,
+};
+businessReceipt.navigationOptions = {
   headerShown: false,
 };
 RegisterScreen.navigationOptions = {
@@ -166,6 +172,9 @@ aboutus.navigationOptions = {
   headerTintColor: "white",
 };
 
+UserOrders.navigationOptions = {
+  headerShown: false,
+};
 //Business Side Headers
 
 BusinessRegister.navigationOptions = {
@@ -182,12 +191,7 @@ BusinessLocation.navigationOptions = {
 };
 
 BusinessHome.navigationOptions = {
-  headerTitle: "Edit Your Business Settings",
-  headerStyle: {
-    backgroundColor: Colour.primaryColour,
-  },
-  headerTitleAlign: "center",
-  headerTintColor: "white",
+  headerShown: false,
 };
 
 CorrectLocation.navigationOptions = {
@@ -235,7 +239,7 @@ const FoodRescueNavigator = createStackNavigator({
   Profile: ProfileScreen,
   Cart: CartScreen,
   forgotPassword: forgotPassword,
-
+  Receipt: Receipt,
   //BusinessScreens
   BusinessHome: BusinessHome,
   BusinessRegister: BusinessRegister,
@@ -246,19 +250,22 @@ const FoodRescueNavigator = createStackNavigator({
   CorrectLocation: CorrectLocation,
   BusinessEdit: BusinessEdit,
   BusinessProfile: BusinessProfile,
-  Receipt: Receipt,
+  businessReceipt: businessReceipt,
 });
 const sortStack = createStackNavigator({
   Sort: SortScreen,
 });
-
+const userOrderStack = createStackNavigator({
+  UserOrders: UserOrders,
+});
 const aboutUsStack = createStackNavigator({
   "About Us": aboutus,
 });
 const MainNavigator = createDrawerNavigator({
   FoodRescue: FoodRescueNavigator,
-  Sort: sortStack,
+  "What do you Fancy?": sortStack,
   "About us": aboutUsStack,
+  "Your Order's": userOrderStack,
 });
 
 export default createAppContainer(MainNavigator);

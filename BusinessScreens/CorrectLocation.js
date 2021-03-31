@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -9,35 +9,81 @@ import {
 import { TextInput } from "react-native-gesture-handler";
 import { scale } from "../components/ResponsiveText";
 import Colour from "../constants/Colour";
-
+import Geocoder from "react-native-geocoding";
+import MapView, { Marker } from "react-native-maps";
+import * as firebase from "firebase";
+import "firebase/firestore";
 const CorrectLocation = (props) => {
+  const dbconnection = firebase.firestore();
+  Geocoder.init("AIzaSyAZHSAnfYc7nm3UbyJtJr_NgLIKmZf-Tfk", { language: "en" });
+  var user = firebase.auth().currentUser;
+  const [geoCode, setGeoCode] = useState("");
+  const [lng, setLng] = useState(-6.2603);
+  const [lat, setLat] = useState(53.3498);
+  const runGeocode = () => {
+    Geocoder.from(geoCode)
+      .then((json) => {
+        var location = json.results[0].geometry.location;
+        console.log(location);
+        setLat(location.lat);
+        setLng(location.lng);
+      })
+      .catch((error) => console.warn(error));
+  };
+
+  const runUpdate = () => {
+    dbconnection
+      .collection("businessDetails")
+      .doc(user.uid)
+      .get()
+      .then(function (doc) {
+        if (doc.exists) {
+          console.log("Success");
+          return dbconnection
+            .collection("businessDetails")
+            .doc(user.uid)
+            .update({ longitude: lng, latitude: lat });
+        }
+      })
+      .then(function () {
+        console.log("Navigating");
+        props.navigation.navigate({ routeName: "BusinessHome" });
+      });
+  };
+
   return (
     <View style={styles.Screen}>
-      <Text style={styles.text}>Please Input your Longitude and Latitude</Text>
-      <Text
-        style={styles.text}
-        onPress={() => Linking.openURL("https://www.latlong.net/")}
-      >
-        You can find your Longitude and Latitude{" "}
-        <Text
-          style={{
-            textDecorationLine: "underline",
-            color: Colour.primaryColour,
-          }}
-        >
-          here
-        </Text>
-      </Text>
-      <TextInput style={styles.textInput} placeholder="Longitude"></TextInput>
-      <TextInput style={styles.textInput} placeholder="Latitude"></TextInput>
-      <TouchableOpacity
-        onPress={() => {
-          props.navigation.navigate({
-            routeName: "BusinessHome",
-          });
+      <Text style={styles.text}>Please enter your address here:</Text>
+      <TextInput
+        style={styles.textInput}
+        placeholder="18 City Quay, Dublin"
+        onChangeText={setGeoCode}
+      ></TextInput>
+
+      <TouchableOpacity onPress={runGeocode} style={styles.touchable}>
+        <Text style={styles.touchableText}>Check</Text>
+      </TouchableOpacity>
+
+      <MapView
+        style={{ width: "80%", height: "30%" }}
+        region={{
+          longitude: lng,
+          latitude: lat,
+          latitudeDelta: 0.02,
+          longitudeDelta: 0.0,
         }}
-        style={styles.touchable}
       >
+        <Marker
+          coordinate={{ latitude: lat, longitude: lng }}
+          pinColor={Colour.primaryColour}
+          title={"Business Name"}
+        />
+      </MapView>
+      <Text style={styles.text}>
+        Once you're happy with your address, click Submit
+      </Text>
+      <Text style={{ paddingVertical: scale(2) }}></Text>
+      <TouchableOpacity onPress={runUpdate} style={styles.touchable}>
         <Text style={styles.touchableText}>Submit</Text>
       </TouchableOpacity>
     </View>
@@ -51,27 +97,33 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    fontSize: scale(13),
+    fontSize: scale(16),
+    fontFamily: "MonM",
+    textAlign: "center",
+    maxWidth: "80%",
+    paddingTop: scale(30),
   },
   textInput: {
     borderBottomColor: Colour.primaryColour,
     borderBottomWidth: 2,
-    width: "50%",
+    width: "80%",
     marginVertical: scale(10),
     paddingTop: scale(10),
+    textAlign: "center",
+    fontFamily: "MonM",
   },
   touchable: {
     height: scale(30),
     width: scale(70),
     backgroundColor: Colour.primaryColour,
     justifyContent: "center",
-    marginTop: scale(15),
+    marginBottom: scale(15),
     marginHorizontal: scale(10),
   },
   touchableText: {
     color: "#fff",
-    fontFamily: "OpenSans",
-    fontWeight: "bold",
+    fontFamily: "MonB",
+
     textAlign: "center",
     fontSize: scale(12),
   },

@@ -160,24 +160,24 @@ const styles = StyleSheet.create({
   },
   heading: { justifyContent: "space-evenly", padding: 10 },
   text1: {
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     fontSize: scale(20),
     height: "33%",
     color: "white",
   },
   text2: {
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     height: "33%",
     color: "white",
     paddingTop: scale(10),
   },
 
-  text3: { fontFamily: "OpenSans", height: "33%", color: "white" },
+  text3: { fontFamily: "MonM", height: "33%", color: "white" },
 
   sortName: {
     fontSize: scale(30),
     textAlign: "center",
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     paddingVertical: scale(10),
   },
   Categories: {
