@@ -5,7 +5,7 @@ import { Platform, Text, View, StyleSheet } from "react-native";
 import * as Location from "expo-location";
 import Colour from "../constants/Colour";
 import { scale } from "../components/ResponsiveText";
-import Map from "../components/Map";
+import BusinessMap from "../components/businessMap";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import * as firebase from "firebase";
 import "firebase/firestore";
@@ -46,7 +46,7 @@ const BusinessLocation = (props) => {
 
   return (
     <View style={styles.container}>
-      <Map style={styles.Map} />
+      <BusinessMap style={styles.Map} />
 
       <View style={styles.textOverMap}>
         <TouchableOpacity style={styles.touchable} onPress={correctLocation}>

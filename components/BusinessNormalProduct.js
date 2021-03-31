@@ -42,46 +42,60 @@ const BusinessNormalProduct = (props) => {
       });
   }, []);
 
-  const renderCategory = (item) => {
+  const renderCategory = (itemData) => {
     return (
       <TouchableOpacity
         style={styles.Categories}
         onPress={() => {
           props.navigation.navigate({
-            routeName: "BusinessEdit",
+            routeName: "ItemDetail",
             params: {
-              productName: item.item.itemName,
-              productKey: item.item.docId,
+              BusinessID: busID,
+              productID: itemData.item.key,
+              image: itemData.item.image,
+              itemName: itemData.item.itemName,
+              usualPrice: itemData.item.usualPrice,
+              newPrice: itemData.item.newPrice,
+              quantity: itemData.item.quantity,
+              hours: itemData.item.hours,
+              foodCountdown: itemData.item.foodCountdown,
             },
           });
         }}
       >
         <View style={styles.item}>
           <Image
-            style={{
-              height: "80%",
-              width: "100%",
-              borderRadius: 22,
-            }}
-            source={{ uri: item.item.image }}
+            style={{ height: "75%", width: "100%", borderRadius: 15 }}
+            source={{ uri: itemData.item.image }}
           />
-          <View>
-            <Text style={styles.text1} numberOfLines={2} ellipsizeMode={"tail"}>
-              {item.item.itemName}
+          <View
+            style={{
+              width: scale(40),
+              height: scale(40),
+              position: "absolute",
+              backgroundColor: "white",
+              alignItems: "center",
+              borderRadius: 30,
+              borderWidth: 2,
+              borderColor: "rgba(154, 18, 179, 1)",
+              justifyContent: "center",
+              marginTop: scale(17),
+              marginLeft: scale(12),
+            }}
+          >
+            <Text style={styles.text4}> €{itemData.item.newPrice}</Text>
+          </View>
+
+          <View style={styles.heading}>
+            <Text numberOfLines={1} style={styles.text1}>
+              {itemData.item.itemName}
             </Text>
-
-            <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <Text style={{ fontFamily: "OpenSans", paddingRight: 20 }}>
-                {item.item.quantity} Available
-              </Text>
-
-              <Text style={styles.text3}>€{item.item.usualPrice}</Text>
-              <Text style={[styles.text4, { borderRightColor: "transparent" }]}>
-                €{item.item.newPrice}
-              </Text>
-            </View>
+            <Text style={styles.text2}>
+              {itemData.item.quantity} Items left!
+            </Text>
           </View>
         </View>
+        <Text style={styles.text3}>Price was €{itemData.item.usualPrice}</Text>
       </TouchableOpacity>
     );
   };
@@ -91,11 +105,11 @@ const BusinessNormalProduct = (props) => {
       <Text style={styles.sortName}>Ordinary Products</Text>
 
       <FlatList
-        style={{ flex: 1, width: "90%" }}
+        style={{ flex: 1, width: "95%" }}
         data={product}
         renderItem={renderCategory}
-        numColumns={2}
         keyExtractor={(item) => item.docId}
+        horizontal={true}
       />
     </View>
   );
@@ -108,52 +122,58 @@ const styles = StyleSheet.create({
     paddingTop: scale(15),
     width: "100%",
     marginBottom: scale(15),
+    borderRadius: 15,
   },
-
   text1: {
-    fontSize: scale(13),
-    fontFamily: "OpenSans",
-    width: "90%",
+    fontSize: scale(17),
+    fontFamily: "MonB",
+    width: "100%",
     overflow: "scroll",
-    paddingLeft: 20,
+    paddingLeft: scale(5),
     paddingTop: 10,
+    color: "#3b3b3b",
   },
   text2: {
-    textAlign: "right",
     paddingRight: "5%",
-    fontSize: scale(15),
-    fontFamily: "OpenSans",
+    paddingLeft: scale(5),
+    fontSize: scale(11),
+    fontFamily: "MonM",
+    color: "black",
   },
 
   text3: {
-    fontSize: scale(10),
-    textDecorationLine: "line-through",
-    textDecorationStyle: "solid",
-    fontFamily: "OpenSans",
-    borderRightColor: "#808080",
-    borderRightWidth: 1,
+    fontSize: scale(8),
+    alignSelf: "center",
+    fontFamily: "MonM",
     paddingRight: 5,
+    color: "#3b3b3b",
+    marginTop: scale(-20),
+    paddingBottom: scale(10),
   },
 
   text4: {
-    fontSize: scale(10),
-    fontFamily: "OpenSans",
-    borderRightWidth: 1,
+    fontSize: scale(13),
+    fontFamily: "MonM",
+    color: "rgba(154, 18, 179, 1)",
     paddingRight: 5,
   },
+
   Categories: {
     flexDirection: "column",
-    backgroundColor: "#fffaf5",
+    backgroundColor: "#ffc87c",
     flex: 1,
-    borderWidth: 0.5,
+    borderWidth: 1,
     borderRadius: 15,
     marginHorizontal: 0.1,
-    borderColor: "#808080",
+    borderColor: "white",
+    marginHorizontal: 5,
+    minWidth: scale(180),
+    maxWidth: scale(180),
   },
   sortName: {
     fontSize: scale(20),
     textAlign: "center",
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     paddingVertical: scale(10),
   },
 });

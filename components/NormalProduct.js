@@ -160,7 +160,7 @@ const NormalProduct = (props, { finalQuan }) => {
       </Picker>
       <Text
         onPress={pickImage}
-        style={{ fontFamily: "OpenSans", fontSize: 16, paddingVertical: 10 }}
+        style={{ fontFamily: "MonM", fontSize: 16, paddingVertical: 10 }}
       >
         Pick an image
       </Text>
@@ -203,13 +203,13 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     justifyContent: "center",
     padding: scale(3),
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     fontSize: scale(15),
   },
 
   text: {
     paddingTop: scale(10),
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     fontSize: scale(12),
   },
   touchable: {
@@ -244,13 +244,13 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
     fontSize: scale(12),
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
   },
   notPickedText: {
     color: Colour.primaryColour,
     textAlign: "center",
     fontSize: scale(12),
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
   },
 
   category: {

@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   appButtonText: {
     color: Colour.secondaryColour,
     fontSize: scale(18),
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     width: scale(150),
     alignItems: "center",
     textAlign: "center",

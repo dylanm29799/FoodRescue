@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import Colour from "../constants/Colour";
-
+const { height } = Dimensions.get("window");
 import UserSignedIn from "../components/UserSignedIn";
 import { scale } from "../components/ResponsiveText";
 import * as firebase from "firebase";
@@ -142,7 +142,7 @@ const LoginScreen = (props) => {
             style={{
               textAlign: "right",
               alignSelf: "stretch",
-              fontFamily: "OpenSans",
+              fontFamily: "MonM",
               fontSize: scale(12),
               paddingBottom: 10,
             }}
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   signUp: {
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     fontSize: scale(10),
     borderBottomWidth: 1,
     width: scale(100),
@@ -272,8 +272,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   all: {
-    fontSize: scale(12),
-    fontFamily: "OpenSans",
+    fontSize: scale(11),
+    fontFamily: "MonM",
     color: "white",
     width: scale(100),
     padding: 10,

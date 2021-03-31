@@ -16,6 +16,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ScrollView } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
+import business from "../models/business";
 const BusinessListScreen = (props) => {
   const businessName = props.navigation.getParam("BusinessName");
   const busID = props.navigation.getParam("ID");
@@ -64,7 +65,7 @@ const BusinessListScreen = (props) => {
             key: doc.data().docId,
           });
         });
-
+        console.log(businessLoadData);
         setBusinessLoadData(businessLoadData);
       });
   }, []);
@@ -140,28 +141,33 @@ const BusinessListScreen = (props) => {
 
     var todayAsMin = today.getHours() * 60 + today.getMinutes();
     var endAsMin = finishDate.getHours() * 60 + finishDate.getMinutes();
-    var startAsMin = start.getHours() * 60 + start.getMinutes();
+    var startAsMin = start.getHours() * 60 + start.getMinutes() + 60;
 
     //https://math.stackexchange.com/questions/1667064/formula-to-get-percentage-from-a-target-start-and-current-numbers
     var Current_Start = todayAsMin - startAsMin;
     var total_start = endAsMin - startAsMin;
     var hourlyPrice = Current_Start / total_start;
 
-    var hoursRemaining = finishDate.getHours() - today.getHours();
+    var hoursRemaining = finishDate.getHours() + 1 - today.getHours();
     var minutesRemaining = finishDate.getMinutes() - today.getMinutes();
     if (minutesRemaining < 0) {
-      hoursRemaining = hoursRemaining - 1;
       minutesRemaining = 60 + minutesRemaining;
     }
 
     var discount = itemData.item.usualPrice - itemData.item.newPrice;
     var newDiscount = discount * hourlyPrice;
     var finalPrice = itemData.item.usualPrice - newDiscount;
-
+    console.log(
+      discount,
+      newDiscount,
+      finalPrice,
+      hourlyPrice,
+      itemData.item.itemName
+    );
     if (
       (hourlyPrice < 1) &
-      (itemData.item.quantity < 0) &
-      (dateAsString == startDateAsString)
+      (itemData.item.quantity > 0) &
+      (startDateAsString == dateAsString)
     ) {
       return (
         <TouchableOpacity
@@ -175,7 +181,7 @@ const BusinessListScreen = (props) => {
                 image: itemData.item.image,
                 itemName: itemData.item.itemName,
                 usualPrice: itemData.item.usualPrice,
-                newPrice: itemData.item.newPrice,
+                newPrice: finalPrice.toFixed(2),
                 quantity: itemData.item.quantity,
                 hours: itemData.item.hours,
                 foodCountdown: itemData.item.foodCountdown,
@@ -363,7 +369,7 @@ const styles = StyleSheet.create({
   text3: {
     fontSize: scale(8),
     alignSelf: "center",
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     paddingRight: 5,
     color: "#3b3b3b",
     marginTop: scale(-20),
@@ -372,7 +378,7 @@ const styles = StyleSheet.create({
 
   text4: {
     fontSize: scale(13),
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     color: "rgba(154, 18, 179, 1)",
     paddingRight: 5,
   },
@@ -380,7 +386,7 @@ const styles = StyleSheet.create({
   sortName: {
     fontSize: scale(20),
     textAlign: "center",
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
     paddingVertical: scale(5),
     color: "#444444",
   },

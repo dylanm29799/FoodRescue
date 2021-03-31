@@ -8,7 +8,7 @@ const Footer = ({ footerColor }) => {
     <View style={styles.container}>
       <Text
         style={{
-          fontFamily: "OpenSans",
+          fontFamily: "MonM",
           fontSize: scale(10),
           borderBottomWidth: 1,
           width: scale(100),

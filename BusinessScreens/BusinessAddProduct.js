@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     marginTop: scale(10),
     fontSize: scale(13),
     textAlign: "center",
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
   },
 
   touchable: {
@@ -169,13 +169,13 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
     fontSize: scale(12),
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
   },
   notPickedText: {
     color: Colour.primaryColour,
     textAlign: "center",
     fontSize: scale(12),
-    fontFamily: "OpenSans",
+    fontFamily: "MonM",
   },
 
   category: {

@@ -9,6 +9,7 @@ import {
   Alert,
   Linking,
   ImageBackground,
+  Dimensions,
 } from "react-native";
 import Colour from "../constants/Colour";
 import { scale } from "../components/ResponsiveText";
@@ -23,11 +24,13 @@ import Footer from "../components/Footer";
 import "firebase/storage";
 import { Picker } from "@react-native-picker/picker";
 import { useEffect } from "react/cjs/react.development";
+
+const { height } = Dimensions.get("window");
 const BusinessRegister = (props) => {
   const dbconnection = firebase.firestore();
   //validation is used for validation of emails
   let validation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
+  var result = "";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,6 +62,8 @@ const BusinessRegister = (props) => {
 
     if (!result.cancelled) {
       setImage(result.uri);
+    } else if (result == "") {
+      alert("Something went wrong, try again!");
     }
   };
 
@@ -77,7 +82,7 @@ const BusinessRegister = (props) => {
       .catch(function (error) {
         console.log("Error getting document:", error);
       });
-  });
+  }, []);
 
   signUp = () => {
     //Check for the Name firstName
@@ -194,10 +199,10 @@ const BusinessRegister = (props) => {
   return (
     <View style={styles.screen}>
       <ImageBackground
-        source={require("../assets/BackGround.png")}
+        source={require("../assets/BusinessRegister2.png")}
         style={styles.backGround}
       >
-        <Text style={{ paddingTop: scale(210) }} />
+        <Text style={{ paddingTop: scale(150) }} />
         <View style={styles[errorColorName]}>
           <AntDesign name="user" size={30} color={Colour.primaryColour} />
           <TextInput
@@ -282,17 +287,24 @@ const BusinessRegister = (props) => {
         </Text>
         <Text
           onPress={pickImage}
-          style={{ fontFamily: "OpenSans", fontSize: 16, paddingVertical: 10 }}
+          style={{
+            fontFamily: "MonM",
+            fontSize: 16,
+            paddingVertical: 10,
+          }}
         >
           Pick an image
         </Text>
+
+        <ButtonCustom title="Register" onPress={signUp} />
+        <Text></Text>
         {image && (
           <Image
             source={{ uri: image }}
             style={{
-              height: scale(180),
+              height: scale(150),
               width: scale(280),
-
+              borderWidth: 1,
               shadowOffset: { width: 0, height: 2 },
               shadowOpacity: 0.8,
               shadowRadius: 2,
@@ -300,8 +312,6 @@ const BusinessRegister = (props) => {
             resizeMode="stretch"
           />
         )}
-        <ButtonCustom title="Register" onPress={signUp} />
-        <Footer footerColor={Colour.primaryColour} />
       </ImageBackground>
     </View>
   );
@@ -309,15 +319,15 @@ const BusinessRegister = (props) => {
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
-    alignItems: "center",
-    alignContent: "center",
+    justifyContent: "flex-start",
     width: "100%",
+    height,
+    backgroundColor: "white",
   },
   backGround: {
     width: "100%",
-    height: "100%",
-    justifyContent: "center",
+    height: "80%",
+    justifyContent: "flex-start",
     alignItems: "center",
   },
   input: {
