@@ -159,6 +159,7 @@ const BusinessRegister = (props) => {
               latitude: "",
               quantity: 0,
               image: "",
+              sortName: "",
             });
             dbconnection.collection("accountDetails").doc(user.uid).set({
               accountType: "Business",
