@@ -62,7 +62,7 @@ const BusinessListScreen = (props) => {
         querySnapshot.forEach(function (doc) {
           businessLoadData.push({
             ...doc.data(),
-            key: doc.data().docId,
+            key: doc.id,
           });
         });
         console.log(businessLoadData);
@@ -128,47 +128,60 @@ const BusinessListScreen = (props) => {
     );
   };
 
+  const EmptyListMessage = () => {
+    return (
+      // Flat List Item
+      <Text style={styles.emptyListStyle}>No Data Found</Text>
+    );
+  };
+
   const renderFoodCategory = (itemData) => {
-    var myDate = new Date(itemData.item.created * 1000);
-
-    var start = new Date(itemData.item.created * 1000);
-    var finishDate = new Date(
-      myDate.setHours(myDate.getHours() + parseInt(itemData.item.hours))
-    );
-
-    var dateAsString = today.toDateString().substring(4, 10);
-    var startDateAsString = start.toDateString().substring(4, 10);
-
-    var todayAsMin = today.getHours() * 60 + today.getMinutes();
-    var endAsMin = finishDate.getHours() * 60 + finishDate.getMinutes();
-    var startAsMin = start.getHours() * 60 + start.getMinutes() + 60;
-
-    //https://math.stackexchange.com/questions/1667064/formula-to-get-percentage-from-a-target-start-and-current-numbers
-    var Current_Start = todayAsMin - startAsMin;
-    var total_start = endAsMin - startAsMin;
-    var hourlyPrice = Current_Start / total_start;
-
-    var hoursRemaining = finishDate.getHours() + 1 - today.getHours();
-    var minutesRemaining = finishDate.getMinutes() - today.getMinutes();
-    if (minutesRemaining < 0) {
-      minutesRemaining = 60 + minutesRemaining;
-    }
-
-    var discount = itemData.item.usualPrice - itemData.item.newPrice;
-    var newDiscount = discount * hourlyPrice;
-    var finalPrice = itemData.item.usualPrice - newDiscount;
-    console.log(
-      discount,
-      newDiscount,
-      finalPrice,
-      hourlyPrice,
-      itemData.item.itemName
-    );
     if (
       (hourlyPrice < 1) &
       (itemData.item.quantity > 0) &
       (startDateAsString == dateAsString)
     ) {
+      var myDate = new Date(itemData.item.created * 1000);
+
+      var start = new Date(itemData.item.created * 1000);
+      var finishDate = new Date(
+        myDate.setHours(myDate.getHours() + parseInt(itemData.item.hours))
+      );
+
+      var dateAsString = today.toDateString().substring(4, 10);
+      var startDateAsString = start.toDateString().substring(4, 10);
+
+      var todayAsMin = today.getHours() * 60 + today.getMinutes();
+      var endAsMin = finishDate.getHours() * 60 + finishDate.getMinutes();
+      var startAsMin = start.getHours() * 60 + start.getMinutes();
+
+      //https://math.stackexchange.com/questions/1667064/formula-to-get-percentage-from-a-target-start-and-current-numbers
+      var Current_Start = todayAsMin - startAsMin;
+      var total_start = endAsMin - startAsMin;
+      var hourlyPrice = Current_Start / total_start;
+
+      var hoursRemaining = finishDate.getHours() - today.getHours();
+
+      var minutesRemaining = finishDate.getMinutes() - today.getMinutes();
+      if (hoursRemaining == itemData.item.hours) {
+        hoursRemaining -= 1;
+      }
+      console.log(hoursRemaining);
+      if (minutesRemaining < 0) {
+        minutesRemaining = 60 + minutesRemaining;
+      }
+
+      var discount = itemData.item.usualPrice - itemData.item.newPrice;
+      var newDiscount = discount * hourlyPrice;
+      var finalPrice = itemData.item.usualPrice - newDiscount;
+      console.log(
+        discount,
+        newDiscount,
+        finalPrice,
+        hourlyPrice,
+        itemData.item.itemName
+      );
+
       return (
         <TouchableOpacity
           style={styles.Categories}
@@ -299,6 +312,7 @@ const BusinessListScreen = (props) => {
               style={{ flex: 1 }}
               data={loadData}
               renderItem={renderCategory}
+              ListEmptyComponent={EmptyListMessage}
               horizontal={true}
             />
           </SafeAreaView>
@@ -315,6 +329,7 @@ const BusinessListScreen = (props) => {
               style={{ flex: 1, paddingBottom: 10 }}
               data={businessLoadData}
               renderItem={renderFoodCategory}
+              ListEmptyComponent={EmptyListMessage}
               horizontal={true}
             />
           </SafeAreaView>
@@ -377,7 +392,7 @@ const styles = StyleSheet.create({
   },
 
   text4: {
-    fontSize: scale(13),
+    fontSize: scale(12),
     fontFamily: "MonM",
     color: "rgba(154, 18, 179, 1)",
     paddingRight: 5,
@@ -389,6 +404,9 @@ const styles = StyleSheet.create({
     fontFamily: "MonM",
     paddingVertical: scale(5),
     color: "#444444",
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    width: "100%",
   },
   Categories: {
     flexDirection: "column",

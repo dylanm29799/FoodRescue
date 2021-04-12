@@ -1,12 +1,44 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import { scale } from "../components/ResponsiveText";
 import Colour from "../constants/Colour";
 import * as firebase from "firebase";
 import { Fontisto } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
+import ToggleSwitch from "toggle-switch-react-native";
+import "firebase/firestore";
+
 const BusinessHome = (props) => {
+  const dbconnection = firebase.firestore();
+  var user = firebase.auth().currentUser;
+  const [status, setStatus] = useState();
+
+  useEffect(() => {
+    dbconnection
+      .collection("businessDetails")
+      .doc(user.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setStatus(doc.data().Status);
+        }
+      });
+  }, []);
+
+  const changeStatus = () => {
+    setStatus(!status);
+
+    var newStatus2 = !status;
+    newStatus(newStatus2);
+  };
+
+  const newStatus = (status) => {
+    var docRef = dbconnection.collection("businessDetails").doc(user.uid);
+    return docRef.update({
+      Status: status,
+    });
+  };
   return (
     <View style={styles.Screen}>
       <View
@@ -73,6 +105,28 @@ const BusinessHome = (props) => {
           <AntDesign name="profile" size={100} style={styles.icon} />
           <Text style={styles.touchableText}>Manage Your Profile</Text>
         </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          position: "absolute",
+          paddingTop: scale(30),
+          paddingBottom: scale(15),
+          backgroundColor: "#ffecd2",
+        }}
+      >
+        <ToggleSwitch
+          isOn={status}
+          onColor="green"
+          offColor="red"
+          label="Activate Site?"
+          labelStyle={{
+            color: "black",
+            fontFamily: "MonM",
+            fontSize: scale(20),
+          }}
+          size="large"
+          onToggle={changeStatus}
+        />
       </View>
     </View>
   );

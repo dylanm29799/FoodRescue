@@ -26,10 +26,15 @@ import haversine from "haversine";
 const MainScreen = (props) => {
   const dbconnection = firebase.firestore();
   const [businessLoc, setBusinessLoc] = useState({});
+  var sort = props.navigation.getParam("SortID");
+  console.log(sort);
 
-  var newSize;
   var longitude;
   var latitude;
+  const [message, setMessage] = useState(
+    "Nothing Found, Please try another category"
+  );
+
   [(longitude = global.longitude)];
   [(latitude = global.latitude)];
   useEffect(() => {
@@ -40,78 +45,90 @@ const MainScreen = (props) => {
       latitude: latitude,
     };
 
-    dbconnection
-      .collection("businessDetails")
-      .where("quantity", ">", 0)
-      .onSnapshot((querySnapshot) => {
-        var businessLoc = [];
+    dbconnection.collection("businessDetails").onSnapshot((querySnapshot) => {
+      var businessLoc = [];
 
-        querySnapshot.forEach(function (doc) {
-          const BusinessLocation = {
-            longitude: parseFloat(doc.data().longitude),
-            latitude: parseFloat(doc.data().latitude),
-          };
+      querySnapshot.forEach(function (doc) {
+        const BusinessLocation = {
+          longitude: parseFloat(doc.data().longitude),
+          latitude: parseFloat(doc.data().latitude),
+        };
 
-          const distance = haversine(userLoc, BusinessLocation).toFixed(2);
+        const distance = haversine(userLoc, BusinessLocation).toFixed(2);
 
-          businessLoc.push({
-            ...doc.data(),
-            key: doc.id,
-            distance: distance,
-          });
+        businessLoc.push({
+          ...doc.data(),
+          key: doc.id,
+          distance: distance,
         });
-
-        businessLoc = businessLoc.sort((a, b) => a.distance - b.distance);
-        console.log(businessLoc);
-        setBusinessLoc(businessLoc);
       });
+
+      businessLoc = businessLoc.sort((a, b) => a.distance - b.distance);
+      console.log(businessLoc);
+      setBusinessLoc(businessLoc);
+    });
   }, []);
 
   const renderCategory = (itemData) => {
-    return (
-      <TouchableOpacity
-        style={styles.Categories}
-        onPress={() => {
-          props.navigation.navigate({
-            routeName: "BusinessList",
-            params: {
-              BusinessName: itemData.item.name,
-              ID: itemData.item.key,
-              busLong: parseFloat(itemData.item.longitude),
-              busLat: parseFloat(itemData.item.latitude),
-            },
-          });
-        }}
-      >
-        <View style={styles.item}>
-          <View
-            style={{
-              height: "100%",
-              width: "50%",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "white",
-              borderColor: Colour.primaryColour,
-              borderWidth: 2,
-              borderRadius: 5,
+    if (itemData.item.Status == true) {
+      if (sort == "" || sort == itemData.item.sortName || sort == undefined) {
+        setMessage("");
+        return (
+          <TouchableOpacity
+            style={styles.Categories}
+            onPress={() => {
+              props.navigation.navigate({
+                routeName: "BusinessList",
+                params: {
+                  BusinessName: itemData.item.name,
+                  ID: itemData.item.key,
+                  busLong: parseFloat(itemData.item.longitude),
+                  busLat: parseFloat(itemData.item.latitude),
+                },
+              });
             }}
           >
-            <Image
-              style={{
-                height: "90%",
-                width: "90%",
-                backgroundColor: "transparent",
-              }}
-              source={{ uri: itemData.item.image }}
-            />
-          </View>
-          <View style={{ height: "90%", paddingLeft: "2%" }}>
-            <Text style={styles.text1}>{itemData.item.name} </Text>
-            <Text style={styles.text2}>{itemData.item.quantity} Items</Text>
-            <Text style={styles.text3}>{itemData.item.distance} km</Text>
-          </View>
-        </View>
-      </TouchableOpacity>
+            <View style={styles.item}>
+              <View
+                style={{
+                  height: "100%",
+                  width: "50%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "white",
+                  borderColor: Colour.primaryColour,
+                  borderWidth: 2,
+                  borderRadius: 5,
+                }}
+              >
+                <Image
+                  style={{
+                    height: "90%",
+                    width: "90%",
+                    backgroundColor: "transparent",
+                  }}
+                  source={{ uri: itemData.item.image }}
+                />
+              </View>
+              <View style={{ height: "90%", paddingLeft: "2%" }}>
+                <Text style={styles.text1}>{itemData.item.name} </Text>
+
+                <Text style={styles.text3}>{itemData.item.distance} km</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        );
+      } else {
+        setMessage("Nothing Found, Please try another category");
+      }
+    }
+    console.log(itemData.item.key);
+  };
+
+  const EmptyListMessage = () => {
+    return (
+      // Flat List Item
+      <Text style={styles.emptyListStyle}>No Data Found</Text>
     );
   };
 
@@ -129,11 +146,14 @@ const MainScreen = (props) => {
           height: "40%",
         }}
       >
+        <Text style={styles.sortName}>{sort} </Text>
         <FlatList
           style={{ width: "90%" }}
           data={businessLoc}
+          ListEmptyComponent={EmptyListMessage}
           renderItem={renderCategory}
         />
+        <Text style={styles.missing}>{message}</Text>
       </View>
     </View>
   );
@@ -175,9 +195,9 @@ const styles = StyleSheet.create({
   text3: { fontFamily: "MonM", height: "33%", color: "white" },
 
   sortName: {
-    fontSize: scale(30),
+    fontSize: scale(20),
     textAlign: "center",
-    fontFamily: "MonM",
+    fontFamily: "MonL",
     paddingVertical: scale(10),
   },
   Categories: {
@@ -193,6 +213,13 @@ const styles = StyleSheet.create({
     backgroundColor: Colour.primaryColour,
     flexDirection: "row",
     elevation: 20,
+  },
+  missing: {
+    fontSize: scale(25),
+    fontFamily: "MonM",
+    textAlign: "center",
+    position: "absolute",
+    paddingTop: 100,
   },
 });
 

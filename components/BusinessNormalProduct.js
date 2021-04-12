@@ -33,7 +33,7 @@ const BusinessNormalProduct = (props) => {
         querySnapshot.forEach((doc) => {
           product.push({
             ...doc.data(),
-            key: doc.data().docId,
+            key: doc.id,
           });
           console.log(product);
         });
@@ -48,17 +48,9 @@ const BusinessNormalProduct = (props) => {
         style={styles.Categories}
         onPress={() => {
           props.navigation.navigate({
-            routeName: "ItemDetail",
+            routeName: "BusinessEdit",
             params: {
-              BusinessID: busID,
-              productID: itemData.item.key,
-              image: itemData.item.image,
-              itemName: itemData.item.itemName,
-              usualPrice: itemData.item.usualPrice,
-              newPrice: itemData.item.newPrice,
-              quantity: itemData.item.quantity,
-              hours: itemData.item.hours,
-              foodCountdown: itemData.item.foodCountdown,
+              productKey: itemData.item.key,
             },
           });
         }}
@@ -152,7 +144,7 @@ const styles = StyleSheet.create({
   },
 
   text4: {
-    fontSize: scale(13),
+    fontSize: scale(12),
     fontFamily: "MonM",
     color: "rgba(154, 18, 179, 1)",
     paddingRight: 5,

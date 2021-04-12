@@ -17,6 +17,8 @@ import * as firebase from "firebase";
 import { scale } from "../components/ResponsiveText";
 import Dialog from "react-native-dialog";
 import { AntDesign } from "@expo/vector-icons";
+import DropDownPicker from "react-native-dropdown-picker";
+
 const ProfileScreen = (props) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -24,6 +26,7 @@ const ProfileScreen = (props) => {
   const [number, setNumber] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [password, setPassword] = useState("");
+  const [sort, setSort] = useState("");
 
   const [textName, setTextName] = useState("Name");
   const dbconnection = firebase.firestore();
@@ -44,7 +47,7 @@ const ProfileScreen = (props) => {
             setTextName("First Name");
             setEmail(doc.data().email);
             setName(doc.data().name);
-
+            setSort(doc.data().sortName);
             setNumber(doc.data().number);
           } else {
             // doc.data() will be undefined in this case
@@ -79,7 +82,6 @@ const ProfileScreen = (props) => {
 
         docRef = dbconnection.collection("businessDetails").doc(uid);
         setConfirm(false);
-        console.log(collectionName);
 
         Alert.alert("Worked", "Your details have been updated.");
         console.log(email, name, number, password);
@@ -87,11 +89,15 @@ const ProfileScreen = (props) => {
           name: name,
           email: email,
           number: number,
+          sortName: sort,
         });
+
+        props.navigation.navigate({ routeName: "BusinessHome" });
       })
       .catch(function (error) {
         // The document probably doesn't exist.
         Alert.alert("Error", "Your Password is incorrect, please try again");
+        console.log(error);
       });
   };
 
@@ -197,7 +203,57 @@ const ProfileScreen = (props) => {
         >
           {email}
         </TextInput>
+        <Text style={styles.all}>What's your category?</Text>
+        <DropDownPicker
+          items={[
+            {
+              label: "",
+              value: "",
+            },
+            {
+              label: "Italian",
+              value: "Italian",
+            },
+            {
+              label: "Asian",
+              value: "Asian",
+            },
+            {
+              label: "Chipper",
+              value: "Chipper",
+            },
+            {
+              label: "Chinese",
+              value: "Chinese",
+            },
+            {
+              label: "American",
+              value: "American",
+            },
+            {
+              label: "Bakery",
+              value: "Bakery",
+            },
+            {
+              label: "Breakfast",
+              value: "Breakfast",
+            },
+            {
+              label: "Mexican",
+              value: "Mexican",
+            },
+          ]}
+          defaultValue={""}
+          containerStyle={{ height: 40, width: "100%" }}
+          style={{ backgroundColor: "#fafafa" }}
+          itemStyle={{
+            justifyContent: "flex-start",
+          }}
+          dropDownStyle={{ backgroundColor: "#fafafa" }}
+          onChangeItem={(item) => setSort(item.value)}
+        />
       </View>
+
       <ButtonCustom title="Submit" onPress={onButtonPress} />
       <TouchableOpacity style={styles.logout} onPress={onSignOut}>
         <AntDesign name="logout" size={30} color="black" onPress={onSignOut} />
@@ -260,6 +316,7 @@ const styles = StyleSheet.create({
     padding: scale(3),
     fontFamily: "MonM",
     fontSize: scale(12),
+    paddingTop: scale(10),
   },
   delete: {
     fontFamily: "MonM",

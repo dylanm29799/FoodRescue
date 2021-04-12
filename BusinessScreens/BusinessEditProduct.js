@@ -85,7 +85,7 @@ const BusinessEditProduct = (props) => {
         style={{
           width: "100%",
           justifyContent: "center",
-          paddingBottom: scale(30),
+          paddingBottom: scale(20),
         }}
       >
         <Text style={styles.all}> Product Name:</Text>
@@ -119,7 +119,7 @@ const BusinessEditProduct = (props) => {
           {price}
         </TextInput>
       </View>
-      <ButtonCustom onPress={handleSubmit} title="Submit" />
+      <ButtonCustom onPress={handleSubmit} title="Update" />
     </View>
   );
 };
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
   },
 
   all: {
-    paddingTop: scale(10),
+    paddingTop: scale(5),
     fontFamily: "MonM",
     fontSize: scale(12),
   },
