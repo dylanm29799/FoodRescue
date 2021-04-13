@@ -20,8 +20,12 @@ const BusinessEditProduct = (props) => {
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [usualPrice, setUsualPrice] = useState("");
-  const param = props.navigation.getParam("productKey");
-  console.log(param);
+  var param = " ";
+  try {
+    param = props.navigation.getParam("productKey");
+  } catch (err) {
+    console.log(err);
+  }
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
   var docRef = dbconnection.collection("Products").doc(param);
@@ -77,10 +81,7 @@ const BusinessEditProduct = (props) => {
   }, []);
 
   return (
-    <View
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.screen}
-    >
+    <View style={styles.screen}>
       <View
         style={{
           width: "100%",

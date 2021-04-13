@@ -1,0 +1,497 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "height": "100%",
+    }
+  }
+>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#ffecd2",
+        "color": "white",
+        "height": 171.42857142857142,
+        "justifyContent": "space-evenly",
+        "opacity": 1,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "black",
+          "fontFamily": "MonB",
+          "fontSize": 42.857142857142854,
+          "textAlign": "center",
+        }
+      }
+    >
+      Show Everything
+    </Text>
+  </View>
+  <RCTScrollView
+    data={
+      Array [
+        category {
+          "id": "c1",
+          "image": 1,
+          "title": "Italian",
+        },
+        category {
+          "id": "c2",
+          "image": 1,
+          "title": "French",
+        },
+        category {
+          "id": "c3",
+          "image": 1,
+          "title": "Chipper",
+        },
+        category {
+          "id": "c4",
+          "image": 1,
+          "title": "Chinese",
+        },
+        category {
+          "id": "c5",
+          "image": 1,
+          "title": "Healthy",
+        },
+        category {
+          "id": "c6",
+          "image": 1,
+          "title": "Bakery",
+        },
+        category {
+          "id": "c7",
+          "image": 1,
+          "title": "Breakfast",
+        },
+        category {
+          "id": "c8",
+          "image": 1,
+          "title": "Mexican",
+        },
+      ]
+    }
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#ffecd2",
+              "borderWidth": 2,
+              "height": 428.57142857142856,
+              "justifyContent": "space-evenly",
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            source={1}
+            style={
+              Object {
+                "height": 321.42857142857144,
+                "width": "100%",
+              }
+            }
+          />
+          <Text
+            style={
+              Object {
+                "color": "",
+                "fontFamily": "MonM",
+                "fontSize": 42.857142857142854,
+                "textAlign": "center",
+              }
+            }
+          >
+            Italian
+          </Text>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#ffecd2",
+              "borderWidth": 2,
+              "height": 428.57142857142856,
+              "justifyContent": "space-evenly",
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            source={1}
+            style={
+              Object {
+                "height": 321.42857142857144,
+                "width": "100%",
+              }
+            }
+          />
+          <Text
+            style={
+              Object {
+                "color": "",
+                "fontFamily": "MonM",
+                "fontSize": 42.857142857142854,
+                "textAlign": "center",
+              }
+            }
+          >
+            French
+          </Text>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#ffecd2",
+              "borderWidth": 2,
+              "height": 428.57142857142856,
+              "justifyContent": "space-evenly",
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            source={1}
+            style={
+              Object {
+                "height": 321.42857142857144,
+                "width": "100%",
+              }
+            }
+          />
+          <Text
+            style={
+              Object {
+                "color": "",
+                "fontFamily": "MonM",
+                "fontSize": 42.857142857142854,
+                "textAlign": "center",
+              }
+            }
+          >
+            Chipper
+          </Text>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#ffecd2",
+              "borderWidth": 2,
+              "height": 428.57142857142856,
+              "justifyContent": "space-evenly",
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            source={1}
+            style={
+              Object {
+                "height": 321.42857142857144,
+                "width": "100%",
+              }
+            }
+          />
+          <Text
+            style={
+              Object {
+                "color": "",
+                "fontFamily": "MonM",
+                "fontSize": 42.857142857142854,
+                "textAlign": "center",
+              }
+            }
+          >
+            Chinese
+          </Text>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#ffecd2",
+              "borderWidth": 2,
+              "height": 428.57142857142856,
+              "justifyContent": "space-evenly",
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            source={1}
+            style={
+              Object {
+                "height": 321.42857142857144,
+                "width": "100%",
+              }
+            }
+          />
+          <Text
+            style={
+              Object {
+                "color": "",
+                "fontFamily": "MonM",
+                "fontSize": 42.857142857142854,
+                "textAlign": "center",
+              }
+            }
+          >
+            Healthy
+          </Text>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#ffecd2",
+              "borderWidth": 2,
+              "height": 428.57142857142856,
+              "justifyContent": "space-evenly",
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            source={1}
+            style={
+              Object {
+                "height": 321.42857142857144,
+                "width": "100%",
+              }
+            }
+          />
+          <Text
+            style={
+              Object {
+                "color": "",
+                "fontFamily": "MonM",
+                "fontSize": 42.857142857142854,
+                "textAlign": "center",
+              }
+            }
+          >
+            Bakery
+          </Text>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#ffecd2",
+              "borderWidth": 2,
+              "height": 428.57142857142856,
+              "justifyContent": "space-evenly",
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            source={1}
+            style={
+              Object {
+                "height": 321.42857142857144,
+                "width": "100%",
+              }
+            }
+          />
+          <Text
+            style={
+              Object {
+                "color": "",
+                "fontFamily": "MonM",
+                "fontSize": 42.857142857142854,
+                "textAlign": "center",
+              }
+            }
+          >
+            Breakfast
+          </Text>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#ffecd2",
+              "borderWidth": 2,
+              "height": 428.57142857142856,
+              "justifyContent": "space-evenly",
+              "opacity": 1,
+            }
+          }
+        >
+          <Image
+            source={1}
+            style={
+              Object {
+                "height": 321.42857142857144,
+                "width": "100%",
+              }
+            }
+          />
+          <Text
+            style={
+              Object {
+                "color": "",
+                "fontFamily": "MonM",
+                "fontSize": 42.857142857142854,
+                "textAlign": "center",
+              }
+            }
+          >
+            Mexican
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

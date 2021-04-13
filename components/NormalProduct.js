@@ -27,7 +27,12 @@ const NormalProduct = (props, { finalQuan }) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
-  var uid = user.uid;
+  var uid = "";
+  try {
+    uid = user.uid;
+  } catch (err) {
+    console.log(err);
+  }
   var finalQuan;
   [(finalQuan = global.quantity)];
 
@@ -68,18 +73,21 @@ const NormalProduct = (props, { finalQuan }) => {
       .put(blob)
 
       .then(async function () {
-        dbconnection.collection("Products").doc(x).set({
-          itemName: itemName,
-          quantity: quantity,
-          usualPrice: usualPrice,
-          newPrice: newPrice,
-          foodCountdown: "No",
-          hours: time.itemValue,
-          businessID: uid,
-          image: x,
-          docId: x,
-          created: firebase.firestore.FieldValue.serverTimestamp(),
-        });
+        dbconnection
+          .collection("Products")
+          .doc(x)
+          .set({
+            itemName: itemName,
+            quantity: parseInt(quantity),
+            usualPrice: usualPrice,
+            newPrice: newPrice,
+            foodCountdown: "No",
+            hours: time.itemValue,
+            businessID: uid,
+            image: x,
+            docId: x,
+            created: firebase.firestore.FieldValue.serverTimestamp(),
+          });
         console.log("Success");
         Alert.alert("Uploaded!", "Your product has been uploaded");
       })

@@ -16,11 +16,17 @@ import { ScrollView } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import Dialog from "react-native-dialog";
-import ButtonCustom from "../constants/ButtonCustom";
+
 const businessReceipt = (props) => {
-  var orderID = props.navigation.getParam("orderID");
-  var user = firebase.auth().currentUser;
+  var orderID;
+
   const dbconnection = firebase.firestore();
+
+  try {
+    orderID = props.navigation.getParam("orderID");
+  } catch (err) {
+    console.log(err);
+  }
 
   const [businessID, setBusinessID] = useState("");
   const [created, setCreated] = useState(new Date());

@@ -4,16 +4,25 @@ import { scale } from "../components/ResponsiveText";
 import Colour from "../constants/Colour";
 
 const CartScreen = (props) => {
-  //GettingParams
-  const title = props.navigation.getParam("Title");
-  const quantity = props.navigation.getParam("quantity");
-  const initialPrice = props.navigation.getParam("initialPrice");
-  const price = props.navigation.getParam("price");
+  var title = "";
+  var quantity = "";
+  var initialPrice = "";
+  var price = "";
 
   const newPrice = price * quantity;
   const newInitial = initialPrice * quantity;
   const savings = newInitial - newPrice;
   const newSavings = Math.round(savings * 100) / 100;
+  //GettingParams
+  try {
+    title = props.navigation.getParam("Title");
+    quantity = props.navigation.getParam("quantity");
+    initialPrice = props.navigation.getParam("initialPrice");
+    price = props.navigation.getParam("price");
+  } catch (error) {
+    console.log(error);
+  }
+
   return (
     <View style={styles.screen}>
       <View style={{ borderWidth: 1, width: "80%" }}>

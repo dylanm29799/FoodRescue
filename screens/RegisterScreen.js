@@ -7,8 +7,9 @@ import {
   Button,
   Alert,
   ImageBackground,
+  TextInput,
 } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+
 import Colour from "../constants/Colour";
 
 import { scale } from "../components/ResponsiveText";

@@ -1,0 +1,264 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "alignSelf": "center",
+      "flex": 1,
+      "justifyContent": "center",
+      "width": "70%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "justifyContent": "center",
+        "paddingBottom": 64.28571428571428,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonM",
+          "fontSize": 25.714285714285715,
+          "padding": 6.428571428571429,
+        }
+      }
+    >
+       First Name:
+    </Text>
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "borderColor": "#c44536",
+          "borderRadius": 5,
+          "borderWidth": 2,
+          "fontFamily": "MonM",
+          "fontSize": 32.14285714285714,
+          "justifyContent": "center",
+          "padding": 6.428571428571429,
+          "paddingLeft": 15,
+        }
+      }
+      underlineColorAndroid="transparent"
+    >
+      
+    </TextInput>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonM",
+          "fontSize": 25.714285714285715,
+          "padding": 6.428571428571429,
+        }
+      }
+    >
+       Last Name:
+    </Text>
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "borderColor": "#c44536",
+          "borderRadius": 5,
+          "borderWidth": 2,
+          "fontFamily": "MonM",
+          "fontSize": 32.14285714285714,
+          "justifyContent": "center",
+          "padding": 6.428571428571429,
+          "paddingLeft": 15,
+        }
+      }
+      underlineColorAndroid="transparent"
+    >
+      
+    </TextInput>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonM",
+          "fontSize": 25.714285714285715,
+          "padding": 6.428571428571429,
+        }
+      }
+    >
+       Your Phone Number:
+    </Text>
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "borderColor": "#c44536",
+          "borderRadius": 5,
+          "borderWidth": 2,
+          "fontFamily": "MonM",
+          "fontSize": 32.14285714285714,
+          "justifyContent": "center",
+          "padding": 6.428571428571429,
+          "paddingLeft": 15,
+        }
+      }
+      underlineColorAndroid="transparent"
+    >
+      
+    </TextInput>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonM",
+          "fontSize": 25.714285714285715,
+          "padding": 6.428571428571429,
+        }
+      }
+    >
+       Email:
+    </Text>
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "borderColor": "#c44536",
+          "borderRadius": 5,
+          "borderWidth": 2,
+          "fontFamily": "MonM",
+          "fontSize": 32.14285714285714,
+          "justifyContent": "center",
+          "padding": 6.428571428571429,
+          "paddingLeft": 15,
+        }
+      }
+      underlineColorAndroid="transparent"
+    >
+      
+    </TextInput>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#c44536",
+        "borderRadius": 10,
+        "height": 50,
+        "justifyContent": "center",
+        "opacity": 1,
+        "padding": 10,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "alignItems": "center",
+          "color": "#EBF38B",
+          "fontFamily": "MonM",
+          "fontSize": 38.57142857142857,
+          "textAlign": "center",
+          "width": 321.42857142857144,
+        }
+      }
+    >
+      Submit
+    </Text>
+  </View>
+  <View
+    onPress={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "borderColor": "black",
+        "borderWidth": 1,
+        "flexDirection": "row",
+        "fontFamily": "MonM",
+        "justifyContent": "center",
+        "marginTop": 42.857142857142854,
+        "padding": 21.428571428571427,
+        "textAlign": "center",
+      }
+    }
+  >
+    <Text />
+    <Text
+      onPress={[Function]}
+      style={
+        Object {
+          "paddingLeft": 21.428571428571427,
+        }
+      }
+    >
+      Log Out
+    </Text>
+  </View>
+  <Text
+    onPress={[Function]}
+    style={
+      Object {
+        "bottom": 0,
+        "color": "red",
+        "fontFamily": "MonM",
+        "fontSize": 30,
+        "justifyContent": "flex-end",
+        "marginBottom": 85.71428571428571,
+        "position": "absolute",
+      }
+    }
+  >
+    Delete Account
+  </Text>
+  <View>
+    <Modal
+      animationType="none"
+      hardwareAccelerated={false}
+      onHide={[Function]}
+      renderToHardwareTextureAndroid={true}
+      transparent={true}
+      visible={false}
+    >
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "black",
+            "bottom": 0,
+            "left": 0,
+            "opacity": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      />
+    </Modal>
+  </View>
+</View>
+`;

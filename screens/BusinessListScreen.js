@@ -7,34 +7,43 @@ import {
   TouchableOpacity,
   Image,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 import { scale } from "../components/ResponsiveText";
 import Colour from "../constants/Colour";
 import * as firebase from "firebase";
 import MapView, { Marker } from "react-native-maps";
 import { LinearGradient } from "expo-linear-gradient";
-import { ScrollView } from "react-native-gesture-handler";
+
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import business from "../models/business";
+
 const BusinessListScreen = (props) => {
-  const businessName = props.navigation.getParam("BusinessName");
-  const busID = props.navigation.getParam("ID");
   var long;
   var lat;
-  var user = firebase.auth().currentUser;
+
   const dbconnection = firebase.firestore();
   const [loadData, setLoadData] = useState({});
   const [businessLoadData, setBusinessLoadData] = useState({});
   [(long = global.longitude)];
   [(lat = global.latitude)];
-
-  const busLong = props.navigation.getParam("busLong");
-  const busLat = props.navigation.getParam("busLat");
+  var businessName = "";
+  var busLong = "";
+  var busLat = "";
+  var busID = "";
   var today = new Date();
-  var time =
-    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
+  try {
+    busLong = props.navigation.getParam("busLong");
+    busLat = props.navigation.getParam("busLat");
+    busID = props.navigation.getParam("ID");
+    businessName = props.navigation.getParam("BusinessName");
+  } catch (error) {
+    console.log(error);
+  }
+
   useEffect(() => {
+    console.log(busID);
     dbconnection
       .collection("Products")
       .where("businessID", "==", busID)
@@ -65,12 +74,13 @@ const BusinessListScreen = (props) => {
             key: doc.id,
           });
         });
-        console.log(businessLoadData);
+
         setBusinessLoadData(businessLoadData);
       });
   }, []);
 
   const renderCategory = (itemData) => {
+    console.log(loadData);
     return (
       <TouchableOpacity
         style={styles.Categories}
@@ -136,52 +146,48 @@ const BusinessListScreen = (props) => {
   };
 
   const renderFoodCategory = (itemData) => {
+    var myDate = new Date(itemData.item.created * 1000);
+
+    var start = new Date(itemData.item.created * 1000);
+    var finishDate = new Date(
+      myDate.setHours(myDate.getHours() + parseInt(itemData.item.hours))
+    );
+
+    var dateAsString = today.toDateString().substring(4, 10);
+    var startDateAsString = start.toDateString().substring(4, 10);
+
+    var todayAsMin = today.getHours() * 60 + today.getMinutes();
+    var endAsMin = finishDate.getHours() * 60 + finishDate.getMinutes();
+    var startAsMin = start.getHours() * 60 + start.getMinutes();
+
+    //https://math.stackexchange.com/questions/1667064/formula-to-get-percentage-from-a-target-start-and-current-numbers
+    var Current_Start = todayAsMin - startAsMin;
+    var total_start = endAsMin - startAsMin;
+    if (total_start === 0) {
+      total_start = total_start + 60;
+    }
+    var hourlyPrice = Current_Start / total_start;
+
+    var hoursRemaining = finishDate.getHours() - today.getHours();
+
+    var minutesRemaining = finishDate.getMinutes() - today.getMinutes();
+
+    if (minutesRemaining < 0) {
+      minutesRemaining = 60 + minutesRemaining;
+    }
+    if (hoursRemaining < 0) {
+      hoursRemaining = 1 + hoursRemaining;
+    }
+
+    var discount = itemData.item.usualPrice - itemData.item.newPrice;
+    var newDiscount = discount * hourlyPrice;
+    var finalPrice = itemData.item.usualPrice - newDiscount;
+
     if (
       (hourlyPrice < 1) &
       (itemData.item.quantity > 0) &
       (startDateAsString == dateAsString)
     ) {
-      var myDate = new Date(itemData.item.created * 1000);
-
-      var start = new Date(itemData.item.created * 1000);
-      var finishDate = new Date(
-        myDate.setHours(myDate.getHours() + parseInt(itemData.item.hours))
-      );
-
-      var dateAsString = today.toDateString().substring(4, 10);
-      var startDateAsString = start.toDateString().substring(4, 10);
-
-      var todayAsMin = today.getHours() * 60 + today.getMinutes();
-      var endAsMin = finishDate.getHours() * 60 + finishDate.getMinutes();
-      var startAsMin = start.getHours() * 60 + start.getMinutes();
-
-      //https://math.stackexchange.com/questions/1667064/formula-to-get-percentage-from-a-target-start-and-current-numbers
-      var Current_Start = todayAsMin - startAsMin;
-      var total_start = endAsMin - startAsMin;
-      var hourlyPrice = Current_Start / total_start;
-
-      var hoursRemaining = finishDate.getHours() - today.getHours();
-
-      var minutesRemaining = finishDate.getMinutes() - today.getMinutes();
-      if (hoursRemaining == itemData.item.hours) {
-        hoursRemaining -= 1;
-      }
-      console.log(hoursRemaining);
-      if (minutesRemaining < 0) {
-        minutesRemaining = 60 + minutesRemaining;
-      }
-
-      var discount = itemData.item.usualPrice - itemData.item.newPrice;
-      var newDiscount = discount * hourlyPrice;
-      var finalPrice = itemData.item.usualPrice - newDiscount;
-      console.log(
-        discount,
-        newDiscount,
-        finalPrice,
-        hourlyPrice,
-        itemData.item.itemName
-      );
-
       return (
         <TouchableOpacity
           style={styles.Categories}
@@ -312,7 +318,6 @@ const BusinessListScreen = (props) => {
               style={{ flex: 1 }}
               data={loadData}
               renderItem={renderCategory}
-              ListEmptyComponent={EmptyListMessage}
               horizontal={true}
             />
           </SafeAreaView>
@@ -329,7 +334,6 @@ const BusinessListScreen = (props) => {
               style={{ flex: 1, paddingBottom: 10 }}
               data={businessLoadData}
               renderItem={renderFoodCategory}
-              ListEmptyComponent={EmptyListMessage}
               horizontal={true}
             />
           </SafeAreaView>

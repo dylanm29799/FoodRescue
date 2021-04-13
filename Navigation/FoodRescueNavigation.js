@@ -164,7 +164,7 @@ ItemDetailScreen.navigationOptions = (props) => {
 };
 
 aboutus.navigationOptions = {
-  headerTitle: "Manage Your Products",
+  headerTitle: "About Us",
   headerStyle: {
     backgroundColor: Colour.primaryColour,
   },
@@ -222,7 +222,7 @@ BusinessAddProduct.navigationOptions = {
 };
 
 BusinessManage.navigationOptions = {
-  headerTitle: "Manage Your Products",
+  headerTitle: "Manage Your Orders",
   headerStyle: {
     backgroundColor: Colour.primaryColour,
   },

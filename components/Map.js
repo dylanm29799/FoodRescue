@@ -9,8 +9,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 
 Map = () => {
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
   const [businessLoc, setBusinessLoc] = useState([]);
   const dbconnection = firebase.firestore();
   useEffect(() => {

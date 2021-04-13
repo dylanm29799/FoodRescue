@@ -1,0 +1,351 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#fff2e0",
+      "flex": 1,
+    }
+  }
+>
+  <RCTScrollView
+    collapsable={false}
+    contentContainerStyle={
+      Object {
+        "alignItems": "center",
+        "height": "100%",
+      }
+    }
+    horizontal={false}
+    onGestureHandlerEvent={[Function]}
+    onGestureHandlerStateChange={[Function]}
+  >
+    <View>
+      <Text
+        style={
+          Object {
+            "borderBottomWidth": 1,
+            "fontFamily": "MonM",
+            "fontSize": 42.857142857142854,
+            "paddingBottom": "3%",
+            "paddingTop": "15%",
+            "textAlign": "center",
+            "width": "95%",
+          }
+        }
+      >
+        Order has been placed by 
+        
+      </Text>
+      <View
+        style={
+          Object {
+            "backgroundColor": "#d3f8d3",
+            "height": "10%",
+            "justifyContent": "center",
+            "marginBottom": "5%",
+            "marginTop": "5%",
+            "width": "90%",
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontFamily": "MonM",
+              "fontSize": 32.14285714285714,
+              "marginBottom": 10,
+              "textAlign": "center",
+            }
+          }
+        >
+          ORDER CONFIRMATION
+        </Text>
+        <Text
+          style={
+            Object {
+              "fontFamily": "MonL",
+              "fontSize": 21.428571428571427,
+              "textAlign": "center",
+            }
+          }
+        >
+          The order ID is 
+          
+        </Text>
+      </View>
+      <AIRMap
+        handlePanDrag={false}
+        initialRegion={null}
+        onChange={[Function]}
+        onLayout={[Function]}
+        onMapReady={[Function]}
+        onMarkerPress={[Function]}
+        region={
+          Object {
+            "latitude": 0,
+            "latitudeDelta": 0.2,
+            "longitude": 0,
+            "longitudeDelta": 0.2,
+          }
+        }
+        style={
+          Object {
+            "height": "25%",
+            "width": "100%",
+          }
+        }
+      >
+        <AIRMapMarker
+          coordinate={
+            Object {
+              "latitude": 0,
+              "longitude": 0,
+            }
+          }
+          description="Your Location"
+          onPress={[Function]}
+          stopPropagation={false}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "position": "absolute",
+              },
+              undefined,
+            ]
+          }
+          title="You"
+        >
+          <Text />
+        </AIRMapMarker>
+        <AIRMapMarker
+          coordinate={
+            Object {
+              "latitude": 0,
+              "longitude": 0,
+            }
+          }
+          onPress={[Function]}
+          stopPropagation={false}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "position": "absolute",
+              },
+              undefined,
+            ]
+          }
+          title=""
+        >
+          <Text />
+        </AIRMapMarker>
+      </AIRMap>
+      <Text
+        style={
+          Object {
+            "fontFamily": "MonL",
+            "fontSize": 38.57142857142857,
+            "marginBottom": "5%",
+            "paddingTop": "5%",
+            "textAlign": "center",
+          }
+        }
+      >
+        
+         was 
+        0.00
+        km away when they ordered
+      </Text>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#fff",
+              "height": "30%",
+              "padding": 60,
+              "width": "80%",
+            },
+            Object {
+              "backgroundColor": "#fff",
+            },
+          ]
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontFamily": "MonB",
+              "fontSize": 36.42857142857143,
+              "textAlign": "center",
+            }
+          }
+        >
+          Order Details
+        </Text>
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "marginBottom": 21.428571428571427,
+              "marginTop": 21.428571428571427,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "fontFamily": "MonM",
+                "fontSize": 34.285714285714285,
+              }
+            }
+          >
+            
+            x 
+            
+            :
+          </Text>
+          <Text
+            style={
+              Object {
+                "fontFamily": "MonM",
+                "fontSize": 34.285714285714285,
+              }
+            }
+          >
+            €
+            NaN
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "marginBottom": 21.428571428571427,
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "marginBottom": 21.428571428571427,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "fontFamily": "MonM",
+                "fontSize": 34.285714285714285,
+              }
+            }
+          >
+            
+             
+            0
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "fontFamily": "MonM",
+                "fontSize": 34.285714285714285,
+              }
+            }
+          >
+            Order 
+            
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignSelf": "center",
+              "backgroundColor": "#6B6B6B",
+              "borderColor": "white",
+              "borderRadius": 20,
+              "borderWidth": 1,
+              "marginTop": 30,
+              "opacity": 1,
+              "width": "50%",
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "white",
+                "fontFamily": "MonM",
+                "fontSize": 27.857142857142858,
+                "textAlign": "center",
+              }
+            }
+          >
+            CHANGE STATUS?
+          </Text>
+        </View>
+      </View>
+      <View>
+        <Modal
+          animationType="none"
+          hardwareAccelerated={false}
+          onHide={[Function]}
+          renderToHardwareTextureAndroid={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "textAlign": "center",
+            }
+          }
+          transparent={true}
+          visible={false}
+        >
+          <View
+            accessible={true}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "black",
+                "bottom": 0,
+                "left": 0,
+                "opacity": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              }
+            }
+          />
+        </Modal>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

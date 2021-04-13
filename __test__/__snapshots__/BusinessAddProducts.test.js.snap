@@ -1,0 +1,395 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "height": 107.14285714285714,
+        "justifyContent": "center",
+        "width": "90%",
+      }
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#c44536",
+          "borderTopLeftRadius": 30,
+          "elevation": 100,
+          "flex": 1,
+          "justifyContent": "center",
+          "opacity": 1,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#fff",
+            "fontFamily": "MonM",
+            "fontSize": 25.714285714285715,
+            "textAlign": "center",
+          }
+        }
+      >
+        Normal Product
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#fff",
+          "borderColor": "#c44536",
+          "borderTopRightRadius": 30,
+          "borderWidth": 2,
+          "flex": 1,
+          "justifyContent": "center",
+          "opacity": 1,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#c44536",
+            "fontFamily": "MonM",
+            "fontSize": 25.714285714285715,
+            "textAlign": "center",
+          }
+        }
+      >
+        Food Countdown
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "borderColor": "#c44536",
+        "borderTopWidth": 0,
+        "borderWidth": 2,
+        "height": "80%",
+        "justifyContent": "center",
+        "width": "90%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "justifyContent": "center",
+          "paddingBottom": 21.428571428571427,
+          "width": "70%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "fontFamily": "MonM",
+            "fontSize": 25.714285714285715,
+            "paddingTop": 21.428571428571427,
+          }
+        }
+      >
+        Product Name
+      </Text>
+      <TextInput
+        allowFontScaling={true}
+        onChangeText={[Function]}
+        placeholder="Pizza Slice"
+        rejectResponderTermination={true}
+        style={
+          Object {
+            "borderColor": "#c44536",
+            "borderRadius": 5,
+            "borderWidth": 2,
+            "fontFamily": "MonM",
+            "fontSize": 32.14285714285714,
+            "justifyContent": "center",
+            "padding": 6.428571428571429,
+            "paddingLeft": 15,
+          }
+        }
+        underlineColorAndroid="transparent"
+      />
+      <Text
+        style={
+          Object {
+            "fontFamily": "MonM",
+            "fontSize": 25.714285714285715,
+            "paddingTop": 21.428571428571427,
+          }
+        }
+      >
+        Quantity Available
+      </Text>
+      <TextInput
+        allowFontScaling={true}
+        onChangeText={[Function]}
+        placeholder="8"
+        rejectResponderTermination={true}
+        style={
+          Object {
+            "borderColor": "#c44536",
+            "borderRadius": 5,
+            "borderWidth": 2,
+            "fontFamily": "MonM",
+            "fontSize": 32.14285714285714,
+            "justifyContent": "center",
+            "padding": 6.428571428571429,
+            "paddingLeft": 15,
+          }
+        }
+        underlineColorAndroid="transparent"
+      />
+      <Text
+        style={
+          Object {
+            "fontFamily": "MonM",
+            "fontSize": 25.714285714285715,
+            "paddingTop": 21.428571428571427,
+          }
+        }
+      >
+        Initial Price before discount
+      </Text>
+      <TextInput
+        allowFontScaling={true}
+        onChangeText={[Function]}
+        placeholder="4.00"
+        rejectResponderTermination={true}
+        style={
+          Object {
+            "borderColor": "#c44536",
+            "borderRadius": 5,
+            "borderWidth": 2,
+            "fontFamily": "MonM",
+            "fontSize": 32.14285714285714,
+            "justifyContent": "center",
+            "padding": 6.428571428571429,
+            "paddingLeft": 15,
+          }
+        }
+        underlineColorAndroid="transparent"
+      />
+      <Text
+        style={
+          Object {
+            "fontFamily": "MonM",
+            "fontSize": 25.714285714285715,
+            "paddingTop": 21.428571428571427,
+          }
+        }
+      >
+        New Price for Food Rescue
+      </Text>
+      <TextInput
+        allowFontScaling={true}
+        onChangeText={[Function]}
+        placeholder="2.40"
+        rejectResponderTermination={true}
+        style={
+          Object {
+            "borderColor": "#c44536",
+            "borderRadius": 5,
+            "borderWidth": 2,
+            "fontFamily": "MonM",
+            "fontSize": 32.14285714285714,
+            "justifyContent": "center",
+            "padding": 6.428571428571429,
+            "paddingLeft": 15,
+          }
+        }
+        underlineColorAndroid="transparent"
+      />
+    </View>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonM",
+          "fontSize": 25.714285714285715,
+          "paddingTop": 21.428571428571427,
+        }
+      }
+    >
+      Time Available
+    </Text>
+    <View
+      style={
+        Object {
+          "height": 50,
+          "width": "50%",
+        }
+      }
+    >
+      <RNCPicker
+        items={
+          Array [
+            Object {
+              "label": "1 Hour",
+              "testID": undefined,
+              "textColor": undefined,
+              "value": "1",
+            },
+            Object {
+              "label": "2 Hours",
+              "testID": undefined,
+              "textColor": undefined,
+              "value": "2",
+            },
+            Object {
+              "label": "3 Hours",
+              "testID": undefined,
+              "textColor": undefined,
+              "value": "3",
+            },
+            Object {
+              "label": "4 Hours",
+              "testID": undefined,
+              "textColor": undefined,
+              "value": "4",
+            },
+            Object {
+              "label": "5 Hours",
+              "testID": undefined,
+              "textColor": undefined,
+              "value": "5",
+            },
+            Object {
+              "label": "6 Hours",
+              "testID": undefined,
+              "textColor": undefined,
+              "value": "6",
+            },
+            Object {
+              "label": "7 Hours",
+              "testID": undefined,
+              "textColor": undefined,
+              "value": "7",
+            },
+            Object {
+              "label": "8 Hours",
+              "testID": undefined,
+              "textColor": undefined,
+              "value": "8",
+            },
+            Object {
+              "label": "9 Hours",
+              "testID": undefined,
+              "textColor": undefined,
+              "value": "9",
+            },
+            Object {
+              "label": "10 Hours",
+              "testID": undefined,
+              "textColor": undefined,
+              "value": "10",
+            },
+            Object {
+              "label": "11 Hours",
+              "testID": undefined,
+              "textColor": undefined,
+              "value": "11",
+            },
+            Object {
+              "label": "12 Hours",
+              "testID": undefined,
+              "textColor": undefined,
+              "value": "12",
+            },
+          ]
+        }
+        onChange={[Function]}
+        selectedIndex={0}
+        style={
+          Array [
+            Object {
+              "height": 216,
+            },
+            undefined,
+          ]
+        }
+      />
+    </View>
+    <Text
+      onPress={[Function]}
+      style={
+        Object {
+          "fontFamily": "MonM",
+          "fontSize": 16,
+          "paddingVertical": 10,
+        }
+      }
+    >
+      Pick an image
+    </Text>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#c44536",
+          "borderRadius": 10,
+          "height": 50,
+          "justifyContent": "center",
+          "opacity": 1,
+          "padding": 10,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "alignItems": "center",
+            "color": "#EBF38B",
+            "fontFamily": "MonM",
+            "fontSize": 38.57142857142857,
+            "textAlign": "center",
+            "width": 321.42857142857144,
+          }
+        }
+      >
+        Submit
+      </Text>
+    </View>
+  </View>
+</View>
+`;

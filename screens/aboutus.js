@@ -1,8 +1,7 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
-import Colour from "../constants/Colour";
+
 import { scale } from "../components/ResponsiveText";
-import Map from "../components/Map";
 
 const aboutus = () => {
   return (

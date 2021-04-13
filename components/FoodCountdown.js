@@ -22,7 +22,12 @@ const FoodCountdown = (props) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
-  var uid = user.uid;
+  var uid = "";
+  try {
+    uid = user.uid;
+  } catch (err) {
+    console.log(err);
+  }
   var finalQuan;
   [(finalQuan = global.quantity)];
 

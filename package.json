@@ -1,11 +1,17 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "eject": "expo eject"
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.|react-navigation|@react-navigation/.|@unimodules/.|unimodules|sentry-expo|native-base|@sentry/.|react-native-vector-icons|@react-native-picker|toggle-switch-react-native)"
+    ],
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
+    ],
+    "automock": false
   },
   "dependencies": {
     "@expo-google-fonts/dev": "^0.1.0",
@@ -30,8 +36,9 @@
     "expo-permissions": "~9.3.0",
     "expo-random": "~9.0.0",
     "expo-status-bar": "~1.0.2",
-    "firebase": "^8.2.4",
+    "firebase": "^8.3.3",
     "haversine": "^1.1.1",
+    "jest": "^26.6.3",
     "random-string": "^0.2.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -57,10 +64,26 @@
     "react-navigation-drawer": "^2.6.0",
     "react-navigation-stack": "^2.10.2",
     "react-navigation-tabs": "^2.10.1",
+    "react-test-renderer": "^16.14.0",
     "toggle-switch-react-native": "^3.2.0"
   },
   "devDependencies": {
-    "@babel/core": "~7.9.0"
+    "@babel/core": "~7.9.0",
+    "babel-test": "^0.2.4",
+    "jest-expo": "^40.0.2"
   },
-  "private": true
+  "private": true,
+  "name": "foodrescue",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dylanm29799/FoodRescue.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dylanm29799/FoodRescue/issues"
+  },
+  "homepage": "https://github.com/dylanm29799/FoodRescue#readme",
+  "description": ""
 }

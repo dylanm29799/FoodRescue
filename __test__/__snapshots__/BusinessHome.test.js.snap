@@ -1,0 +1,310 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#ffecd2",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "flexDirection": "row",
+          "height": "50%",
+        },
+        Object {
+          "borderBottomColor": "#c44536",
+          "borderBottomWidth": 4,
+        },
+      ]
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomWidth": 0,
+          "borderColor": "#c44536",
+          "borderLeftWidth": 2,
+          "borderRightWidth": 2,
+          "borderTopWidth": 0,
+          "height": "100%",
+          "justifyContent": "center",
+          "opacity": 1,
+          "width": "50%",
+        }
+      }
+    >
+      <Text />
+      <Text
+        style={
+          Object {
+            "color": "black",
+            "fontFamily": "MonM",
+            "fontSize": 30,
+            "marginTop": 107.14285714285714,
+            "maxWidth": "80%",
+            "textAlign": "center",
+          }
+        }
+      >
+        Add a Product
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomWidth": 0,
+          "borderColor": "#c44536",
+          "borderLeftWidth": 2,
+          "borderRightWidth": 2,
+          "borderTopWidth": 0,
+          "height": "100%",
+          "justifyContent": "center",
+          "opacity": 1,
+          "width": "50%",
+        }
+      }
+    >
+      <Text />
+      <Text
+        style={
+          Object {
+            "color": "black",
+            "fontFamily": "MonM",
+            "fontSize": 30,
+            "marginTop": 107.14285714285714,
+            "maxWidth": "80%",
+            "textAlign": "center",
+          }
+        }
+      >
+        View Your Current Products
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "height": "50%",
+      }
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomWidth": 0,
+          "borderColor": "#c44536",
+          "borderLeftWidth": 2,
+          "borderRightWidth": 2,
+          "borderTopWidth": 0,
+          "height": "100%",
+          "justifyContent": "center",
+          "opacity": 1,
+          "width": "50%",
+        }
+      }
+    >
+      <Text />
+      <Text
+        style={
+          Object {
+            "color": "black",
+            "fontFamily": "MonM",
+            "fontSize": 30,
+            "marginTop": 107.14285714285714,
+            "maxWidth": "80%",
+            "textAlign": "center",
+          }
+        }
+      >
+        View Your Orders
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomWidth": 0,
+          "borderColor": "#c44536",
+          "borderLeftWidth": 2,
+          "borderRightWidth": 2,
+          "borderTopWidth": 0,
+          "height": "100%",
+          "justifyContent": "center",
+          "opacity": 1,
+          "width": "50%",
+        }
+      }
+    >
+      <Text />
+      <Text
+        style={
+          Object {
+            "color": "black",
+            "fontFamily": "MonM",
+            "fontSize": 30,
+            "marginTop": 107.14285714285714,
+            "maxWidth": "80%",
+            "textAlign": "center",
+          }
+        }
+      >
+        Manage Your Profile
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#ffecd2",
+        "paddingBottom": 32.14285714285714,
+        "paddingTop": 64.28571428571428,
+        "position": "absolute",
+      }
+    }
+  >
+    <View
+      animationSpeed={300}
+      circleColor="white"
+      disabled={false}
+      icon={null}
+      isOn={false}
+      label="Activate Site?"
+      labelStyle={
+        Object {
+          "color": "black",
+          "fontFamily": "MonM",
+          "fontSize": 42.857142857142854,
+        }
+      }
+      offColor="red"
+      onColor="green"
+      onToggle={[Function]}
+      size="large"
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+        }
+      }
+      thumbOffStyle={Object {}}
+      thumbOnStyle={Object {}}
+      trackOffStyle={Object {}}
+      trackOnStyle={Object {}}
+      useNativeDriver={true}
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "marginHorizontal": 10,
+            },
+            Object {
+              "color": "black",
+              "fontFamily": "MonM",
+              "fontSize": 42.857142857142854,
+            },
+          ]
+        }
+      >
+        Activate Site?
+      </Text>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "red",
+            "borderRadius": 20,
+            "justifyContent": "center",
+            "opacity": 1,
+            "padding": 20,
+            "width": 70,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "white",
+              "borderRadius": 15,
+              "elevation": 1.5,
+              "height": 30,
+              "justifyContent": "center",
+              "left": 0,
+              "margin": 4,
+              "position": "absolute",
+              "shadowColor": "#000",
+              "shadowOffset": Object {
+                "height": 2,
+                "width": 0,
+              },
+              "shadowOpacity": 0.2,
+              "shadowRadius": 2.5,
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+              ],
+              "width": 30,
+            }
+          }
+        />
+      </View>
+    </View>
+  </View>
+</View>
+`;

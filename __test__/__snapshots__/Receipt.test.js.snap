@@ -1,0 +1,323 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#fff2e0",
+      "flex": 1,
+    }
+  }
+>
+  <RCTScrollView
+    contentContainerStyle={
+      Object {
+        "alignItems": "center",
+        "height": "100%",
+      }
+    }
+    horizontal={false}
+  >
+    <View>
+      <Text
+        style={
+          Object {
+            "borderBottomWidth": 1,
+            "fontFamily": "MonM",
+            "fontSize": 42.857142857142854,
+            "paddingBottom": "3%",
+            "paddingTop": "15%",
+            "textAlign": "center",
+            "width": "95%",
+          }
+        }
+      >
+        Thank you for your order
+      </Text>
+      <View
+        style={
+          Object {
+            "backgroundColor": "#d3f8d3",
+            "height": "10%",
+            "justifyContent": "center",
+            "marginBottom": "5%",
+            "marginTop": "5%",
+            "width": "90%",
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontFamily": "MonM",
+              "fontSize": 32.14285714285714,
+              "marginBottom": 10,
+              "textAlign": "center",
+            }
+          }
+        >
+          ORDER CONFIRMATION
+        </Text>
+        <Text
+          style={
+            Object {
+              "fontFamily": "MonL",
+              "fontSize": 21.428571428571427,
+              "textAlign": "center",
+            }
+          }
+        >
+          Your order ID is 
+          
+        </Text>
+      </View>
+      <AIRMap
+        handlePanDrag={false}
+        initialRegion={null}
+        onChange={[Function]}
+        onLayout={[Function]}
+        onMapReady={[Function]}
+        onMarkerPress={[Function]}
+        region={
+          Object {
+            "latitude": 0,
+            "latitudeDelta": 0.2,
+            "longitude": 0,
+            "longitudeDelta": 0.2,
+          }
+        }
+        style={
+          Object {
+            "height": "25%",
+            "width": "100%",
+          }
+        }
+      >
+        <AIRMapMarker
+          coordinate={
+            Object {
+              "latitude": 0,
+              "longitude": 0,
+            }
+          }
+          description="Your Location"
+          onPress={[Function]}
+          stopPropagation={false}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "position": "absolute",
+              },
+              undefined,
+            ]
+          }
+          title="You"
+        >
+          <Text />
+        </AIRMapMarker>
+        <AIRMapMarker
+          coordinate={
+            Object {
+              "latitude": 0,
+              "longitude": 0,
+            }
+          }
+          onPress={[Function]}
+          stopPropagation={false}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "position": "absolute",
+              },
+              undefined,
+            ]
+          }
+          title=""
+        >
+          <Text />
+        </AIRMapMarker>
+      </AIRMap>
+      <Text
+        style={
+          Object {
+            "borderBottomWidth": 1,
+            "fontFamily": "MonL",
+            "fontSize": 38.57142857142857,
+            "marginBottom": "5%",
+            "paddingTop": "5%",
+            "textAlign": "center",
+          }
+        }
+      >
+        Your order at 
+        
+         has been confirmed!
+      </Text>
+      <View
+        style={
+          Object {
+            "backgroundColor": "#d3f8d3",
+            "justifyContent": "space-evenly",
+            "padding": 60,
+            "width": "75%",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "marginBottom": 21.428571428571427,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "fontFamily": "MonL",
+                "fontSize": 30,
+              }
+            }
+          >
+            WHAT YOU BOUGHT:
+          </Text>
+          <Text
+            style={
+              Object {
+                "fontFamily": "MonM",
+                "fontSize": 34.285714285714285,
+              }
+            }
+          >
+            
+            x 
+            
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "marginBottom": 21.428571428571427,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "fontFamily": "MonL",
+                "fontSize": 30,
+              }
+            }
+          >
+            TOTAL PRICE:
+          </Text>
+          <Text
+            style={
+              Object {
+                "fontFamily": "MonM",
+                "fontSize": 34.285714285714285,
+              }
+            }
+          >
+            €
+            NaN
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "marginBottom": 21.428571428571427,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "fontFamily": "MonL",
+                "fontSize": 30,
+              }
+            }
+          >
+            YOUR SAVINGS WITH US:
+          </Text>
+          <Text
+            style={
+              Object {
+                "fontFamily": "MonM",
+                "fontSize": 34.285714285714285,
+              }
+            }
+          >
+            NaN
+            %
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "marginBottom": 21.428571428571427,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "fontFamily": "MonL",
+                "fontSize": 30,
+              }
+            }
+          >
+            TIME OF PURCHASE:
+          </Text>
+          <Text
+            style={
+              Object {
+                "fontFamily": "MonM",
+                "fontSize": 34.285714285714285,
+              }
+            }
+          >
+            
+             
+            0
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "justifyContent": "flex-end",
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "fontFamily": "MonL",
+                "fontSize": 30,
+              }
+            }
+          >
+            STATUS:
+          </Text>
+          <Text
+            style={
+              Object {
+                "fontFamily": "MonM",
+                "fontSize": 34.285714285714285,
+              }
+            }
+          >
+            
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;

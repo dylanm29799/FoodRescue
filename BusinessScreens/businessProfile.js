@@ -31,7 +31,12 @@ const ProfileScreen = (props) => {
   const [textName, setTextName] = useState("Name");
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
-  var uid = user.uid;
+  var uid = " ";
+  try {
+    uid = user.uid;
+  } catch (err) {
+    console.log(err);
+  }
   var docRef;
   let validation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -168,10 +173,7 @@ const ProfileScreen = (props) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.screen}
-    >
+    <KeyboardAvoidingView style={styles.screen}>
       <View
         style={{
           width: "100%",

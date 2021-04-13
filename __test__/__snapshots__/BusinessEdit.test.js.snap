@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "alignSelf": "center",
+      "flex": 1,
+      "justifyContent": "center",
+      "width": "70%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "justifyContent": "center",
+        "paddingBottom": 42.857142857142854,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonM",
+          "fontSize": 25.714285714285715,
+          "paddingTop": 10.714285714285714,
+        }
+      }
+    >
+       Product Name:
+    </Text>
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "borderColor": "#c44536",
+          "borderRadius": 5,
+          "borderWidth": 2,
+          "fontFamily": "MonM",
+          "fontSize": 32.14285714285714,
+          "justifyContent": "center",
+          "padding": 6.428571428571429,
+          "paddingLeft": 15,
+        }
+      }
+      underlineColorAndroid="transparent"
+    >
+      
+    </TextInput>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonM",
+          "fontSize": 25.714285714285715,
+          "paddingTop": 10.714285714285714,
+        }
+      }
+    >
+       Quantity:
+    </Text>
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "borderColor": "#c44536",
+          "borderRadius": 5,
+          "borderWidth": 2,
+          "fontFamily": "MonM",
+          "fontSize": 32.14285714285714,
+          "justifyContent": "center",
+          "padding": 6.428571428571429,
+          "paddingLeft": 15,
+        }
+      }
+      underlineColorAndroid="transparent"
+    >
+      
+    </TextInput>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonM",
+          "fontSize": 25.714285714285715,
+          "paddingTop": 10.714285714285714,
+        }
+      }
+    >
+       Original Price:
+    </Text>
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "borderColor": "#c44536",
+          "borderRadius": 5,
+          "borderWidth": 2,
+          "fontFamily": "MonM",
+          "fontSize": 32.14285714285714,
+          "justifyContent": "center",
+          "padding": 6.428571428571429,
+          "paddingLeft": 15,
+        }
+      }
+      underlineColorAndroid="transparent"
+    >
+      
+    </TextInput>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonM",
+          "fontSize": 25.714285714285715,
+          "paddingTop": 10.714285714285714,
+        }
+      }
+    >
+       Price of the Product:
+    </Text>
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "borderColor": "#c44536",
+          "borderRadius": 5,
+          "borderWidth": 2,
+          "fontFamily": "MonM",
+          "fontSize": 32.14285714285714,
+          "justifyContent": "center",
+          "padding": 6.428571428571429,
+          "paddingLeft": 15,
+        }
+      }
+      underlineColorAndroid="transparent"
+    >
+      
+    </TextInput>
+  </View>
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#c44536",
+        "borderRadius": 10,
+        "height": 50,
+        "justifyContent": "center",
+        "opacity": 1,
+        "padding": 10,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "alignItems": "center",
+          "color": "#EBF38B",
+          "fontFamily": "MonM",
+          "fontSize": 38.57142857142857,
+          "textAlign": "center",
+          "width": 321.42857142857144,
+        }
+      }
+    >
+      Update
+    </Text>
+  </View>
+</View>
+`;

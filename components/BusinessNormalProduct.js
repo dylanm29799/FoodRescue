@@ -6,20 +6,17 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
-  SafeAreaView,
 } from "react-native";
 import { scale } from "../components/ResponsiveText";
-import Colour from "../constants/Colour";
-import { ScrollView } from "react-native-gesture-handler";
+
 import * as firebase from "firebase";
 import { withNavigation } from "react-navigation";
 
 const BusinessNormalProduct = (props) => {
   const [product, setProduct] = useState([]);
-  //const businessName = props.navigation.getParam("BusinessName");
+
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
-  //var docRef = dbconnection.collection("Products");
 
   // User is signed in.
   useEffect(() => {
