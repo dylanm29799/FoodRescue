@@ -9,7 +9,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { scale } from "./ResponsiveText";
-import Colour from "../constants/Colour";
+
 import { withNavigation } from "react-navigation";
 import * as firebase from "firebase";
 
@@ -19,8 +19,7 @@ const BusinessFoodCountdownProduct = (props) => {
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
   var today = new Date();
-  var time =
-    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+
   useEffect(() => {
     dbconnection
       .collection("Products")
@@ -49,19 +48,19 @@ const BusinessFoodCountdownProduct = (props) => {
       myDate.setHours(myDate.getHours() + parseInt(itemData.item.hours))
     );
 
-    var dateAsString = today.toDateString().substring(4, 10);
-    var startDateAsString = start.toDateString().substring(4, 10);
-
     var todayAsMin = today.getHours() * 60 + today.getMinutes();
     var endAsMin = finishDate.getHours() * 60 + finishDate.getMinutes();
-    var startAsMin = start.getHours() * 60 + start.getMinutes() + 60;
+    var startAsMin = start.getHours() * 60 + start.getMinutes();
 
     //https://math.stackexchange.com/questions/1667064/formula-to-get-percentage-from-a-target-start-and-current-numbers
     var Current_Start = todayAsMin - startAsMin;
     var total_start = endAsMin - startAsMin;
+    if (total_start === 0) {
+      total_start = total_start + 60;
+    }
     var hourlyPrice = Current_Start / total_start;
 
-    var hoursRemaining = finishDate.getHours() + 1 - today.getHours();
+    var hoursRemaining = finishDate.getHours() - today.getHours();
     var minutesRemaining = finishDate.getMinutes() - today.getMinutes();
     if (minutesRemaining < 0) {
       minutesRemaining = 60 + minutesRemaining;
@@ -77,91 +76,86 @@ const BusinessFoodCountdownProduct = (props) => {
       hourlyPrice,
       itemData.item.itemName
     );
-    if (
-      (hourlyPrice < 1) &
-      (itemData.item.quantity > 0) &
-      (startDateAsString == dateAsString)
-    ) {
-      return (
-        <TouchableOpacity
-          style={styles.Categories}
-          onPress={() => {
-            props.navigation.navigate({
-              routeName: "ItemDetail",
-              params: {
-                BusinessID: businessName,
-                productID: itemData.item.key,
-                image: itemData.item.image,
-                itemName: itemData.item.itemName,
-                usualPrice: itemData.item.usualPrice,
-                newPrice: finalPrice.toFixed(2),
-                quantity: itemData.item.quantity,
-                hours: itemData.item.hours,
-                foodCountdown: itemData.item.foodCountdown,
-              },
-            });
-          }}
-        >
-          <View style={styles.item}>
-            <Image
-              style={{
-                height: "75%",
-                width: "100%",
-                borderRadius: 15,
-                borderColor: "rgba(154, 18, 179, 1)",
-              }}
-              source={{ uri: itemData.item.image }}
-            />
-            <View
-              style={{
-                width: scale(40),
-                height: scale(40),
-                position: "absolute",
-                backgroundColor: "white",
-                alignItems: "center",
-                borderRadius: 30,
-                borderWidth: 2,
-                borderColor: "rgba(154, 18, 179, 1)",
-                justifyContent: "center",
-                marginTop: scale(17),
-                marginLeft: scale(12),
-              }}
-            >
-              <Text style={styles.text4}>€{finalPrice.toFixed(2)}</Text>
-            </View>
-            <View style={styles.heading}>
-              <Text numberOfLines={1} style={styles.text1}>
-                {itemData.item.itemName}
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <Text style={styles.text2}>
-                {itemData.item.quantity} <Text>Items left!</Text>
-              </Text>
-              <Text
-                style={{
-                  fontSize: scale(10),
-                  textAlign: "right",
-                  color: "black",
-                  fontFamily: "MonM",
-                }}
-              >
-                {hoursRemaining} hours and{"\n"} {minutesRemaining} mins left
-              </Text>
-            </View>
-          </View>
 
-          <Text style={styles.text3}>
-            Starting price was €{itemData.item.usualPrice}
-          </Text>
-        </TouchableOpacity>
-      );
-    }
+    return (
+      <TouchableOpacity
+        style={styles.Categories}
+        onPress={() => {
+          props.navigation.navigate({
+            routeName: "ItemDetail",
+            params: {
+              BusinessID: businessName,
+              productID: itemData.item.key,
+              image: itemData.item.image,
+              itemName: itemData.item.itemName,
+              usualPrice: itemData.item.usualPrice,
+              newPrice: finalPrice.toFixed(2),
+              quantity: itemData.item.quantity,
+              hours: itemData.item.hours,
+              foodCountdown: itemData.item.foodCountdown,
+            },
+          });
+        }}
+      >
+        <View style={styles.item}>
+          <Image
+            style={{
+              height: "75%",
+              width: "100%",
+              borderRadius: 15,
+              borderColor: "rgba(154, 18, 179, 1)",
+            }}
+            source={{ uri: itemData.item.image }}
+          />
+          <View
+            style={{
+              width: scale(40),
+              height: scale(40),
+              position: "absolute",
+              backgroundColor: "white",
+              alignItems: "center",
+              borderRadius: 30,
+              borderWidth: 2,
+              borderColor: "rgba(154, 18, 179, 1)",
+              justifyContent: "center",
+              marginTop: scale(17),
+              marginLeft: scale(12),
+            }}
+          >
+            <Text style={styles.text4}>€{finalPrice.toFixed(2)}</Text>
+          </View>
+          <View style={styles.heading}>
+            <Text numberOfLines={1} style={styles.text1}>
+              {itemData.item.itemName}
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={styles.text2}>
+              {itemData.item.quantity} <Text>Items left!</Text>
+            </Text>
+            <Text
+              style={{
+                fontSize: scale(10),
+                textAlign: "right",
+                color: "black",
+                fontFamily: "MonM",
+              }}
+            >
+              {hoursRemaining} hours and{"\n"} {minutesRemaining} mins left
+            </Text>
+          </View>
+        </View>
+
+        <Text style={styles.text3}>
+          Starting price was €{itemData.item.usualPrice}
+        </Text>
+      </TouchableOpacity>
+    );
   };
 
   return (

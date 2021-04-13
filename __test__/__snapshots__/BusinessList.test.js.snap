@@ -1,0 +1,235 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "borderColor": "#c44536",
+        "borderWidth": 4.285714285714286,
+        "height": 471.4285714285714,
+        "position": "relative",
+      }
+    }
+  >
+    <AIRMap
+      handlePanDrag={false}
+      initialRegion={
+        Object {
+          "latitude": "",
+          "latitudeDelta": 0.1,
+          "longitude": "",
+          "longitudeDelta": 0.1,
+        }
+      }
+      onChange={[Function]}
+      onLayout={[Function]}
+      onMapReady={[Function]}
+      onMarkerPress={[Function]}
+      region={null}
+      style={
+        Object {
+          "height": "100%",
+          "width": "100%",
+        }
+      }
+    >
+      <AIRMapMarker
+        coordinate={
+          Object {
+            "latitude": undefined,
+            "longitude": undefined,
+          }
+        }
+        description="Your Location"
+        onPress={[Function]}
+        stopPropagation={false}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "position": "absolute",
+            },
+            undefined,
+          ]
+        }
+        title="You"
+      >
+        <Text />
+      </AIRMapMarker>
+      <AIRMapMarker
+        coordinate={
+          Object {
+            "latitude": "",
+            "longitude": "",
+          }
+        }
+        onPress={[Function]}
+        stopPropagation={false}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "position": "absolute",
+            },
+            undefined,
+          ]
+        }
+        title=""
+      >
+        <Text />
+      </AIRMapMarker>
+    </AIRMap>
+  </View>
+  <RCTScrollView
+    style={
+      Object {
+        "backgroundColor": "#ffecd2",
+      }
+    }
+  >
+    <View>
+      <ViewManagerAdapter_ExpoLinearGradient
+        proxiedProperties={
+          Object {
+            "colors": Array [
+              4294962386,
+              0,
+            ],
+            "endPoint": undefined,
+            "locations": undefined,
+            "startPoint": undefined,
+          }
+        }
+        style={
+          Object {
+            "borderRadius": 15,
+          }
+        }
+      >
+        <RCTSafeAreaView
+          emulateUnlessSupported={true}
+          style={
+            Object {
+              "alignItems": "center",
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "borderBottomWidth": 1,
+                "borderTopWidth": 1,
+                "color": "#444444",
+                "fontFamily": "MonM",
+                "fontSize": 42.857142857142854,
+                "paddingVertical": 10.714285714285714,
+                "textAlign": "center",
+                "width": "100%",
+              }
+            }
+          >
+            Products To Buy
+          </Text>
+          <RCTScrollView
+            data={Object {}}
+            disableVirtualization={false}
+            getItem={[Function]}
+            getItemCount={[Function]}
+            horizontal={true}
+            initialNumToRender={10}
+            keyExtractor={[Function]}
+            maxToRenderPerBatch={10}
+            onContentSizeChange={[Function]}
+            onEndReachedThreshold={2}
+            onLayout={[Function]}
+            onMomentumScrollEnd={[Function]}
+            onScroll={[Function]}
+            onScrollBeginDrag={[Function]}
+            onScrollEndDrag={[Function]}
+            removeClippedSubviews={false}
+            renderItem={[Function]}
+            scrollEventThrottle={50}
+            stickyHeaderIndices={Array []}
+            style={
+              Object {
+                "flex": 1,
+              }
+            }
+            updateCellsBatchingPeriod={50}
+            viewabilityConfigCallbackPairs={Array []}
+            windowSize={21}
+          >
+            <View />
+          </RCTScrollView>
+        </RCTSafeAreaView>
+        <RCTSafeAreaView
+          emulateUnlessSupported={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "borderBottomWidth": 1,
+                "borderTopWidth": 1,
+                "color": "#444444",
+                "fontFamily": "MonM",
+                "fontSize": 42.857142857142854,
+                "paddingVertical": 10.714285714285714,
+                "textAlign": "center",
+                "width": "100%",
+              }
+            }
+          >
+            Food Countdown
+          </Text>
+          <RCTScrollView
+            data={Object {}}
+            disableVirtualization={false}
+            getItem={[Function]}
+            getItemCount={[Function]}
+            horizontal={true}
+            initialNumToRender={10}
+            keyExtractor={[Function]}
+            maxToRenderPerBatch={10}
+            onContentSizeChange={[Function]}
+            onEndReachedThreshold={2}
+            onLayout={[Function]}
+            onMomentumScrollEnd={[Function]}
+            onScroll={[Function]}
+            onScrollBeginDrag={[Function]}
+            onScrollEndDrag={[Function]}
+            removeClippedSubviews={false}
+            renderItem={[Function]}
+            scrollEventThrottle={50}
+            stickyHeaderIndices={Array []}
+            style={
+              Object {
+                "flex": 1,
+                "paddingBottom": 10,
+              }
+            }
+            updateCellsBatchingPeriod={50}
+            viewabilityConfigCallbackPairs={Array []}
+            windowSize={21}
+          >
+            <View />
+          </RCTScrollView>
+        </RCTSafeAreaView>
+      </ViewManagerAdapter_ExpoLinearGradient>
+    </View>
+  </RCTScrollView>
+</View>
+`;

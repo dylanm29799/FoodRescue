@@ -25,7 +25,14 @@ const ProfileScreen = (props) => {
 
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
-  var docRef = dbconnection.collection("userDetails").doc(user.uid);
+  const [uid, setUid] = useState("");
+  try {
+    setUid(user.uid);
+    var docRef = dbconnection.collection("userDetails").doc(uid);
+  } catch (err) {
+    console.log(err);
+  }
+
   let validation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const onSignOut = () => {
     firebase
@@ -161,10 +168,7 @@ const ProfileScreen = (props) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.screen}
-    >
+    <View style={styles.screen}>
       <View
         style={{
           width: "100%",
@@ -230,7 +234,7 @@ const ProfileScreen = (props) => {
           <Dialog.Button label="Submit" onPress={handleSubmit} />
         </Dialog.Container>
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 };
 

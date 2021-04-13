@@ -6,29 +6,25 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-  ImageBackground,
-  ActivityIndicator,
 } from "react-native";
 import Colour from "../constants/Colour";
-import MapView, { Marker } from "react-native-maps";
+import haversine from "haversine";
 import * as firebase from "firebase";
 
-import {
-  scale,
-  verticalScale,
-  moderateScale,
-} from "../components/ResponsiveText";
+import { scale } from "../components/ResponsiveText";
 
 import Map from "../components/Map";
-import { ScrollView } from "react-native-gesture-handler";
-import haversine from "haversine";
 
 const MainScreen = (props) => {
   const dbconnection = firebase.firestore();
   const [businessLoc, setBusinessLoc] = useState({});
-  var sort = props.navigation.getParam("SortID");
-  console.log(sort);
+  var sort = "";
 
+  try {
+    sort = props.navigation.getParam("SortID");
+  } catch (err) {
+    console.log(err);
+  }
   var longitude;
   var latitude;
   const [message, setMessage] = useState(
@@ -38,8 +34,6 @@ const MainScreen = (props) => {
   [(longitude = global.longitude)];
   [(latitude = global.latitude)];
   useEffect(() => {
-    const haversine = require("haversine");
-
     const userLoc = {
       longitude: longitude,
       latitude: latitude,
@@ -122,7 +116,6 @@ const MainScreen = (props) => {
         setMessage("Nothing Found, Please try another category");
       }
     }
-    console.log(itemData.item.key);
   };
 
   const EmptyListMessage = () => {

@@ -1,0 +1,321 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    accessibilityIgnoresInvertColors={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "height": "100%",
+        "justifyContent": "center",
+        "width": "100%",
+      }
+    }
+  >
+    <Image
+      source={1}
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "height": "100%",
+            "width": "100%",
+          },
+          undefined,
+        ]
+      }
+    />
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+          "marginTop": 471.4285714285714,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#fff",
+            "borderColor": "#c44536",
+            "borderRadius": 15,
+            "borderWidth": 3,
+            "flexDirection": "row",
+            "height": 45,
+            "justifyContent": "center",
+            "margin": 10,
+            "paddingRight": 42.857142857142854,
+          }
+        }
+      >
+        <Text />
+        <TextInput
+          allowFontScaling={true}
+          autoCompleteType="email"
+          keyboardType="email-address"
+          onChangeText={[Function]}
+          placeholder="Email"
+          rejectResponderTermination={true}
+          style={
+            Object {
+              "borderRadius": 20,
+              "fontSize": 32.14285714285714,
+              "marginRight": 21.428571428571427,
+              "paddingHorizontal": 21.428571428571427,
+              "paddingRight": 4.285714285714286,
+              "paddingVertical": 10.714285714285714,
+              "textAlign": "center",
+              "width": "75%",
+            }
+          }
+          underlineColorAndroid="transparent"
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#fff",
+            "borderColor": "#c44536",
+            "borderRadius": 15,
+            "borderWidth": 3,
+            "flexDirection": "row",
+            "height": 45,
+            "justifyContent": "center",
+            "margin": 10,
+            "paddingRight": 42.857142857142854,
+          }
+        }
+      >
+        <Text />
+        <TextInput
+          allowFontScaling={true}
+          onChangeText={[Function]}
+          placeholder="Password"
+          rejectResponderTermination={true}
+          secureTextEntry={true}
+          style={
+            Object {
+              "borderRadius": 20,
+              "fontSize": 32.14285714285714,
+              "marginRight": 21.428571428571427,
+              "paddingHorizontal": 21.428571428571427,
+              "paddingRight": 4.285714285714286,
+              "paddingVertical": 10.714285714285714,
+              "textAlign": "center",
+              "width": "75%",
+            }
+          }
+          underlineColorAndroid="transparent"
+        />
+      </View>
+      <Text
+        onPress={[Function]}
+        style={
+          Object {
+            "alignSelf": "stretch",
+            "fontFamily": "MonM",
+            "fontSize": 25.714285714285715,
+            "paddingBottom": 10,
+            "textAlign": "right",
+          }
+        }
+      >
+        Forgotten Your Password?
+      </Text>
+      <View
+        accessible={true}
+        focusable={true}
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#c44536",
+            "borderRadius": 10,
+            "height": 50,
+            "justifyContent": "center",
+            "opacity": 1,
+            "padding": 10,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "alignItems": "center",
+              "color": "#EBF38B",
+              "fontFamily": "MonM",
+              "fontSize": 38.57142857142857,
+              "textAlign": "center",
+              "width": 321.42857142857144,
+            }
+          }
+        >
+          Submit
+        </Text>
+      </View>
+      <Text
+        style={
+          Object {
+            "borderBottomColor": "#fff",
+            "borderBottomWidth": 1,
+            "color": "#fff",
+            "fontFamily": "MonM",
+            "fontSize": 21.428571428571427,
+            "marginBottom": 42.857142857142854,
+            "paddingTop": 150,
+            "textAlign": "center",
+            "width": 214.28571428571428,
+          }
+        }
+      >
+        Or Sign Up
+      </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-evenly",
+          }
+        }
+      >
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "borderColor": "white",
+              "borderRadius": 20,
+              "borderWidth": 3,
+              "height": 128.57142857142856,
+              "justifyContent": "center",
+              "marginHorizontal": 42.857142857142854,
+              "opacity": 1,
+              "width": 182.14285714285714,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "white",
+                "fontFamily": "MonM",
+                "fontSize": 23.57142857142857,
+                "justifyContent": "center",
+                "padding": 10,
+                "width": 214.28571428571428,
+              }
+            }
+          >
+            New to Food Rescue?
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "borderColor": "white",
+              "borderRadius": 20,
+              "borderWidth": 3,
+              "height": 128.57142857142856,
+              "justifyContent": "center",
+              "marginHorizontal": 42.857142857142854,
+              "opacity": 1,
+              "width": 182.14285714285714,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "white",
+                "fontFamily": "MonM",
+                "fontSize": 23.57142857142857,
+                "justifyContent": "center",
+                "padding": 10,
+                "width": 214.28571428571428,
+              }
+            }
+          >
+            Register Your Business!
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "marginBottom": -150,
+            "paddingTop": 42.857142857142854,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "borderBottomColor": "white",
+              "borderBottomWidth": 1,
+              "color": "white",
+              "fontFamily": "MonM",
+              "fontSize": 21.428571428571427,
+              "marginBottom": 42.857142857142854,
+              "textAlign": "center",
+              "width": 214.28571428571428,
+            }
+          }
+        >
+          Socials
+        </Text>
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+            }
+          }
+        >
+          <Text />
+          <Text />
+          <Text />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "borderWidth": 1,
+        "width": "80%",
+      }
+    }
+  >
+    <View
+      style={Object {}}
+    >
+      <Text
+        style={
+          Object {
+            "fontSize": 42.857142857142854,
+            "marginTop": 21.428571428571427,
+            "textAlign": "center",
+          }
+        }
+      >
+        You are Buying: 
+      </Text>
+      <Text
+        style={
+          Object {
+            "fontSize": 42.857142857142854,
+            "marginTop": 21.428571428571427,
+            "textAlign": "center",
+          }
+        }
+      >
+        
+      </Text>
+    </View>
+    <Text
+      style={
+        Object {
+          "fontSize": 42.857142857142854,
+          "marginTop": 21.428571428571427,
+          "textAlign": "center",
+        }
+      }
+    >
+      Qunatity: 
+      
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontSize": 42.857142857142854,
+          "marginTop": 21.428571428571427,
+          "textAlign": "center",
+        }
+      }
+    >
+      Total Price: €
+      0
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontSize": 42.857142857142854,
+          "marginTop": 21.428571428571427,
+          "textAlign": "center",
+        }
+      }
+    >
+      You are saving: €
+      0
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#c44536",
+          "height": 64.28571428571428,
+          "justifyContent": "center",
+          "marginHorizontal": 21.428571428571427,
+          "marginTop": 64.28571428571428,
+          "opacity": 1,
+          "width": 150,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#fff",
+            "fontSize": 25.714285714285715,
+            "textAlign": "center",
+          }
+        }
+      >
+        Pay With Cash
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#c44536",
+          "height": 64.28571428571428,
+          "justifyContent": "center",
+          "marginHorizontal": 21.428571428571427,
+          "marginTop": 64.28571428571428,
+          "opacity": 1,
+          "width": 150,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#fff",
+            "fontSize": 25.714285714285715,
+            "textAlign": "center",
+          }
+        }
+      >
+        Pay With Card
+      </Text>
+    </View>
+  </View>
+</View>
+`;

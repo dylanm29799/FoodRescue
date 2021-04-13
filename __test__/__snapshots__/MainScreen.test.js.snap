@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "justifyContent": "flex-end",
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "borderColor": "#c44536",
+        "borderWidth": 4.285714285714286,
+        "height": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <AIRMap
+        handlePanDrag={false}
+        initialRegion={null}
+        onChange={[Function]}
+        onLayout={[Function]}
+        onMapReady={[Function]}
+        onMarkerPress={[Function]}
+        region={
+          Object {
+            "latitude": undefined,
+            "latitudeDelta": 0.02,
+            "longitude": undefined,
+            "longitudeDelta": 0,
+          }
+        }
+        style={
+          Object {
+            "height": "100%",
+            "width": "100%",
+          }
+        }
+      >
+        <AIRMapMarker
+          coordinate={
+            Object {
+              "latitude": undefined,
+              "longitude": undefined,
+            }
+          }
+          description="Your Location"
+          onPress={[Function]}
+          stopPropagation={false}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "position": "absolute",
+              },
+              undefined,
+            ]
+          }
+          title="You"
+        >
+          <Text />
+        </AIRMapMarker>
+      </AIRMap>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "height": "40%",
+        "position": "absolute",
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonL",
+          "fontSize": 42.857142857142854,
+          "paddingVertical": 21.428571428571427,
+          "textAlign": "center",
+        }
+      }
+    >
+      
+       
+    </Text>
+    <RCTScrollView
+      ListEmptyComponent={[Function]}
+      data={Object {}}
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      removeClippedSubviews={false}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      stickyHeaderIndices={Array []}
+      style={
+        Object {
+          "width": "90%",
+        }
+      }
+      updateCellsBatchingPeriod={50}
+      viewabilityConfigCallbackPairs={Array []}
+      windowSize={21}
+    >
+      <View>
+        <Text>
+          No Data Found
+        </Text>
+      </View>
+    </RCTScrollView>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonM",
+          "fontSize": 53.57142857142857,
+          "paddingTop": 100,
+          "position": "absolute",
+          "textAlign": "center",
+        }
+      }
+    >
+      Nothing Found, Please try another category
+    </Text>
+  </View>
+</View>
+`;

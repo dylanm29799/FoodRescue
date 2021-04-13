@@ -1,30 +1,28 @@
 import React, { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Button,
-  Image,
-  ColorPropType,
-} from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import Colour from "../constants/Colour";
 import { scale } from "../components/ResponsiveText";
 
 import "firebase/firestore";
 import * as firebase from "firebase";
 import "firebase/storage";
-import { Picker } from "@react-native-picker/picker";
 
 import NormalProduct from "../components/NormalProduct";
 import FoodCountdown from "../components/FoodCountdown";
-import { render } from "react-dom";
 
-const BusinessAddProduct = (props) => {
+const BusinessAddProduct = () => {
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
-  var uid = user.uid;
+  var uid = ""
+try{
+  uid = user.uid;
+}
+catch(err){
+  console.log(err)
+}
+
+
+
   const [npview, setNpview] = useState("picked");
   const [nptext, setNptext] = useState("pickedText");
   const [fcview, setFcview] = useState("notPicked");

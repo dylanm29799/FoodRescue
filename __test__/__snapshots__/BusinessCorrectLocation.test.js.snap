@@ -1,0 +1,182 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "fontFamily": "MonM",
+        "fontSize": 34.285714285714285,
+        "maxWidth": "80%",
+        "paddingTop": 64.28571428571428,
+        "textAlign": "center",
+      }
+    }
+  >
+    Please enter your address here:
+  </Text>
+  <TextInput
+    allowFontScaling={true}
+    collapsable={false}
+    onChangeText={[Function]}
+    onGestureHandlerEvent={[Function]}
+    onGestureHandlerStateChange={[Function]}
+    placeholder="18 City Quay, Dublin"
+    rejectResponderTermination={true}
+    style={
+      Object {
+        "borderBottomColor": "#c44536",
+        "borderBottomWidth": 2,
+        "fontFamily": "MonM",
+        "marginVertical": 21.428571428571427,
+        "paddingTop": 21.428571428571427,
+        "textAlign": "center",
+        "width": "80%",
+      }
+    }
+    underlineColorAndroid="transparent"
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#c44536",
+        "height": 64.28571428571428,
+        "justifyContent": "center",
+        "marginBottom": 32.14285714285714,
+        "marginHorizontal": 21.428571428571427,
+        "opacity": 1,
+        "width": 150,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#fff",
+          "fontFamily": "MonB",
+          "fontSize": 25.714285714285715,
+          "textAlign": "center",
+        }
+      }
+    >
+      Check
+    </Text>
+  </View>
+  <AIRMap
+    handlePanDrag={false}
+    initialRegion={null}
+    onChange={[Function]}
+    onLayout={[Function]}
+    onMapReady={[Function]}
+    onMarkerPress={[Function]}
+    region={
+      Object {
+        "latitude": 53.3498,
+        "latitudeDelta": 0.02,
+        "longitude": -6.2603,
+        "longitudeDelta": 0,
+      }
+    }
+    style={
+      Object {
+        "height": "30%",
+        "width": "80%",
+      }
+    }
+  >
+    <AIRMapMarker
+      coordinate={
+        Object {
+          "latitude": 53.3498,
+          "longitude": -6.2603,
+        }
+      }
+      onPress={[Function]}
+      pinColor="#c44536"
+      stopPropagation={false}
+      style={
+        Array [
+          Object {
+            "backgroundColor": "transparent",
+            "position": "absolute",
+          },
+          undefined,
+        ]
+      }
+      title="Business Name"
+    />
+  </AIRMap>
+  <Text
+    style={
+      Object {
+        "fontFamily": "MonM",
+        "fontSize": 34.285714285714285,
+        "maxWidth": "80%",
+        "paddingTop": 64.28571428571428,
+        "textAlign": "center",
+      }
+    }
+  >
+    Once you're happy with your address, click Submit
+  </Text>
+  <Text
+    style={
+      Object {
+        "paddingVertical": 4.285714285714286,
+      }
+    }
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#c44536",
+        "height": 64.28571428571428,
+        "justifyContent": "center",
+        "marginBottom": 32.14285714285714,
+        "marginHorizontal": 21.428571428571427,
+        "opacity": 1,
+        "width": 150,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#fff",
+          "fontFamily": "MonB",
+          "fontSize": 25.714285714285715,
+          "textAlign": "center",
+        }
+      }
+    >
+      Submit
+    </Text>
+  </View>
+</View>
+`;

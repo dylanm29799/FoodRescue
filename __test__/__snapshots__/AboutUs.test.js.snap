@@ -1,0 +1,200 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignContent": "center",
+      "alignItems": "center",
+      "alignSelf": "center",
+      "flex": 1,
+      "justifyContent": "center",
+      "textAlign": "center",
+      "width": "80%",
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "fontFamily": "MonM",
+        "fontSize": 32.14285714285714,
+      }
+    }
+  >
+    Who are We
+  </Text>
+  <Text
+    style={
+      Object {
+        "fontFamily": "MonL",
+        "fontSize": 27.857142857142858,
+        "textAlign": "center",
+      }
+    }
+  >
+    We are Food Rescue and our goal is to try and save food!
+  </Text>
+  <Text
+    style={
+      Object {
+        "fontFamily": "MonL",
+        "fontSize": 27.857142857142858,
+        "textAlign": "center",
+      }
+    }
+  >
+    Okay, we wont be solely involved in saving every bit of food. Our goal is to take food waste that a business might produce and sell it to customers at a lower price!
+  </Text>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "justifyContent": "space-evenly",
+        "marginTop": 214.28571428571428,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonM",
+          "fontSize": 32.14285714285714,
+        }
+      }
+    >
+       How it works
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonL",
+          "fontSize": 27.857142857142858,
+          "textAlign": "center",
+        }
+      }
+    >
+      1. A business uploads their products that they want to sell
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonL",
+          "fontSize": 27.857142857142858,
+          "textAlign": "center",
+        }
+      }
+    >
+      2. You can buy products that would otherwise go to waste
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonL",
+          "fontSize": 27.857142857142858,
+          "textAlign": "center",
+        }
+      }
+    >
+      3. The business saves money and sells food that would've went to waste
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonL",
+          "fontSize": 27.857142857142858,
+          "textAlign": "center",
+        }
+      }
+    >
+      4. You save money while knowing you are helping the environment!
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonL",
+          "fontSize": 27.857142857142858,
+          "textAlign": "center",
+        }
+      }
+    >
+      Win-win!
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "justifyContent": "space-evenly",
+        "marginTop": 214.28571428571428,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonM",
+          "fontSize": 32.14285714285714,
+        }
+      }
+    >
+      Food Countdown
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonL",
+          "fontSize": 27.857142857142858,
+          "textAlign": "center",
+        }
+      }
+    >
+      1. A business uploads their products that they want to sell
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonL",
+          "fontSize": 27.857142857142858,
+          "textAlign": "center",
+        }
+      }
+    >
+      2. You can buy products that would otherwise go to waste
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonL",
+          "fontSize": 27.857142857142858,
+          "textAlign": "center",
+        }
+      }
+    >
+      3. The business saves money and sells food that would've went to waste
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonL",
+          "fontSize": 27.857142857142858,
+          "textAlign": "center",
+        }
+      }
+    >
+      4. You save money while knowing you are helping the environment!
+    </Text>
+    <Text
+      style={
+        Object {
+          "fontFamily": "MonL",
+          "fontSize": 27.857142857142858,
+          "textAlign": "center",
+        }
+      }
+    >
+      Win-win!
+    </Text>
+  </View>
+</View>
+`;

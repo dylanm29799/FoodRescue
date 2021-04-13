@@ -13,7 +13,13 @@ import "firebase/firestore";
 const BusinessLocation = (props) => {
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
-  var docRef = dbconnection.collection("businessDetails").doc(user.uid);
+  var uid = " ";
+  try {
+    uid = user.uid;
+  } catch (err) {
+    console.log(err);
+  }
+  var docRef = dbconnection.collection("businessDetails").doc(uid);
   let longitude = null;
   let latitude = null;
   [(longitude = global.longitude)];

@@ -3,29 +3,23 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
-  Image,
   Alert,
-  ActivityIndicator,
   ImageBackground,
-  Dimensions,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
+
 import Colour from "../constants/Colour";
-const { height } = Dimensions.get("window");
-import UserSignedIn from "../components/UserSignedIn";
+
 import { scale } from "../components/ResponsiveText";
 import * as firebase from "firebase";
 import { AntDesign } from "@expo/vector-icons";
 import ButtonCustom from "../constants/ButtonCustom";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import "firebase/firestore";
-import * as GoogleSignIn from "expo-google-sign-in";
-import Expo from "expo";
-import { BlurView } from "expo-blur";
+
 import Footer from "../components/Footer";
-import { acc } from "react-native-reanimated";
+
 const LoginScreen = (props) => {
   let validation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const [signedIn, setSignedIn] = useState("false");

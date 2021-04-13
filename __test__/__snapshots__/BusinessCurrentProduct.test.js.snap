@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<RCTScrollView
+  collapsable={false}
+  onGestureHandlerEvent={[Function]}
+  onGestureHandlerStateChange={[Function]}
+  style={
+    Object {
+      "backgroundColor": "#ffecd2",
+      "flex": 1,
+      "width": "100%",
+    }
+  }
+>
+  <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "width": "100%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "fontFamily": "MonM",
+            "fontSize": 42.857142857142854,
+            "paddingVertical": 21.428571428571427,
+            "textAlign": "center",
+          }
+        }
+      >
+        Ordinary Products
+      </Text>
+      <RCTScrollView
+        data={Array []}
+        disableVirtualization={false}
+        getItem={[Function]}
+        getItemCount={[Function]}
+        horizontal={true}
+        initialNumToRender={10}
+        keyExtractor={[Function]}
+        maxToRenderPerBatch={10}
+        onContentSizeChange={[Function]}
+        onEndReachedThreshold={2}
+        onLayout={[Function]}
+        onMomentumScrollEnd={[Function]}
+        onScroll={[Function]}
+        onScrollBeginDrag={[Function]}
+        onScrollEndDrag={[Function]}
+        removeClippedSubviews={false}
+        renderItem={[Function]}
+        scrollEventThrottle={50}
+        stickyHeaderIndices={Array []}
+        style={
+          Object {
+            "flex": 1,
+            "width": "95%",
+          }
+        }
+        updateCellsBatchingPeriod={50}
+        viewabilityConfigCallbackPairs={Array []}
+        windowSize={21}
+      >
+        <View />
+      </RCTScrollView>
+    </View>
+    <RCTSafeAreaView
+      emulateUnlessSupported={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "fontFamily": "MonM",
+            "fontSize": 42.857142857142854,
+            "paddingVertical": 21.428571428571427,
+            "textAlign": "center",
+          }
+        }
+      >
+        Food Countdown
+      </Text>
+      <RCTScrollView
+        data={Array []}
+        disableVirtualization={false}
+        getItem={[Function]}
+        getItemCount={[Function]}
+        horizontal={true}
+        initialNumToRender={10}
+        keyExtractor={[Function]}
+        maxToRenderPerBatch={10}
+        onContentSizeChange={[Function]}
+        onEndReachedThreshold={2}
+        onLayout={[Function]}
+        onMomentumScrollEnd={[Function]}
+        onScroll={[Function]}
+        onScrollBeginDrag={[Function]}
+        onScrollEndDrag={[Function]}
+        removeClippedSubviews={false}
+        renderItem={[Function]}
+        scrollEventThrottle={50}
+        stickyHeaderIndices={Array []}
+        style={
+          Object {
+            "alignContent": "center",
+            "flex": 1,
+            "width": "95%",
+          }
+        }
+        updateCellsBatchingPeriod={50}
+        viewabilityConfigCallbackPairs={Array []}
+        windowSize={21}
+      >
+        <View />
+      </RCTScrollView>
+    </RCTSafeAreaView>
+  </View>
+</RCTScrollView>
+`;

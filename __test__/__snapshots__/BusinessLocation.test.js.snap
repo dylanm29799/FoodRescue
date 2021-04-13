@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <AIRMap
+      handlePanDrag={false}
+      initialRegion={null}
+      onChange={[Function]}
+      onLayout={[Function]}
+      onMapReady={[Function]}
+      onMarkerPress={[Function]}
+      region={
+        Object {
+          "latitude": 53.34900146651947,
+          "latitudeDelta": 0.02,
+          "longitude": -6.243367195129395,
+          "longitudeDelta": 0,
+        }
+      }
+      style={
+        Object {
+          "height": "100%",
+          "width": "100%",
+        }
+      }
+    >
+      <AIRMapMarker
+        coordinate={
+          Object {
+            "latitude": 53.34900146651947,
+            "longitude": -6.243367195129395,
+          }
+        }
+        onPress={[Function]}
+        pinColor="#c44536"
+        stopPropagation={false}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "position": "absolute",
+            },
+            undefined,
+          ]
+        }
+        title="Your Location"
+      />
+    </AIRMap>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "marginTop": 42.857142857142854,
+        "position": "absolute",
+        "width": "100%",
+      }
+    }
+  >
+    <RNGestureHandlerButton
+      collapsable={false}
+      onGestureEvent={[Function]}
+      onGestureHandlerEvent={[Function]}
+      onGestureHandlerStateChange={[Function]}
+      onHandlerStateChange={[Function]}
+      rippleColor={0}
+    >
+      <View
+        accessible={true}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "backgroundColor": "#fff",
+              "borderColor": "#c44536",
+              "borderRadius": 107.14285714285714,
+              "borderWidth": 4.285714285714286,
+              "fontSize": 42.857142857142854,
+              "height": 214.28571428571428,
+              "marginHorizontal": 10.714285714285714,
+              "paddingTop": 64.28571428571428,
+              "textAlign": "center",
+              "width": 321.42857142857144,
+            }
+          }
+        >
+          This is Your Location?
+        </Text>
+      </View>
+    </RNGestureHandlerButton>
+    <RNGestureHandlerButton
+      collapsable={false}
+      onGestureEvent={[Function]}
+      onGestureHandlerEvent={[Function]}
+      onGestureHandlerStateChange={[Function]}
+      onHandlerStateChange={[Function]}
+      rippleColor={0}
+    >
+      <View
+        accessible={true}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "backgroundColor": "#fff",
+              "borderColor": "#c44536",
+              "borderRadius": 107.14285714285714,
+              "borderWidth": 4.285714285714286,
+              "fontSize": 42.857142857142854,
+              "height": 214.28571428571428,
+              "marginHorizontal": 10.714285714285714,
+              "paddingTop": 64.28571428571428,
+              "textAlign": "center",
+              "width": 321.42857142857144,
+            }
+          }
+        >
+          This is Not your Location?
+        </Text>
+      </View>
+    </RNGestureHandlerButton>
+  </View>
+</View>
+`;

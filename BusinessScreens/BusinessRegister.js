@@ -16,13 +16,13 @@ import { scale } from "../components/ResponsiveText";
 import * as firebase from "firebase";
 import "firebase/firestore";
 import * as ImagePicker from "expo-image-picker";
-import { ScrollView } from "react-native-gesture-handler";
+
 import ButtonCustom from "../constants/ButtonCustom";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
-import Footer from "../components/Footer";
+
 import "firebase/storage";
-import { Picker } from "@react-native-picker/picker";
+
 import { useEffect } from "react/cjs/react.development";
 
 const { height } = Dimensions.get("window");
@@ -174,6 +174,7 @@ const BusinessRegister = (props) => {
               "gs://food-rescue-34ffd.appspot.com/businessLogo/" + user.uid
             );
             gsReference.getDownloadURL().then((url) => {
+              console.log("Getting URL");
               docRef.get().then(function (doc) {
                 if (doc.exists) {
                   return docRef.update({

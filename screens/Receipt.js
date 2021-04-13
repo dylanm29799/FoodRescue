@@ -1,25 +1,16 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  SafeAreaView,
-} from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { scale } from "../components/ResponsiveText";
 import Colour from "../constants/Colour";
 import * as firebase from "firebase";
 import MapView, { Marker } from "react-native-maps";
-import { ScrollView } from "react-native-gesture-handler";
+
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { concat } from "react-native-reanimated";
 
 const Receipt = (props) => {
-  var orderID = props.navigation.getParam("orderID");
-  var user = firebase.auth().currentUser;
+  var orderID = "";
+
   const dbconnection = firebase.firestore();
 
   const [businessID, setBusinessID] = useState("");
@@ -39,7 +30,13 @@ const Receipt = (props) => {
   const [productUsualPrice, setProductUsualPrice] = useState("");
   const [finalDate, setFinalDate] = useState("");
   const [Status, setStatus] = useState("");
-  var newDate = new Date();
+
+  try {
+    orderID = props.navigation.getParam("orderID");
+  } catch (err) {
+    console.log(err);
+  }
+
   const [time, setTime] = useState(0);
   useEffect(() => {
     dbconnection
