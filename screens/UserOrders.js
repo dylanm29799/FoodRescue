@@ -25,7 +25,6 @@ const UserOrders = (props) => {
   var Colour = "#fff";
   const [showBy, setShowBy] = useState("All");
   useEffect(() => {
-    console.log(user.uid);
     dbconnection
       .collection("OrderDetails")
       .where("userID", "==", user.uid)
@@ -38,11 +37,9 @@ const UserOrders = (props) => {
             key: doc.id,
           });
         });
-        orders.sort(function (a, b) {
-          return new Date(b.created.toDate()) - new Date(a.created.toDate());
-        });
 
-        console.log("Orders", orders);
+        orders = orders.sort((a, b) => b.created.toDate() - a.created.toDate());
+
         setOrders(orders);
       });
   }, []);

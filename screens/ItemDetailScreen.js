@@ -118,9 +118,12 @@ const ItemDetailScreen = (props) => {
                 userID: user.uid,
                 Status: "In Progress",
               });
+
               props.navigation.navigate({
                 routeName: "Receipt",
-                params: { orderID: x },
+                params: {
+                  orderID: x,
+                },
               });
             })
             .catch(function (error) {

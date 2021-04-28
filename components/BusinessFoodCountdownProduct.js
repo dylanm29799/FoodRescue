@@ -82,17 +82,9 @@ const BusinessFoodCountdownProduct = (props) => {
         style={styles.Categories}
         onPress={() => {
           props.navigation.navigate({
-            routeName: "ItemDetail",
+            routeName: "BusinessEdit",
             params: {
-              BusinessID: businessName,
-              productID: itemData.item.key,
-              image: itemData.item.image,
-              itemName: itemData.item.itemName,
-              usualPrice: itemData.item.usualPrice,
-              newPrice: finalPrice.toFixed(2),
-              quantity: itemData.item.quantity,
-              hours: itemData.item.hours,
-              foodCountdown: itemData.item.foodCountdown,
+              productKey: itemData.item.key,
             },
           });
         }}

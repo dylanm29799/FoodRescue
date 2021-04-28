@@ -31,11 +31,11 @@ const forgotPassword = (props) => {
       <Text style={styles.text}>Enter Your Email</Text>
 
       <TextInput
-        style={styles.input}
+        style={styles.logotextinput}
         placeholder={"JohnDoe@gmail.com"}
         onChangeText={(email) => setEmail(email)}
       />
-      <Text />
+
       <Button
         color={Colour.primaryColour}
         title="Reset Email"
@@ -59,6 +59,28 @@ const styles = StyleSheet.create({
     paddingVertical: scale(3),
     paddingHorizontal: scale(10),
     textAlign: "center",
+  },
+  logotextinput: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    borderWidth: 3,
+    borderColor: Colour.primaryColour,
+    height: scale(30),
+    width: scale(250),
+
+    margin: 10,
+    borderRadius: 15,
+    alignContent: "center",
+    textAlign: "center",
+  },
+  text: {
+    textAlign: "center",
+    alignSelf: "center",
+    fontFamily: "MonM",
+    fontSize: scale(12),
+    paddingBottom: 10,
   },
 });
 
