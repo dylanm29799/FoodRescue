@@ -1,3 +1,19 @@
+/*
+ *
+ * ClassName: forgotPassword.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ *
+ */
+
 import React, { useState } from "react";
 import { View, TextInput, Text, Button, StyleSheet, Alert } from "react-native";
 import * as firebase from "firebase";
@@ -6,10 +22,12 @@ import Colour from "../constants/Colour";
 import { scale } from "../components/ResponsiveText";
 
 const forgotPassword = (props) => {
+  //Setting state
   const [email, setEmail] = useState("");
   var auth = firebase.auth();
 
   function forgot() {
+    //Forget password logic - Send password reset email to users email then navigate them to main screen
     auth
       .sendPasswordResetEmail(email)
       .then(function () {
@@ -44,7 +62,7 @@ const forgotPassword = (props) => {
     </View>
   );
 };
-
+//Stylesheet for styling
 const styles = StyleSheet.create({
   screen: {
     flex: 1,

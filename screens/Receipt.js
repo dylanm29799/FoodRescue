@@ -1,13 +1,21 @@
+/*
+ *
+ * ClassName: Receipt.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ *
+ */
+
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  SafeAreaView,
-} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { scale } from "../components/ResponsiveText";
 import Colour from "../constants/Colour";
 import * as firebase from "firebase";
@@ -15,13 +23,14 @@ import MapView, { Marker } from "react-native-maps";
 import { ScrollView } from "react-native-gesture-handler";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import { concat } from "react-native-reanimated";
 
 const Receipt = (props) => {
+  //Getting order param
   var orderID = props.navigation.getParam("orderID");
+  //User and firebase details
   var user = firebase.auth().currentUser;
   const dbconnection = firebase.firestore();
-
+  //Setting state
   const [businessID, setBusinessID] = useState("");
   const [created, setCreated] = useState(new Date());
   const [price, setPrice] = useState(0);
@@ -29,7 +38,6 @@ const Receipt = (props) => {
   const [quantity, setQuantity] = useState("");
   const [long, setLong] = useState(0);
   const [lat, setLat] = useState(0);
-
   const [busName, setBusName] = useState("");
   const [busLong, setBusLong] = useState(0);
   const [busLat, setBusLat] = useState(0);
@@ -39,9 +47,10 @@ const Receipt = (props) => {
   const [productUsualPrice, setProductUsualPrice] = useState("");
   const [finalDate, setFinalDate] = useState("");
   const [Status, setStatus] = useState("");
-
   const [time, setTime] = useState(0);
+
   useEffect(() => {
+    //Getting order details
     dbconnection
       .collection("OrderDetails")
       .doc(orderID)
@@ -68,6 +77,7 @@ const Receipt = (props) => {
         }
       })
       .then(function () {
+        //Changing timestamp to readable time
         var mins = created.getMinutes();
         if (created.getMinutes() < 10) {
           mins = "0" + created.getMinutes();
@@ -84,7 +94,7 @@ const Receipt = (props) => {
         console.log(time);
       });
   }, []);
-
+  //Getting how much the user saved
   var saveAmount = 1 - price / productUsualPrice;
   var newSaveAmount = 100 * saveAmount;
   var finalSave = Math.round(newSaveAmount);
@@ -211,7 +221,7 @@ const Receipt = (props) => {
     </View>
   );
 };
-
+//Stylesheet for styling
 const styles = StyleSheet.create({
   screen: {
     flex: 1,

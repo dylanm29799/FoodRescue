@@ -1,13 +1,21 @@
+/*
+ *
+ * ClassName: businessReceipt.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ * @reference : https://www.npmjs.com/package/react-native-dialog
+ *
+ */
 import React, { useEffect, useState, componentDidMount } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  Image,
-  SafeAreaView,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { scale } from "../components/ResponsiveText";
 import Colour from "../constants/Colour";
 import * as firebase from "firebase";
@@ -19,15 +27,15 @@ import Dialog from "react-native-dialog";
 
 const businessReceipt = (props) => {
   var orderID;
-
+  //Connection to firebase
   const dbconnection = firebase.firestore();
-
+  //Getting order param
   try {
     orderID = props.navigation.getParam("orderID");
   } catch (err) {
     console.log(err);
   }
-
+  //Setting state
   const [businessID, setBusinessID] = useState("");
   const [created, setCreated] = useState(new Date());
   const [price, setPrice] = useState(0);
@@ -36,7 +44,7 @@ const businessReceipt = (props) => {
   const [long, setLong] = useState(0);
   const [lat, setLat] = useState(0);
   const [userID, setUserID] = useState("Standard");
-
+  //Business and Product state
   const [busName, setBusName] = useState("");
   const [busLong, setBusLong] = useState(0);
   const [busLat, setBusLat] = useState(0);
@@ -51,6 +59,7 @@ const businessReceipt = (props) => {
   const [time, setTime] = useState(0);
   const [confirm, setConfirm] = useState(false);
   useEffect(() => {
+    //Getting order details and setting the state
     dbconnection
       .collection("OrderDetails")
       .doc(orderID)
@@ -78,10 +87,12 @@ const businessReceipt = (props) => {
         }
       })
       .then(function () {
+        //Setting single digit to double digits
         var mins = created.getMinutes();
         if (created.getMinutes() < 10) {
           mins = "0" + created.getMinutes();
         }
+        //getting the date
         setFinalDate(
           created.getDate() +
             "/" +
@@ -89,23 +100,25 @@ const businessReceipt = (props) => {
             "/" +
             created.getFullYear()
         );
-
+        //Getting time
         setTime(created.getHours() + ":" + mins);
         console.log(time);
       });
-
+    //Getting user details
     dbconnection
       .collection("userDetails")
       .doc(userID)
       .get()
       .then((doc) => {
         if (doc.exists) {
+          //Setting the name of the user
           setName(doc.data().firstName + " " + doc.data().lastName);
         }
       });
   }, [userID]);
 
   const submit = (userClick) => {
+    //Update status of order
     dbconnection
       .collection("OrderDetails")
       .doc(ID)
@@ -114,6 +127,7 @@ const businessReceipt = (props) => {
       })
       .then(() => {
         console.log("Document successfully updated!");
+        //navigate to the BusinessManage page
         props.navigation.navigate({ routeName: "BusinessManage" });
       })
       .catch((error) => {
@@ -123,26 +137,33 @@ const businessReceipt = (props) => {
   };
 
   const handleCancel = () => {
+    //Handle cancel of the dialog
     setConfirm(false);
     submit("Cancelled");
   };
 
   const handleComplete = () => {
+    //Handle complete of the dialog
     setConfirm(false);
     submit("Completed");
   };
   const handleProgress = () => {
+    //Handle progress of the dialog
     setConfirm(false);
     submit("In Progress");
   };
-
+  //Total order price
   var totalPrice = parseInt(quantity) * parseInt(price);
-
+  //Haversine for distance between two points
   const haversine = require("haversine");
+  //user location
   var userLoc = { longitude: long, latitude: lat };
+  //business location
   var BusinessLocation = { longitude: busLong, latitude: busLat };
+  //getting distance
   const distance = haversine(userLoc, BusinessLocation).toFixed(2);
   var Colour = "#fff";
+  //setting colour depending on status
   if (newStatus == "In Progress") {
     Colour = "#ffc575";
   } else if (newStatus == "Completed") {
@@ -300,6 +321,7 @@ const businessReceipt = (props) => {
           </TouchableOpacity>
         </View>
         <View>
+          {/* Change the status of the order*/}
           <Dialog.Container
             style={{ textAlign: "center", alignItems: "center" }}
             visible={confirm}
@@ -339,7 +361,7 @@ const businessReceipt = (props) => {
     </View>
   );
 };
-
+//Stylesheet for ordering
 const styles = StyleSheet.create({
   screen: {
     flex: 1,

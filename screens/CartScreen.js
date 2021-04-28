@@ -1,14 +1,32 @@
+/*
+ *
+ * ClassName: CartScreen.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ *
+ */
+
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { scale } from "../components/ResponsiveText";
 import Colour from "../constants/Colour";
 
 const CartScreen = (props) => {
+  //Initializing variables
   var title = "";
   var quantity = "";
   var initialPrice = "";
   var price = "";
 
+  //Getting the savings between the new price and usual price + Getting total quantity
   const newPrice = price * quantity;
   const newInitial = initialPrice * quantity;
   const savings = newInitial - newPrice;
@@ -61,7 +79,7 @@ const CartScreen = (props) => {
     </View>
   );
 };
-
+//Stylesheet for styling
 const styles = StyleSheet.create({
   screen: {
     flex: 1,

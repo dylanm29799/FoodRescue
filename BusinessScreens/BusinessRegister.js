@@ -1,3 +1,20 @@
+/*
+ *
+ * ClassName: BusinessRegister.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ * @reference : https://stackoverflow.com/questions/15017052/understanding-email-validation-using-javascript
+ *
+ */
+
 import React, { useState } from "react";
 import {
   View,
@@ -24,13 +41,15 @@ import { AntDesign } from "@expo/vector-icons";
 import "firebase/storage";
 
 import { useEffect } from "react/cjs/react.development";
-
 const { height } = Dimensions.get("window");
+
 const BusinessRegister = (props) => {
+  //Firebase connection
   const dbconnection = firebase.firestore();
   //validation is used for validation of emails
   let validation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   var result = "";
+  //Setting state
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,6 +59,7 @@ const BusinessRegister = (props) => {
   const [id, setID] = useState("");
   const [privateID, setPrivateID] = useState("");
   const [image, setImage] = useState(null);
+  //Setting the colour of fields
   const [errorColorID, setErrorColorID] = useState("logotextinput");
   const [errorColorName, setErrorColorName] = useState("logotextinput");
 
@@ -49,9 +69,11 @@ const BusinessRegister = (props) => {
   );
   const [errorColorNumber, setErrorColorNumber] = useState("logotextinput");
   const [errorColorEmail, setErrorColorEmail] = useState("logotextinput");
-
+  //Essential ID is a prerequisite ID needed for businesses to sign up
   var businessIDRef = dbconnection.collection("BusinessID").doc("ESSENTIALID");
+
   var randomString = require("random-string");
+  //Launching the image picker on Android and IOS to pick an image: Aspect ratio is 16:9, allowsEditing allows for the cropping of the image
   const pickImage = async () => {
     result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Image,
@@ -61,8 +83,10 @@ const BusinessRegister = (props) => {
     });
 
     if (!result.cancelled) {
+      //If the image picking is not cancelled
       setImage(result.uri);
     } else if (result == "") {
+      //If the image picking is cancelled or an error occurs
       alert("Something went wrong, try again!");
     }
   };
@@ -88,38 +112,48 @@ const BusinessRegister = (props) => {
     //Check for the Name firstName
     if (!name.trim() || name.length < 3) {
       Alert.alert("Error", "Your business name must be longer than 3 letters");
+      //set colour to error
       setErrorColorName("logotextinputerror");
       return;
     } else {
+      //Keep colour as non error
       setErrorColorName("logotextinput");
     }
     //Check for the Email TextInput
     if (!email.trim() || validation.test(email) === false) {
       Alert.alert("Error", "Please Enter a valid Email");
+      //set colour to error
       setErrorColorEmail("logotextinputerror");
       return;
     } else {
+      //Keep colour as non error
       setErrorColorEmail("logotextinput");
     }
     if (!password.trim() || password.length < 6) {
       Alert.alert("Error", "Password must be at least 6 digits");
+      //set colour to error
       setErrorColorPassword("logotextinputerror");
       return;
     } else {
+      //Keep colour as non error
       setErrorColorPassword("logotextinput");
     }
     if (!confPassword.trim() || confPassword.length < 6) {
       Alert.alert("Error", "Please Confirm your password");
+      //set colour to error
       setErrorColorConfPassword("logotextinputerror");
       return;
     } else {
+      //Keep colour as non error
       setErrorColorConfPassword("logotextinput");
     }
     if (number.length != 10) {
       Alert.alert("Error", "Please Enter a valid Irish Number");
+      //set colour to error
       setErrorColorNumber("logotextinputerror");
       return;
     } else {
+      //Keep colour as non error
       setErrorColorNumber("logotextinput");
     }
     if (id != privateID) {
@@ -127,13 +161,18 @@ const BusinessRegister = (props) => {
         "Error",
         "Please Enter the ID given to you either over the phone or through email"
       );
+      //set colour to error
       setErrorColorID("logotextinputerror");
       return;
     } else {
+      //Keep colour as non error
       setErrorColorID("logotextinput");
     }
     if (confPassword != password) {
       Alert.alert("Error", "Please make sure your passwords match");
+    }
+    if (image == "") {
+      Alert.alert("Error", "Please make sure your image is not empty");
     }
     //Checked Successfully
     console.log(password, email, name, number, publicNumber);
@@ -143,15 +182,19 @@ const BusinessRegister = (props) => {
       .then(async (userCredential) => {
         // Signed in
         var user = userCredential.user;
-
+        //Getting the image uri
         const response = await fetch(image);
+        //getting the blob from firebase
         const blob = await response.blob();
+        //storage connection
         var storageRef = firebase.storage().ref();
+        //pushing the link to the firebase storage
         var BusRef = storageRef.child("businessLogo/" + user.uid);
         BusRef.put(blob)
           .then(async function () {
             console.log("Signed Up");
             dbconnection.collection("businessDetails").doc(user.uid).set({
+              //setting their email
               name: name,
               email: email,
               number: number,
@@ -162,21 +205,26 @@ const BusinessRegister = (props) => {
               sortName: "",
             });
             dbconnection.collection("accountDetails").doc(user.uid).set({
+              //setting account type
               accountType: "Business",
             });
           })
           .then(() => {
+            //Getting links to firebase storage
             var storage = firebase.storage();
             var docRef = dbconnection
               .collection("businessDetails")
               .doc(user.uid);
+            //getting the google cloud storage URI
             var gsReference = storage.refFromURL(
               "gs://food-rescue-34ffd.appspot.com/businessLogo/" + user.uid
             );
+            //getting the URL from that URI
             gsReference.getDownloadURL().then((url) => {
               console.log("Getting URL");
               docRef.get().then(function (doc) {
                 if (doc.exists) {
+                  //updating the URL in the firebase
                   return docRef.update({
                     image: url,
                   });
@@ -185,6 +233,7 @@ const BusinessRegister = (props) => {
             });
           })
           .then(function () {
+            //Navigating to the business location page
             props.navigation.navigate({ routeName: "BusinessLocation" });
             // ...
           });
@@ -194,7 +243,7 @@ const BusinessRegister = (props) => {
         var errorMessage = error.message;
         console.log("Not Signed Up", errorCode, errorMessage);
         Alert.alert("Error", errorMessage);
-        // ..
+        // error handling
       });
   };
 
@@ -318,7 +367,7 @@ const BusinessRegister = (props) => {
     </View>
   );
 };
-
+//Stylesheet for styling
 const styles = StyleSheet.create({
   screen: {
     justifyContent: "flex-start",

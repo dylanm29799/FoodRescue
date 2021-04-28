@@ -1,3 +1,20 @@
+/*
+ *
+ * ClassName: BusinessAddProduct.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ *
+ *
+ */
+
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import Colour from "../constants/Colour";
@@ -13,16 +30,14 @@ import FoodCountdown from "../components/FoodCountdown";
 const BusinessAddProduct = () => {
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
-  var uid = ""
-try{
-  uid = user.uid;
-}
-catch(err){
-  console.log(err)
-}
-
-
-
+  //Getting user id
+  var uid = "";
+  try {
+    uid = user.uid;
+  } catch (err) {
+    console.log(err);
+  }
+  //Setting the view and text original picked state
   const [npview, setNpview] = useState("picked");
   const [nptext, setNptext] = useState("pickedText");
   const [fcview, setFcview] = useState("notPicked");
@@ -31,10 +46,12 @@ catch(err){
   const [borderCornerFood, setBorderCornerFood] = useState({
     borderTopRightRadius: 30,
   });
+  //The original page rendered is the normal products page
   const [renderedPage, setRenderedPage] = useState("Normal");
   var newQuantity;
 
   onFoodCountdown = () => {
+    //When food countdown is picked
     setFctext("pickedText");
     setFcview("picked");
     setNptext("notPickedText");
@@ -47,6 +64,7 @@ catch(err){
   };
 
   onNormalProduct = () => {
+    //When normal product is picked
     setFctext("notPickedText");
     setFcview("notPicked");
     setNptext("pickedText");
@@ -59,6 +77,7 @@ catch(err){
     console.log(renderedPage);
   };
   function RenderTime() {
+    //render the page that is picked
     if (renderedPage == "Normal") {
       return <NormalProduct />;
     } else {
@@ -72,9 +91,8 @@ catch(err){
       .get()
       .then(function (doc) {
         if (doc.exists) {
+          //setting quantity
           newQuantity = doc.data().quantity;
-
-          [(global.quantity = newQuantity + 1)];
         }
       });
   }, [RenderTime]);
@@ -100,7 +118,7 @@ catch(err){
     </View>
   );
 };
-
+//Stylesheet
 const styles = StyleSheet.create({
   container: {
     flex: 1,

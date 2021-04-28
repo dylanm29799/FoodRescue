@@ -1,3 +1,19 @@
+/*
+ *
+ * ClassName: ItemDetailScreen.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ *
+ */
+
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -11,37 +27,44 @@ import {
 import { scale } from "../components/ResponsiveText";
 import * as firebase from "firebase";
 import { EvilIcons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
-import Colour from "../constants/Colour";
 
 const ItemDetailScreen = (props) => {
   const dbconnection = firebase.firestore();
+  //Getting Params
   const businessID = props.navigation.getParam("BusinessID");
   const productID = props.navigation.getParam("productID");
   const itemName = props.navigation.getParam("itemName");
   var quantity = props.navigation.getParam("quantity");
   var newQuantity = quantity;
   const hours = props.navigation.getParam("hours");
+  //Firebase and User variables
   var docRef = dbconnection.collection("Products").doc(productID);
   var user = firebase.auth().currentUser;
+  //Getting more params
   const image = props.navigation.getParam("image");
   const newPrice = props.navigation.getParam("newPrice");
   const usualPrice = props.navigation.getParam("usualPrice");
   const foodCountdown = props.navigation.getParam("foodCountdown");
+
+  //How much the user will save as a percentage
   var saveAmount = 1 - newPrice / usualPrice;
   var newSaveAmount = 100 * saveAmount;
   var finalSave = Math.round(newSaveAmount);
   const [specifiedQuantity, setSpecifiedQuantity] = useState(1);
+  //Using a random string as the Product ID
   var randomString = require("random-string");
   var x;
+
+  //Setting state
   const [busName, setBusName] = useState("");
   const [busLong, setBusLong] = useState(0);
   const [busLat, setBusLat] = useState(0);
   const [busNumber, setBusNumber] = useState("");
-
   const [productName, setProductName] = useState("");
   const [productUsualPrice, setProductUsualPrice] = useState("");
+
   useEffect(() => {
+    //Getting business details
     console.log(productID);
     dbconnection
       .collection("businessDetails")
@@ -59,12 +82,14 @@ const ItemDetailScreen = (props) => {
       });
 
     docRef.get().then(function (doc) {
+      //getting product details
       if (doc.exists) {
         setProductName(doc.data().itemName);
         setProductUsualPrice(doc.data().usualPrice);
       }
     });
   }, []);
+  //Increase or decrease counter
   const increase = () => {
     if (specifiedQuantity != newQuantity) {
       setSpecifiedQuantity(specifiedQuantity + 1);
@@ -79,6 +104,7 @@ const ItemDetailScreen = (props) => {
   };
 
   const buy = () => {
+    //When the user clicks buy, update the quantity and create a new order
     if (newQuantity <= 0) {
       props.navigation.navigate({ routeName: "BusinessList" });
       alert("This Product is sold out");
@@ -118,7 +144,7 @@ const ItemDetailScreen = (props) => {
                 userID: user.uid,
                 Status: "In Progress",
               });
-
+              //then navigate to receipt page
               props.navigation.navigate({
                 routeName: "Receipt",
                 params: {
@@ -182,7 +208,7 @@ const ItemDetailScreen = (props) => {
     </View>
   );
 };
-
+//Stylesheet for styling
 const styles = StyleSheet.create({
   screen: {
     alignItems: "center",

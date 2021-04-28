@@ -1,30 +1,33 @@
-import React, { useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Button,
-  Image,
-  ColorPropType,
-  Alert,
-} from "react-native";
+/*
+ *
+ * ComponentName: Map.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ *
+ */
+import React, { useState } from "react";
+import { Text, View, StyleSheet, TextInput, Image, Alert } from "react-native";
 import Colour from "../constants/Colour";
 import { scale } from "../components/ResponsiveText";
 import * as ImagePicker from "expo-image-picker";
-import CheckBox from "@react-native-community/checkbox";
-import foodcountdown from "../models/foodcountdown";
+
 import * as firebase from "firebase";
 import "firebase/firestore";
 import ButtonCustom from "../constants/ButtonCustom";
 import "firebase/storage";
-import { Picker } from "@react-native-picker/picker";
 
 import { withNavigation } from "react-navigation";
 
-const NormalProduct = (props, { finalQuan }) => {
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+const NormalProduct = (props) => {
+  //Firebase and user uid link
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
   var uid = "";
@@ -33,20 +36,20 @@ const NormalProduct = (props, { finalQuan }) => {
   } catch (err) {
     console.log(err);
   }
-  var finalQuan;
-  [(finalQuan = global.quantity)];
-
+  //Setting state
   const [itemName, setItemName] = useState(null);
   const [quantity, setQuantity] = useState(null);
   const [usualPrice, setUsualPrice] = useState(null);
   const [newPrice, setNewPrice] = useState(null);
-
+  //Random string future variabe
   var x;
-
+  //random string package
   var randomString = require("random-string");
+  //image state
   const [image, setImage] = useState(null);
 
   const pickImage = async () => {
+    //Launch image picker
     result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Image,
       allowsEditing: true,
@@ -55,11 +58,13 @@ const NormalProduct = (props, { finalQuan }) => {
     });
 
     if (!result.cancelled) {
+      //Image uri into image state
       setImage(result.uri);
     }
   };
 
   onSubmit = async () => {
+    //TextInput logic
     if (!itemName || itemName.length < 3) {
       alert("Please Enter a valid Item Name");
       return;
@@ -72,18 +77,24 @@ const NormalProduct = (props, { finalQuan }) => {
     } else if (!image) {
       alert("Please Pick an image");
     } else {
+      //Setting x as a random string
       x = randomString({ length: 30 });
       console.log(x);
-      const response = await fetch(image);
 
+      //Getting the image uri
+      const response = await fetch(image);
+      //getting the blob from firebase
       const blob = await response.blob();
+      //storage connection
       var storageRef = firebase.storage().ref();
+      //pushing the link to the firebase storage
       var productRef = storageRef.child("products/" + x);
 
       productRef
         .put(blob)
 
         .then(async function () {
+          //creating a new product with the details
           dbconnection
             .collection("Products")
             .doc(x)
@@ -102,16 +113,15 @@ const NormalProduct = (props, { finalQuan }) => {
           Alert.alert("Uploaded!", "Your product has been uploaded");
         })
         .then(() => {
-          console.log(finalQuan);
-
-          dbconnection.collection("businessDetails").doc(uid).update({
-            quantity: finalQuan,
-          });
+          //Getting links to firebase storage
           var storage = firebase.storage();
+          //getting the google cloud storage URI
           var docRef = dbconnection.collection("Products").doc(x);
+          //getting the URL from that URI
           var gsReference = storage.refFromURL(
             "gs://food-rescue-34ffd.appspot.com/products/" + x
           );
+          //updating the URL in the firebase
           gsReference.getDownloadURL().then((url) => {
             docRef.get().then(function (doc) {
               if (doc.exists) {
@@ -123,6 +133,7 @@ const NormalProduct = (props, { finalQuan }) => {
           });
         })
         .then(function () {
+          //navigate to the home page
           props.navigation.navigate({ routeName: "BusinessHome" });
         });
     }
@@ -263,4 +274,5 @@ const styles = StyleSheet.create({
     height: scale(50),
   },
 });
+//WithNavigation used to navigate in a component
 export default withNavigation(NormalProduct);

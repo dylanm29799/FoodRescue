@@ -1,3 +1,19 @@
+/*
+ *
+ * ClassName: SortScreen.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ *
+ */
+
 import React from "react";
 import {
   View,
@@ -5,21 +21,20 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
-  BackHandler,
   Image,
 } from "react-native";
 import { scale } from "../components/ResponsiveText";
 import { CATEGORIES } from "../Data/SortDataExample";
-import Colours from "../constants/Colour";
 
 const SortScreen = (props) => {
+  //render Sort items
   const renderCategory = (itemData) => {
-    console.log(itemData.item.image);
     return (
       <TouchableOpacity
         style={styles.Categories}
         onPress={() => {
           props.navigation.navigate({
+            //navigate to main screen with name of category as param
             routeName: "Main",
             params: {
               SortID: itemData.item.title,
@@ -77,7 +92,7 @@ const SortScreen = (props) => {
     </View>
   );
 };
-
+//Stylesheet for styling
 const styles = StyleSheet.create({
   screen: { height: "100%" },
   Categories: {

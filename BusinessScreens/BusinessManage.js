@@ -1,3 +1,20 @@
+/*
+ *
+ * ClassName: BusinessManage.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ * @reference : https://www.npmjs.com/package/react-native-dropdown-picker
+ *
+ *
+ */
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -6,20 +23,15 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
-  SafeAreaView,
 } from "react-native";
 import { scale } from "../components/ResponsiveText";
 import DropDownPicker from "react-native-dropdown-picker";
-import Colour from "../constants/Colour";
-import * as firebase from "firebase";
-import MapView, { Marker } from "react-native-maps";
-import { ScrollView } from "react-native-gesture-handler";
-import { FontAwesome5 } from "@expo/vector-icons";
 
-import { Feather } from "@expo/vector-icons";
-import { concat } from "react-native-reanimated";
+import * as firebase from "firebase";
+
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 const BusinessManage = (props) => {
+  //Setting state
   const [orders, setOrders] = useState({});
   const [productImage, setProductImage] = useState(
     "https://www.transparenttextures.com/patterns/debut-light.png"
@@ -27,45 +39,52 @@ const BusinessManage = (props) => {
   const [userName, setUserName] = useState(" ");
   const [userNumber, setUserNumber] = useState(" ");
   const dbconnection = firebase.firestore();
+  //Setting state of querying
   const [showBy, setShowBy] = useState("All");
 
   console.log(showBy);
   var user = firebase.auth().currentUser;
+  //Setting the initial colour
   var Colour = "#fff";
   useEffect(() => {
+    //Getting all user orders
     console.log(user.uid);
     dbconnection
       .collection("OrderDetails")
       .where("businessID", "==", user.uid)
       .onSnapshot((querySnapshot) => {
+        //Creating array
         var orders = [];
-
+        //Pushing each order to the array
         querySnapshot.forEach(function (doc) {
           orders.push({
             ...doc.data(),
             key: doc.id,
           });
         });
+        //Sorting array by time and date
         orders.sort(function (a, b) {
           return new Date(a.created.toDate()) - new Date(b.created.toDate());
         });
-
+        //Pushing array to an object
         setOrders(orders);
       });
   }, []);
-
+  //Rendering the order details
   const renderCategory = (itemData) => {
     var FinalDate;
     var Time;
+    //Getting the time of the order
     var newCreated = itemData.item.created.toDate();
     var mins = newCreated.getMinutes();
+    //Making minutes double digits if below 10 e.g 08 instead of 8
     if (newCreated.getMinutes() < 10) {
       mins = "0" + newCreated.getMinutes();
     }
-
+    //Getting the date and time as user readable figures
     FinalDate = newCreated.getDate() + "/" + (newCreated.getMonth() + 1);
     Time = newCreated.getHours() + ":" + mins;
-
+    //Getting image of product and first and last name of user
     dbconnection
       .collection("Products")
       .doc(itemData.item.productID)
@@ -81,7 +100,7 @@ const BusinessManage = (props) => {
         setUserName(doc.data().firstName + " " + doc.data().lastName);
         setUserNumber(doc.data().number);
       });
-
+    //Setting the colour of the order
     if (itemData.item.Status == "In Progress") {
       Colour = "#ffc575";
     } else if (itemData.item.Status == "Completed") {
@@ -89,12 +108,14 @@ const BusinessManage = (props) => {
     } else if (itemData.item.Status == "Cancelled") {
       Colour = "#ff6961";
     }
+    //Displaying only the correct orders
     if (itemData.item.Status == showBy || showBy == "All") {
       return (
         <TouchableOpacity
           style={[styles.Categories, { backgroundColor: Colour }]}
           onPress={() => {
             props.navigation.navigate({
+              //Navigating the the receipt page and passing the param of the order ID
               routeName: "businessReceipt",
               params: {
                 orderID: itemData.item.key,
@@ -165,6 +186,7 @@ const BusinessManage = (props) => {
       >
         <Text style={{ fontSize: scale(12) }}>Sort By: </Text>
         <DropDownPicker
+          //Dropdown picker allows the user to query the orders by status
           items={[
             {
               label: "All",
@@ -229,7 +251,7 @@ const BusinessManage = (props) => {
     </View>
   );
 };
-
+//Stylesheet for styling
 const styles = StyleSheet.create({
   Categories: {
     height: scale(145),

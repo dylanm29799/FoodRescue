@@ -1,3 +1,20 @@
+/*
+ *
+ * ClassName: MainScreen.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ * @reference : https://www.npmjs.com/package/haversine
+ *
+ */
+
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -19,7 +36,7 @@ const MainScreen = (props) => {
   const dbconnection = firebase.firestore();
   const [businessLoc, setBusinessLoc] = useState({});
   var sort = "";
-
+  //Getting params
   try {
     sort = props.navigation.getParam("SortID");
   } catch (err) {
@@ -27,10 +44,11 @@ const MainScreen = (props) => {
   }
   var longitude;
   var latitude;
+  // message if blank
   const [message, setMessage] = useState(
     "Nothing Found, Please try another category"
   );
-
+  //Get user longitude and latitude
   [(longitude = global.longitude)];
   [(latitude = global.latitude)];
   useEffect(() => {
@@ -40,6 +58,7 @@ const MainScreen = (props) => {
     };
 
     dbconnection.collection("businessDetails").onSnapshot((querySnapshot) => {
+      //creating array
       var businessLoc = [];
 
       querySnapshot.forEach(function (doc) {
@@ -47,23 +66,24 @@ const MainScreen = (props) => {
           longitude: parseFloat(doc.data().longitude),
           latitude: parseFloat(doc.data().latitude),
         };
-
+        //Getting the distance from the user - Issue where it was 29km off location every time
         var distance = haversine(userLoc, BusinessLocation) - 29;
         distance = distance.toFixed(2);
-
+        //Pushing to array
         businessLoc.push({
           ...doc.data(),
           key: doc.id,
           distance: distance,
         });
       });
-
+      //Sorting by distance
       businessLoc = businessLoc.sort((a, b) => a.distance - b.distance);
       console.log(businessLoc);
+      //Pushing array to object
       setBusinessLoc(businessLoc);
     });
   }, []);
-
+  //Rendering the Businesses
   const renderCategory = (itemData) => {
     if (itemData.item.Status == true) {
       if (sort == "" || sort == itemData.item.sortName || sort == undefined) {
@@ -118,7 +138,7 @@ const MainScreen = (props) => {
       }
     }
   };
-
+  //Rendering an empty list
   const EmptyListMessage = () => {
     return (
       // Flat List Item
@@ -152,7 +172,7 @@ const MainScreen = (props) => {
     </View>
   );
 };
-
+//Stylesheet for styling
 const styles = StyleSheet.create({
   screen: { flex: 1 },
 
