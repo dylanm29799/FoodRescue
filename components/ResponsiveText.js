@@ -1,4 +1,14 @@
-//Code taken from https://stackoverflow.com/questions/33628677/react-native-responsive-font-size
+/*
+ *
+ * ComponentName: ResponsiveText.js
+ *
+ * Date: 28/04/2021
+ * @author : nirsky
+ *
+ * @reference : https://stackoverflow.com/questions/33628677/react-native-responsive-font-size
+ *
+ *
+ */
 
 import { Dimensions } from "react-native";
 const { width, height } = Dimensions.get("window");

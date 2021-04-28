@@ -1,16 +1,32 @@
+/*
+ *
+ * ClassName: BusinessLocation.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ * @reference : https://www.npmjs.com/package/react-native-dropdown-picker
+ * @reference : https://stackoverflow.com/questions/15017052/understanding-email-validation-using-javascript
+ * @reference : https://www.npmjs.com/package/react-native-dialog
+ *
+ */
 import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
-  Button,
   Alert,
   KeyboardAvoidingView,
-  Touchable,
   TouchableOpacity,
 } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+
 import Colour from "../constants/Colour";
 import ButtonCustom from "../constants/ButtonCustom";
 import * as firebase from "firebase";
@@ -20,15 +36,18 @@ import { AntDesign } from "@expo/vector-icons";
 import DropDownPicker from "react-native-dropdown-picker";
 
 const ProfileScreen = (props) => {
+  //Setting states
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
 
   const [number, setNumber] = useState("");
   const [confirm, setConfirm] = useState(false);
   const [password, setPassword] = useState("");
+  //Sort is for the category of the business
   const [sort, setSort] = useState("");
 
   const [textName, setTextName] = useState("Name");
+  //Getting user id and firebase connection details
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
   var uid = " ";
@@ -38,6 +57,7 @@ const ProfileScreen = (props) => {
     console.log(err);
   }
   var docRef;
+  //Using regex for email validation
   let validation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   useEffect(() => {
@@ -49,6 +69,7 @@ const ProfileScreen = (props) => {
         .get()
         .then(function (doc) {
           if (doc.exists) {
+            //Getting data from firebase
             setTextName("First Name");
             setEmail(doc.data().email);
             setName(doc.data().name);
@@ -75,6 +96,7 @@ const ProfileScreen = (props) => {
   };
 
   const handleSubmit = () => {
+    //Updating the user email
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -119,6 +141,7 @@ const ProfileScreen = (props) => {
       });
   };
   onButtonPress = () => {
+    //Input logic
     if (!email.trim() || validation.test(email) === false) {
       alert("Please Enter a valid Email");
       return;
@@ -131,6 +154,7 @@ const ProfileScreen = (props) => {
     }
   };
   deleteProfile = () => {
+    //When a user wants to delete their account
     Alert.alert(
       "Second Chance!",
       "Are you sure you would like to delete your profile? This cannot be undone!",
@@ -149,6 +173,7 @@ const ProfileScreen = (props) => {
               .then(function () {
                 // User deleted.
                 console.log("User Deleted");
+                //Deleted
                 dbconnection
                   .collection("businessDetails")
                   .doc(user.uid)
@@ -159,6 +184,7 @@ const ProfileScreen = (props) => {
                   .catch(function (error) {
                     console.error("Error removing document: ", error);
                   });
+                //Navigating to the login page
                 props.navigation.navigate({ routeName: "Login" });
               })
               .catch(function (error) {
@@ -168,6 +194,7 @@ const ProfileScreen = (props) => {
           },
         },
       ],
+      //Enforcing that it is not cancelable if clicked off the screen
       { cancelable: false }
     );
   };
@@ -207,6 +234,7 @@ const ProfileScreen = (props) => {
         </TextInput>
         <Text style={styles.all}>What's your category?</Text>
         <DropDownPicker
+          //Predefined options for a business to have
           items={[
             {
               label: "",
@@ -268,6 +296,7 @@ const ProfileScreen = (props) => {
       </Text>
 
       <View>
+        {/* Input password before being able to update information*/}
         <Dialog.Container visible={confirm}>
           <Dialog.Title>Enter Password</Dialog.Title>
           <Dialog.Description>
@@ -285,7 +314,7 @@ const ProfileScreen = (props) => {
     </KeyboardAvoidingView>
   );
 };
-
+//Stylesheet for styling
 const styles = StyleSheet.create({
   screen: {
     flex: 1,

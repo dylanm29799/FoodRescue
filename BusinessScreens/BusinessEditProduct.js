@@ -1,36 +1,51 @@
+/*
+ *
+ * ClassName: BusinessEditProduct.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ *
+ *
+ */
 import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
-  FlatList,
-  SafeAreaView,
-  KeyboardAvoidingView,
   TouchableOpacity,
 } from "react-native";
 import { scale } from "../components/ResponsiveText";
 import Colour from "../constants/Colour";
 import ButtonCustom from "../constants/ButtonCustom";
 import * as firebase from "firebase";
-import { ScrollView } from "react-native-gesture-handler";
-import NormalProduct from "../components/NormalProduct";
 
 const BusinessEditProduct = (props) => {
+  //setting state
   const [itemName, setItemName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [usualPrice, setUsualPrice] = useState("");
+  //getting param
   var param = " ";
   try {
     param = props.navigation.getParam("productKey");
   } catch (err) {
     console.log(err);
   }
+  //user id and firebase connection
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
   var docRef = dbconnection.collection("Products").doc(param);
   const handleSubmit = () => {
+    //Input logic
     if (!itemName || itemName.length < 3) {
       alert("Please Enter a valid Item Name");
       return;
@@ -38,7 +53,7 @@ const BusinessEditProduct = (props) => {
       alert("Please Enter a valid Quantity");
     } else if (!usualPrice) {
       alert("Please Enter a valid original price");
-    } else if (!newPrice || newPrice >= usualPrice) {
+    } else if (!price || price >= usualPrice) {
       alert("Please Enter a valid New price");
     } else {
       docRef
@@ -47,6 +62,7 @@ const BusinessEditProduct = (props) => {
           if (doc.exists) {
             alert("Worked");
             console.log(itemName, quantity, price, usualPrice);
+            //Updating the product details
             return docRef.update({
               itemName: itemName,
               quantity: quantity,
@@ -66,6 +82,7 @@ const BusinessEditProduct = (props) => {
   };
 
   const onDelete = () => {
+    //deleting the product details
     dbconnection
       .collection("Products")
       .doc(param)
@@ -87,6 +104,7 @@ const BusinessEditProduct = (props) => {
         .get()
         .then(function (doc) {
           if (doc.exists) {
+            //set new item details
             setItemName(doc.data().itemName);
             setQuantity(doc.data().quantity);
             setPrice(doc.data().newPrice);

@@ -1,3 +1,20 @@
+/*
+ *
+ * ClassName: BusinessHome.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ * @reference : https://github.com/aminebenkeroum/toggle-switch-react-native
+ *
+ */
+
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import { scale } from "../components/ResponsiveText";
@@ -10,8 +27,10 @@ import ToggleSwitch from "toggle-switch-react-native";
 import "firebase/firestore";
 
 const BusinessHome = (props) => {
+  //Getting user id and firebase connection
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
+  //Status of switch
   const [status, setStatus] = useState();
 
   useEffect(() => {
@@ -27,6 +46,7 @@ const BusinessHome = (props) => {
   }, []);
 
   const changeStatus = () => {
+    //Change status to opposite of what it is
     setStatus(!status);
 
     var newStatus2 = !status;
@@ -34,12 +54,15 @@ const BusinessHome = (props) => {
   };
 
   const newStatus = (status) => {
+    //Connection to database
     var docRef = dbconnection.collection("businessDetails").doc(user.uid);
+    //Update status of switch
     return docRef.update({
       Status: status,
     });
   };
   return (
+    //4 different Views that go to different areas - Add a product, view your products, view your orders and view your profile
     <View style={styles.Screen}>
       <View
         style={[
@@ -114,6 +137,7 @@ const BusinessHome = (props) => {
           backgroundColor: "#ffecd2",
         }}
       >
+        {/* Toggle Switch to activate site*/}
         <ToggleSwitch
           isOn={status}
           onColor="green"
@@ -131,6 +155,7 @@ const BusinessHome = (props) => {
     </View>
   );
 };
+//Stylesheet for styling
 const styles = StyleSheet.create({
   Screen: {
     flex: 1,

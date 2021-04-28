@@ -1,9 +1,22 @@
+/*
+ *
+ * ComponentName: Footer.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://icons.expo.fyi/
+ *
+ */
 import React from "react";
 import { View, Text, StyleSheet, Linking } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { scale } from "../components/ResponsiveText";
 
 const Footer = ({ footerColor }) => {
+  //Simple footer with links to socials - Colour is used to display the colour of the icons
   return (
     <View style={styles.container}>
       <Text
@@ -49,6 +62,7 @@ const Footer = ({ footerColor }) => {
     </View>
   );
 };
+//Stylesheet for styling
 const styles = StyleSheet.create({
   icons: {
     flexDirection: "row",

@@ -1,3 +1,20 @@
+/*
+ *
+ * ClassName: LoginScreen.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ * @reference : https://stackoverflow.com/questions/15017052/understanding-email-validation-using-javascript
+ *
+ */
+
 import React, { useState } from "react";
 import {
   View,
@@ -21,7 +38,9 @@ import "firebase/firestore";
 import Footer from "../components/Footer";
 
 const LoginScreen = (props) => {
+  //Using Regex to validate email
   let validation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  //Setting state
   const [signedIn, setSignedIn] = useState("false");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -32,8 +51,10 @@ const LoginScreen = (props) => {
   var user1;
 
   signIn = () => {
+    //Login Validation
     if (!email.trim() || validation.test(email) === false) {
       alert("Please Enter a valid Email");
+      //Changing the styling based on whether
       setErrorColorEmail("logotextinputerror");
       return;
     } else {
@@ -51,7 +72,7 @@ const LoginScreen = (props) => {
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-          // Signed in
+          //Sign in user and get their UID
           user1 = userCredential.user;
           userid = user1.uid;
           console.log(userid);
@@ -60,6 +81,7 @@ const LoginScreen = (props) => {
           console.log(email, password, signedIn);
         })
         .then(function () {
+          //Logging user into the business or user side depending on their account
           const dbconnection = firebase.firestore();
           var docRef = dbconnection.collection("accountDetails").doc(userid);
           docRef
@@ -86,7 +108,6 @@ const LoginScreen = (props) => {
               console.error("Error With document: ", error);
             });
         })
-
         .catch((error) => {
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -102,12 +123,6 @@ const LoginScreen = (props) => {
         source={require("../assets/BackGround2.png")}
         style={styles.backGround}
       >
-        {/*<ActivityIndicator
-          size="large"
-          color="#00ff00"
-          style={styles.loading}
-        />*/}
-
         <View style={styles.content}>
           <View style={styles[errorColorEmail]}>
             <MaterialCommunityIcons
@@ -147,7 +162,7 @@ const LoginScreen = (props) => {
             Forgotten Your Password?
           </Text>
           <ButtonCustom onPress={signIn} title="Submit" />
-          {/*<Button color={Colour.primaryColour} title="Login" onPress={signIn} />*/}
+
           <Text style={styles.signUp}>Or Sign Up</Text>
           <View style={styles.options}>
             <TouchableOpacity
@@ -174,7 +189,7 @@ const LoginScreen = (props) => {
     </View>
   );
 };
-
+//Stylesheet for styling
 const styles = StyleSheet.create({
   screen: {
     flex: 1,

@@ -1,3 +1,19 @@
+/*
+ *
+ * ComponentName: FoodCountdown.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ * @reference : https://www.npmjs.com/package/react-native-dropdown-picker
+ *
+ */
 import React, { useState, useEffect } from "react";
 import {
   Text,
@@ -19,7 +35,7 @@ import { Picker } from "@react-native-picker/picker";
 import { withNavigation } from "react-navigation";
 
 const FoodCountdown = (props) => {
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  //getting Firebase and User ID
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
   var uid = "";
@@ -28,20 +44,21 @@ const FoodCountdown = (props) => {
   } catch (err) {
     console.log(err);
   }
-  var finalQuan;
-  [(finalQuan = global.quantity)];
 
+  //Setting state for item details
   const [itemName, setItemName] = useState(null);
   const [quantity, setQuantity] = useState(null);
   const [usualPrice, setUsualPrice] = useState(null);
   const [newPrice, setNewPrice] = useState(null);
   var x;
-
+  //Declaring a random string
   var randomString = require("random-string");
+  //Setting state for image and time
   const [image, setImage] = useState(null);
   const [time, setTime] = useState({ itemValue: "0" });
 
   const pickImage = async () => {
+    //Opening image picker for ios and android and choosing an image : Aspect ratio is 16:9, allowsEditing allows the image to be cropped
     result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Image,
       allowsEditing: true,
@@ -50,11 +67,13 @@ const FoodCountdown = (props) => {
     });
 
     if (!result.cancelled) {
+      //set image to uri
       setImage(result.uri);
     }
   };
 
   onSubmit = async () => {
+    //Text input logic
     if (!itemName || itemName.length < 3) {
       alert("Please Enter a valid Item Name");
       return;
@@ -67,16 +86,21 @@ const FoodCountdown = (props) => {
     } else if (!image) {
       alert("Please Pick an image");
     } else {
+      //Setting x as a random string
       x = randomString({ length: 30 });
       console.log(x);
-
+      //Getting the image uri
       const response = await fetch(image);
+      //getting the blob from firebase
       const blob = await response.blob();
+      //storage connection
       var storageRef = firebase.storage().ref();
+      //pushing the link to the firebase storage
       var productRef = storageRef.child("products/" + x);
       productRef
         .put(blob)
         .then(async function () {
+          //creating a new product with the details
           dbconnection
             .collection("Products")
             .doc(x)
@@ -97,16 +121,15 @@ const FoodCountdown = (props) => {
         })
 
         .then(() => {
-          console.log(finalQuan);
-
-          dbconnection.collection("businessDetails").doc(uid).update({
-            quantity: finalQuan,
-          });
+          //Getting links to firebase storage
           var storage = firebase.storage();
+          //getting the google cloud storage URI
           var docRef = dbconnection.collection("Products").doc(x);
+          //getting the URL from that URI
           var gsReference = storage.refFromURL(
             "gs://food-rescue-34ffd.appspot.com/products/" + x
           );
+          //updating the URL in the firebase
           gsReference.getDownloadURL().then((url) => {
             docRef.get().then(function (doc) {
               if (doc.exists) {
@@ -118,6 +141,7 @@ const FoodCountdown = (props) => {
           });
         })
         .then(function () {
+          //navigate to the home page
           props.navigation.navigate({ routeName: "BusinessHome" });
         });
     }
@@ -160,6 +184,7 @@ const FoodCountdown = (props) => {
         style={{ height: 50, width: "50%" }}
         onValueChange={(itemValue, itemIndex) => setTime({ itemValue })}
       >
+        {/*Letting the user pick how long a product will be available */}
         <Picker.Item label="1 Hour" value="1" />
         <Picker.Item label="2 Hours" value="2" />
         <Picker.Item label="3 Hours" value="3" />
@@ -180,6 +205,7 @@ const FoodCountdown = (props) => {
       >
         Pick an image
       </Text>
+      {/*Displaying an image of the users product */}
       {image && (
         <Image
           source={{ uri: image }}
@@ -199,6 +225,7 @@ const FoodCountdown = (props) => {
     </View>
   );
 };
+//Stylesheet for styling
 const styles = StyleSheet.create({
   con: { width: "70%", justifyContent: "center", paddingBottom: scale(10) },
   content: {
@@ -278,4 +305,5 @@ const styles = StyleSheet.create({
     height: scale(50),
   },
 });
+//WithNavigation used to navigate in a component
 export default withNavigation(FoodCountdown);

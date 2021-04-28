@@ -1,9 +1,24 @@
+/*
+ *
+ * ClassName: aboutus.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://stackoverflow.com/questions/33628677/react-native-responsive-font-size
+ *
+ */
+
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 
 import { scale } from "../components/ResponsiveText";
 
 const aboutus = () => {
+  //Main Body
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Who are We</Text>
@@ -51,7 +66,7 @@ const aboutus = () => {
     </View>
   );
 };
-
+//Stylesheets for Styling
 const styles = StyleSheet.create({
   container: {
     flex: 1,

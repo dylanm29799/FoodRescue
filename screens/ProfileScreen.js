@@ -1,13 +1,23 @@
+/*
+ *
+ * ClassName: ProfileScreen.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ * @reference : https://www.npmjs.com/package/react-native-dialog
+ * @reference : https://stackoverflow.com/questions/15017052/understanding-email-validation-using-javascript
+ *
+ */
+
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Button,
-  Alert,
-  KeyboardAvoidingView,
-} from "react-native";
+import { View, Text, StyleSheet, TextInput, Button, Alert } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import Colour from "../constants/Colour";
 import ButtonCustom from "../constants/ButtonCustom";
@@ -16,13 +26,15 @@ import { scale } from "../components/ResponsiveText";
 import Dialog from "react-native-dialog";
 import { AntDesign } from "@expo/vector-icons";
 const ProfileScreen = (props) => {
+  //Setting state
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [number, setNumber] = useState("");
+  //Confirm = True means that the dialog will appear, confirm = false means that it disappears
   const [confirm, setConfirm] = useState(false);
   const [password, setPassword] = useState("");
-
+  //Database connections
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
   var uid = " ";
@@ -32,9 +44,10 @@ const ProfileScreen = (props) => {
   } catch (err) {
     console.log(err);
   }
-
+  //Using Regex to validate email
   let validation = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const onSignOut = () => {
+    //Signing out
     firebase
       .auth()
       .signOut()
@@ -111,6 +124,7 @@ const ProfileScreen = (props) => {
   };
 
   onButtonPress = () => {
+    //Validation of inputs
     if (!email.trim() || validation.test(email) === false) {
       alert("Please Enter a valid Email");
       return;
@@ -126,6 +140,7 @@ const ProfileScreen = (props) => {
     }
   };
   deleteProfile = () => {
+    //Deleting profile
     Alert.alert(
       "Second Chance!",
       "Are you sure you would like to delete your profile? This cannot be undone!",
@@ -220,6 +235,7 @@ const ProfileScreen = (props) => {
       </Text>
 
       <View>
+        {/*Our Dialog container*/}
         <Dialog.Container visible={confirm}>
           <Dialog.Title>Enter Password</Dialog.Title>
           <Dialog.Description>
@@ -237,7 +253,7 @@ const ProfileScreen = (props) => {
     </View>
   );
 };
-
+//Stylesheets for styling
 const styles = StyleSheet.create({
   screen: {
     flex: 1,

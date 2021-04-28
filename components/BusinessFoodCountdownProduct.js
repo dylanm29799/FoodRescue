@@ -1,3 +1,19 @@
+/*
+ *
+ * ComponentName: BusinessFoodCountdownProduct.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ * @reference : https://math.stackexchange.com/questions/1667064/formula-to-get-percentage-from-a-target-start-and-current-numbers
+ *
+ */
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -15,19 +31,22 @@ import * as firebase from "firebase";
 
 const BusinessFoodCountdownProduct = (props) => {
   const [foodCountdown, setFoodCountdown] = useState([]);
-
+  //Firebase and user id link
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
+  //Todays date
   var today = new Date();
 
   useEffect(() => {
+    //Get products from the user id and that are food countdown
     dbconnection
       .collection("Products")
       .where("businessID", "==", user.uid)
       .where("foodCountdown", "==", "Yes")
       .onSnapshot((querySnapshot) => {
+        //Create array
         const foodCountdown = [];
-
+        //Put each product into the array
         querySnapshot.forEach((doc) => {
           foodCountdown.push({
             ...doc.data(),
@@ -35,53 +54,54 @@ const BusinessFoodCountdownProduct = (props) => {
           });
           console.log(foodCountdown);
         });
-
+        //Put the array into the foodCountdown object
         setFoodCountdown(foodCountdown);
       });
   }, []);
 
   const renderFoodCategory = (itemData) => {
+    //Getting the date from the firebase timestamp
     var myDate = new Date(itemData.item.created * 1000);
-
+    //Getting the date from the firebase timestamp
     var start = new Date(itemData.item.created * 1000);
+    //Getting the date hours and adding on the amount of hours specified
     var finishDate = new Date(
       myDate.setHours(myDate.getHours() + parseInt(itemData.item.hours))
     );
-
+    //Get todays hours and minutes
     var todayAsMin = today.getHours() * 60 + today.getMinutes();
+    //Get the end of food countdown hours and minutes
     var endAsMin = finishDate.getHours() * 60 + finishDate.getMinutes();
+    //Get the start of food countdown hours and minutes
     var startAsMin = start.getHours() * 60 + start.getMinutes();
 
-    //https://math.stackexchange.com/questions/1667064/formula-to-get-percentage-from-a-target-start-and-current-numbers
-    var Current_Start = todayAsMin - startAsMin;
+    //Getting current progress and total interval as per https://math.stackexchange.com/questions/1667064/formula-to-get-percentage-from-a-target-start-and-current-numbers    var Current_Start = todayAsMin - startAsMin;
     var total_start = endAsMin - startAsMin;
     if (total_start === 0) {
       total_start = total_start + 60;
     }
+    //Final percentage of time
     var hourlyPrice = Current_Start / total_start;
-
+    //Hours remaining on food rescue
     var hoursRemaining = finishDate.getHours() - today.getHours();
+    //Minutes remaining on food rescue
     var minutesRemaining = finishDate.getMinutes() - today.getMinutes();
+    //Get minutes remaining - Went negative if lower than 45 so changed it to always be positive
+
     if (minutesRemaining < 0) {
       minutesRemaining = 60 + minutesRemaining;
     }
-
+    //Getting the final price of the product
     var discount = itemData.item.usualPrice - itemData.item.newPrice;
     var newDiscount = discount * hourlyPrice;
     var finalPrice = itemData.item.usualPrice - newDiscount;
-    console.log(
-      discount,
-      newDiscount,
-      finalPrice,
-      hourlyPrice,
-      itemData.item.itemName
-    );
 
     return (
       <TouchableOpacity
         style={styles.Categories}
         onPress={() => {
           props.navigation.navigate({
+            //navigate to business edit screen with item key as a param
             routeName: "BusinessEdit",
             params: {
               productKey: itemData.item.key,
@@ -168,7 +188,7 @@ const BusinessFoodCountdownProduct = (props) => {
     </SafeAreaView>
   );
 };
-
+//Stylesheet for styling
 const styles = StyleSheet.create({
   item: {
     height: scale(250),
@@ -236,5 +256,5 @@ const styles = StyleSheet.create({
     paddingVertical: scale(10),
   },
 });
-
+//With navigation used so that our component can navigate with props
 export default withNavigation(BusinessFoodCountdownProduct);

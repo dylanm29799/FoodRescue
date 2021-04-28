@@ -1,3 +1,18 @@
+/*
+ *
+ * ComponentName: BusinessNormalProduct.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ *
+ */
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -13,20 +28,23 @@ import * as firebase from "firebase";
 import { withNavigation } from "react-navigation";
 
 const BusinessNormalProduct = (props) => {
+  //Setting product state
   const [product, setProduct] = useState([]);
-
+  //getting Firebase and User ID
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
 
   // User is signed in.
   useEffect(() => {
+    //get products that are related to the user and that aren't food countdown products
     dbconnection
       .collection("Products")
       .where("businessID", "==", user.uid)
       .where("foodCountdown", "==", "No")
       .onSnapshot((querySnapshot) => {
+        //create array
         const product = [];
-
+        //push each product into the array
         querySnapshot.forEach((doc) => {
           product.push({
             ...doc.data(),
@@ -34,7 +52,7 @@ const BusinessNormalProduct = (props) => {
           });
           console.log(product);
         });
-
+        //set the array in our object
         setProduct(product);
       });
   }, []);
@@ -45,6 +63,7 @@ const BusinessNormalProduct = (props) => {
         style={styles.Categories}
         onPress={() => {
           props.navigation.navigate({
+            //Navigate to the business edit screen with the item key as a param
             routeName: "BusinessEdit",
             params: {
               productKey: itemData.item.key,
@@ -103,7 +122,7 @@ const BusinessNormalProduct = (props) => {
     </View>
   );
 };
-
+//Stylesheet for styling
 const styles = StyleSheet.create({
   item: {
     height: scale(250),
@@ -166,5 +185,5 @@ const styles = StyleSheet.create({
     paddingVertical: scale(10),
   },
 });
-
+//WithNavigation to navigate in a component
 export default withNavigation(BusinessNormalProduct);

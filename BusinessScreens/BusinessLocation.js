@@ -1,8 +1,23 @@
-//with help From Expo Documentation https://docs.expo.io/versions/latest/sdk/location/#usage
-
+/*
+ *
+ * ClassName: BusinessLocation.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ * @reference : https://docs.expo.io/versions/latest/sdk/location/#usage
+ *
+ *
+ */
 import React from "react";
-import { Platform, Text, View, StyleSheet } from "react-native";
-import * as Location from "expo-location";
+import { Text, View, StyleSheet } from "react-native";
+
 import Colour from "../constants/Colour";
 import { scale } from "../components/ResponsiveText";
 import BusinessMap from "../components/businessMap";
@@ -11,6 +26,7 @@ import * as firebase from "firebase";
 import "firebase/firestore";
 
 const BusinessLocation = (props) => {
+  //getting user id and firebase connection
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
   var uid = " ";
@@ -20,6 +36,7 @@ const BusinessLocation = (props) => {
     console.log(err);
   }
   var docRef = dbconnection.collection("businessDetails").doc(uid);
+  //Getting user longitude and latitude from App.js
   let longitude = null;
   let latitude = null;
   [(longitude = global.longitude)];
@@ -30,6 +47,7 @@ const BusinessLocation = (props) => {
   console.log(long, lat);
 
   correctLocation = () => {
+    //Updating longitude and latitude based on users location
     docRef.get().then(function (doc) {
       if (doc.exists) {
         console.log("Your details have been updated.");
@@ -51,6 +69,7 @@ const BusinessLocation = (props) => {
   };
 
   return (
+    //Choose either location is correct or that the location is not correct
     <View style={styles.container}>
       <BusinessMap style={styles.Map} />
 
@@ -70,7 +89,7 @@ const BusinessLocation = (props) => {
     </View>
   );
 };
-
+//Stylesheet for styling
 const styles = StyleSheet.create({
   container: {
     flex: 1,

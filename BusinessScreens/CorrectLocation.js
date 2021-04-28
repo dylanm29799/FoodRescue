@@ -1,11 +1,21 @@
+/*
+ *
+ * ClassName: CorrectLocation.js
+ *
+ * Date: 28/04/2021
+ *
+ *
+ * @author: Dylan Murphy, X17506166
+ *
+ * @reference : https://www.udemy.com/course/react-native-the-practical-guide/learn/lecture/15674818?start=0#overview
+ * @reference : https://docs.expo.io/
+ * @reference : https://firebase.google.com/docs/web/setup
+ * @reference : https://github.com/wix/react-native-navigation
+ * @reference : https://stackoverflow.com/questions/15017052/understanding-email-validation-using-javascript
+ *
+ */
 import React, { useState } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Linking,
-} from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { scale } from "../components/ResponsiveText";
 import Colour from "../constants/Colour";
@@ -13,13 +23,20 @@ import Geocoder from "react-native-geocoding";
 import MapView, { Marker } from "react-native-maps";
 import * as firebase from "firebase";
 import "firebase/firestore";
+
 const CorrectLocation = (props) => {
+  //Firebase link
   const dbconnection = firebase.firestore();
+  //Geocoder API Key
   Geocoder.init("AIzaSyAZHSAnfYc7nm3UbyJtJr_NgLIKmZf-Tfk", { language: "en" });
+  //User details
   var user = firebase.auth().currentUser;
+  //State for geocode location
   const [geoCode, setGeoCode] = useState("");
+  //Example location for map
   const [lng, setLng] = useState(-6.2603);
   const [lat, setLat] = useState(53.3498);
+  //Geocoder - Take location from state and set the longitude and latitude of the area that matches the best with the geocode provided
   const runGeocode = () => {
     Geocoder.from(geoCode)
       .then((json) => {
@@ -32,6 +49,7 @@ const CorrectLocation = (props) => {
   };
 
   const runUpdate = () => {
+    //Update the location in firebase
     dbconnection
       .collection("businessDetails")
       .doc(user.uid)
@@ -47,6 +65,7 @@ const CorrectLocation = (props) => {
       })
       .then(function () {
         console.log("Navigating");
+        //Navigate to the business home
         props.navigation.navigate({ routeName: "BusinessHome" });
       });
   };
@@ -89,7 +108,7 @@ const CorrectLocation = (props) => {
     </View>
   );
 };
-
+//Stylesheet for styling
 const styles = StyleSheet.create({
   Screen: {
     flex: 1,
