@@ -55,59 +55,72 @@ const FoodCountdown = (props) => {
   };
 
   onSubmit = async () => {
-    x = randomString({ length: 30 });
-    console.log(x);
+    if (!itemName || itemName.length < 3) {
+      alert("Please Enter a valid Item Name");
+      return;
+    } else if (!quantity) {
+      alert("Please Enter a valid Quantity");
+    } else if (!usualPrice) {
+      alert("Please Enter a valid original price");
+    } else if (!newPrice || newPrice >= usualPrice) {
+      alert("Please Enter a valid New price");
+    } else if (!image) {
+      alert("Please Pick an image");
+    } else {
+      x = randomString({ length: 30 });
+      console.log(x);
 
-    const response = await fetch(image);
-    const blob = await response.blob();
-    var storageRef = firebase.storage().ref();
-    var productRef = storageRef.child("products/" + x);
-    productRef
-      .put(blob)
-      .then(async function () {
-        dbconnection
-          .collection("Products")
-          .doc(x)
-          .set({
-            itemName: itemName,
-            quantity: parseInt(quantity),
-            usualPrice: usualPrice,
-            newPrice: newPrice,
-            hours: time.itemValue,
-            foodCountdown: "Yes",
-            businessID: uid,
-            docId: x,
-            image: x,
-            created: firebase.firestore.FieldValue.serverTimestamp(),
+      const response = await fetch(image);
+      const blob = await response.blob();
+      var storageRef = firebase.storage().ref();
+      var productRef = storageRef.child("products/" + x);
+      productRef
+        .put(blob)
+        .then(async function () {
+          dbconnection
+            .collection("Products")
+            .doc(x)
+            .set({
+              itemName: itemName,
+              quantity: parseInt(quantity),
+              usualPrice: usualPrice,
+              newPrice: newPrice,
+              hours: time.itemValue,
+              foodCountdown: "Yes",
+              businessID: uid,
+              docId: x,
+              image: x,
+              created: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+          console.log("Success");
+          Alert.alert("Uploaded!", "Your product has been uploaded");
+        })
+
+        .then(() => {
+          console.log(finalQuan);
+
+          dbconnection.collection("businessDetails").doc(uid).update({
+            quantity: finalQuan,
           });
-        console.log("Success");
-        Alert.alert("Uploaded!", "Your product has been uploaded");
-      })
-
-      .then(() => {
-        console.log(finalQuan);
-
-        dbconnection.collection("businessDetails").doc(uid).update({
-          quantity: finalQuan,
-        });
-        var storage = firebase.storage();
-        var docRef = dbconnection.collection("Products").doc(x);
-        var gsReference = storage.refFromURL(
-          "gs://food-rescue-34ffd.appspot.com/products/" + x
-        );
-        gsReference.getDownloadURL().then((url) => {
-          docRef.get().then(function (doc) {
-            if (doc.exists) {
-              return docRef.update({
-                image: url,
-              });
-            }
+          var storage = firebase.storage();
+          var docRef = dbconnection.collection("Products").doc(x);
+          var gsReference = storage.refFromURL(
+            "gs://food-rescue-34ffd.appspot.com/products/" + x
+          );
+          gsReference.getDownloadURL().then((url) => {
+            docRef.get().then(function (doc) {
+              if (doc.exists) {
+                return docRef.update({
+                  image: url,
+                });
+              }
+            });
           });
+        })
+        .then(function () {
+          props.navigation.navigate({ routeName: "BusinessHome" });
         });
-      })
-      .then(function () {
-        props.navigation.navigate({ routeName: "BusinessHome" });
-      });
+    }
   };
   return (
     <View style={styles.content}>
@@ -121,12 +134,14 @@ const FoodCountdown = (props) => {
         <Text style={styles.text}>Quantity Available</Text>
         <TextInput
           style={styles.input}
+          keyboardType={"numeric"}
           onChangeText={(quantity) => setQuantity(quantity)}
           placeholder="5"
         />
         <Text style={styles.text}>Initial Price before Food Countdown</Text>
         <TextInput
           style={styles.input}
+          keyboardType={"numeric"}
           onChangeText={(usualPrice) => setUsualPrice(usualPrice)}
           placeholder="4.00"
         />
@@ -134,6 +149,7 @@ const FoodCountdown = (props) => {
         <Text style={styles.text}>Ending Price</Text>
         <TextInput
           style={styles.input}
+          keyboardType={"numeric"}
           onChangeText={(newPrice) => setNewPrice(newPrice)}
           placeholder="2.00"
         />
@@ -146,15 +162,15 @@ const FoodCountdown = (props) => {
       >
         <Picker.Item label="1 Hour" value="1" />
         <Picker.Item label="2 Hours" value="2" />
-        <Picker.Item label="3 Hour" value="3" />
+        <Picker.Item label="3 Hours" value="3" />
         <Picker.Item label="4 Hours" value="4" />
-        <Picker.Item label="5 Hour" value="5" />
+        <Picker.Item label="5 Hours" value="5" />
         <Picker.Item label="6 Hours" value="6" />
-        <Picker.Item label="7 Hour" value="7" />
+        <Picker.Item label="7 Hours" value="7" />
         <Picker.Item label="8 Hours" value="8" />
-        <Picker.Item label="9 Hour" value="9" />
+        <Picker.Item label="9 Hours" value="9" />
         <Picker.Item label="10 Hours" value="10" />
-        <Picker.Item label="11 Hour" value="11" />
+        <Picker.Item label="11 Hours" value="11" />
         <Picker.Item label="12 Hours" value="12" />
       </Picker>
 

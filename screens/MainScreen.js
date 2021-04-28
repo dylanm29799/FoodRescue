@@ -48,7 +48,8 @@ const MainScreen = (props) => {
           latitude: parseFloat(doc.data().latitude),
         };
 
-        const distance = haversine(userLoc, BusinessLocation).toFixed(2);
+        var distance = haversine(userLoc, BusinessLocation) - 29;
+        distance = distance.toFixed(2);
 
         businessLoc.push({
           ...doc.data(),

@@ -7,6 +7,7 @@ import {
   FlatList,
   SafeAreaView,
   KeyboardAvoidingView,
+  TouchableOpacity,
 } from "react-native";
 import { scale } from "../components/ResponsiveText";
 import Colour from "../constants/Colour";
@@ -30,26 +31,51 @@ const BusinessEditProduct = (props) => {
   var user = firebase.auth().currentUser;
   var docRef = dbconnection.collection("Products").doc(param);
   const handleSubmit = () => {
-    docRef
-      .get()
-      .then(function (doc) {
-        if (doc.exists) {
-          alert("Worked");
-          console.log(itemName, quantity, price, usualPrice);
-          return docRef.update({
-            itemName: itemName,
-            quantity: quantity,
-            newPrice: price,
-            usualPrice: usualPrice,
-          });
-        }
+    if (!itemName || itemName.length < 3) {
+      alert("Please Enter a valid Item Name");
+      return;
+    } else if (!quantity) {
+      alert("Please Enter a valid Quantity");
+    } else if (!usualPrice) {
+      alert("Please Enter a valid original price");
+    } else if (!newPrice || newPrice >= usualPrice) {
+      alert("Please Enter a valid New price");
+    } else {
+      docRef
+        .get()
+        .then(function (doc) {
+          if (doc.exists) {
+            alert("Worked");
+            console.log(itemName, quantity, price, usualPrice);
+            return docRef.update({
+              itemName: itemName,
+              quantity: quantity,
+              newPrice: price,
+              usualPrice: usualPrice,
+            });
+          }
+        })
+        .then(function () {
+          console.log("Document successfully updated!");
+        })
+        .catch(function (error) {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+        });
+    }
+  };
+
+  const onDelete = () => {
+    dbconnection
+      .collection("Products")
+      .doc(param)
+      .delete()
+      .then(() => {
+        alert("Deleted!");
+        props.navigation.navigate({ routeName: "BusinessCurrentProduct" });
       })
-      .then(function () {
-        console.log("Document successfully updated!");
-      })
-      .catch(function (error) {
-        // The document probably doesn't exist.
-        console.error("Error updating document: ", error);
+      .catch((error) => {
+        console.error("Error removing document: ", error);
       });
   };
   useEffect(() => {
@@ -99,6 +125,7 @@ const BusinessEditProduct = (props) => {
         <Text style={styles.all}> Quantity:</Text>
         <TextInput
           style={styles.textInput}
+          keyboardType={"numeric"}
           onChangeText={(quantity) => setQuantity(quantity)}
         >
           {quantity}
@@ -107,6 +134,7 @@ const BusinessEditProduct = (props) => {
         <Text style={styles.all}> Original Price:</Text>
         <TextInput
           style={styles.textInput}
+          keyboardType={"numeric"}
           onChangeText={(usualPrice) => setUsualPrice(usualPrice)}
         >
           {usualPrice}
@@ -115,12 +143,17 @@ const BusinessEditProduct = (props) => {
         <Text style={styles.all}> Price of the Product:</Text>
         <TextInput
           style={styles.textInput}
+          keyboardType={"numeric"}
           onChangeText={(price) => setPrice(price)}
         >
           {price}
         </TextInput>
       </View>
       <ButtonCustom onPress={handleSubmit} title="Update" />
+
+      <TouchableOpacity style={styles.touchable} onPress={onDelete}>
+        <Text style={styles.text}>Delete</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -148,6 +181,21 @@ const styles = StyleSheet.create({
     paddingTop: scale(5),
     fontFamily: "MonM",
     fontSize: scale(12),
+  },
+  touchable: {
+    marginTop: scale(30),
+    width: scale(100),
+    borderColor: "black",
+    borderWidth: 1,
+    height: scale(30),
+    alignItems: "center",
+    justifyContent: "center",
+    borderColor: "red",
+  },
+  text: {
+    fontFamily: "MonM",
+    fontSize: scale(14),
+    color: "red",
   },
 });
 

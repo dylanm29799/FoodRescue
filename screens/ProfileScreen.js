@@ -25,9 +25,9 @@ const ProfileScreen = (props) => {
 
   const dbconnection = firebase.firestore();
   var user = firebase.auth().currentUser;
-  const [uid, setUid] = useState("");
+  var uid = " ";
   try {
-    setUid(user.uid);
+    uid = user.uid;
     var docRef = dbconnection.collection("userDetails").doc(uid);
   } catch (err) {
     console.log(err);
