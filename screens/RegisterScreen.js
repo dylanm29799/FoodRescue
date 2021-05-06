@@ -23,6 +23,7 @@ import {
   Alert,
   ImageBackground,
   TextInput,
+  Dimensions,
 } from "react-native";
 
 import Colour from "../constants/Colour";
@@ -34,7 +35,7 @@ import { AntDesign } from "@expo/vector-icons";
 import ButtonCustom from "../constants/ButtonCustom";
 import Footer from "../components/Footer";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
+const { height } = Dimensions.get("window");
 const RegisterScreen = (props) => {
   const dbconnection = firebase.firestore();
   //validation is used for validation of emails
@@ -236,7 +237,7 @@ const RegisterScreen = (props) => {
 //Stylesheet for styling
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
+    height: height + 50,
 
     alignItems: "center",
   },

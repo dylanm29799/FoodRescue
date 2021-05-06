@@ -135,12 +135,12 @@ const BusinessListScreen = (props) => {
           />
           <View
             style={{
-              width: scale(40),
+              width: scale(50),
               height: scale(40),
               position: "absolute",
               backgroundColor: "white",
               alignItems: "center",
-              borderRadius: 30,
+              borderRadius: 10,
               borderWidth: 2,
               borderColor: "rgba(154, 18, 179, 1)",
               justifyContent: "center",
@@ -199,6 +199,9 @@ const BusinessListScreen = (props) => {
     var hoursRemaining = finishDate.getHours() - today.getHours();
     //Minutes remaining on food rescue
     var minutesRemaining = finishDate.getMinutes() - today.getMinutes();
+    if (hoursRemaining * 60 + minutesRemaining > itemData.item.hours * 60) {
+      hoursRemaining -= 1;
+    }
 
     //Get minutes remaining - Went negative if lower than 45 so changed it to always be positive
     if (minutesRemaining < 0) {
@@ -250,12 +253,12 @@ const BusinessListScreen = (props) => {
             />
             <View
               style={{
-                width: scale(40),
+                width: scale(50),
                 height: scale(40),
                 position: "absolute",
                 backgroundColor: "white",
                 alignItems: "center",
-                borderRadius: 30,
+                borderRadius: 10,
                 borderWidth: 2,
                 borderColor: "rgba(154, 18, 179, 1)",
                 justifyContent: "center",

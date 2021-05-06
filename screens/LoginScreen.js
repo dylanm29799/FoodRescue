@@ -15,7 +15,7 @@
  *
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -24,6 +24,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   TextInput,
+  Dimensions,
 } from "react-native";
 
 import Colour from "../constants/Colour";
@@ -34,7 +35,7 @@ import { AntDesign } from "@expo/vector-icons";
 import ButtonCustom from "../constants/ButtonCustom";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import "firebase/firestore";
-
+const { height } = Dimensions.get("window");
 import Footer from "../components/Footer";
 
 const LoginScreen = (props) => {
@@ -136,6 +137,7 @@ const LoginScreen = (props) => {
               placeholder={"Email"}
               autoCompleteType={"email"}
               keyboardType={"email-address"}
+              accessibilityLabel="Login"
             />
           </View>
           <View style={styles[errorColorPassword]}>
@@ -145,6 +147,7 @@ const LoginScreen = (props) => {
               secureTextEntry={true}
               placeholder={"Password"}
               onChangeText={(password) => setPassword(password)}
+              accessibilityLabel="password"
             />
           </View>
           <Text
@@ -161,7 +164,11 @@ const LoginScreen = (props) => {
           >
             Forgotten Your Password?
           </Text>
-          <ButtonCustom onPress={signIn} title="Submit" />
+          <ButtonCustom
+            onPress={signIn}
+            title="Login"
+            accessibilityLabel="Submit"
+          />
 
           <Text style={styles.signUp}>Or Sign Up</Text>
           <View style={styles.options}>
@@ -192,7 +199,7 @@ const LoginScreen = (props) => {
 //Stylesheet for styling
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
+    height: height + 50,
     alignItems: "center",
   },
   backGround: {

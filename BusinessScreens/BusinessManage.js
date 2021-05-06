@@ -33,11 +33,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 const BusinessManage = (props) => {
   //Setting state
   const [orders, setOrders] = useState({});
-  const [productImage, setProductImage] = useState(
-    "https://www.transparenttextures.com/patterns/debut-light.png"
-  );
-  const [userName, setUserName] = useState(" ");
-  const [userNumber, setUserNumber] = useState(" ");
+
   const dbconnection = firebase.firestore();
   //Setting state of querying
   const [showBy, setShowBy] = useState("All");
@@ -85,21 +81,6 @@ const BusinessManage = (props) => {
     FinalDate = newCreated.getDate() + "/" + (newCreated.getMonth() + 1);
     Time = newCreated.getHours() + ":" + mins;
     //Getting image of product and first and last name of user
-    dbconnection
-      .collection("Products")
-      .doc(itemData.item.productID)
-      .get()
-      .then((doc) => {
-        setProductImage(doc.data().image);
-      });
-    dbconnection
-      .collection("userDetails")
-      .doc(itemData.item.userID)
-      .get()
-      .then((doc) => {
-        setUserName(doc.data().firstName + " " + doc.data().lastName);
-        setUserNumber(doc.data().number);
-      });
     //Setting the colour of the order
     if (itemData.item.Status == "In Progress") {
       Colour = "#ffc575";
@@ -129,42 +110,20 @@ const BusinessManage = (props) => {
               height: "100%",
               width: "100%",
               alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            <View
-              style={{
-                height: "80%",
-                width: "50%",
-                justifyContent: "center",
-                alignSelf: "center",
-                paddingLeft: scale(10),
-                borderRadius: 10,
-              }}
-            >
-              <Image
-                source={{ uri: productImage }}
-                style={{
-                  height: "100%",
-                  width: "100%",
-                  shadowOffset: { width: 0, height: 2 },
-                  shadowOpacity: 0.8,
-                  borderRadius: 30,
-                  shadowRadius: 2,
-                }}
-                resizeMode="stretch"
-              />
-            </View>
-            <View style={{ alignItems: "center", width: "50%" }}>
+            <View style={{ alignItems: "center" }}>
+              <Text style={styles.text2}>
+                {" "}
+                {itemData.item.quantityOrdered}x {itemData.item.productName}
+              </Text>
               <Text style={styles.text2}>{itemData.item.Status}</Text>
               <Text style={styles.text2}>
                 {FinalDate.toString()} {Time}
               </Text>
-              <Text></Text>
-              <Text style={styles.text}>{userName}</Text>
-
-              <Text style={styles.text}>{userNumber}</Text>
-              <Text style={styles.text}>
-                {itemData.item.quantityOrdered} ordered
+              <Text style={styles.text2}>
+                €{itemData.item.pricePerItem} each
               </Text>
             </View>
           </View>
@@ -254,7 +213,7 @@ const BusinessManage = (props) => {
 //Stylesheet for styling
 const styles = StyleSheet.create({
   Categories: {
-    height: scale(145),
+    height: scale(120),
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
