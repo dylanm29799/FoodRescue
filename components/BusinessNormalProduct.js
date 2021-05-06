@@ -78,12 +78,12 @@ const BusinessNormalProduct = (props) => {
           />
           <View
             style={{
-              width: scale(40),
+              width: scale(50),
               height: scale(40),
               position: "absolute",
               backgroundColor: "white",
               alignItems: "center",
-              borderRadius: 30,
+              borderRadius: 10,
               borderWidth: 2,
               borderColor: "rgba(154, 18, 179, 1)",
               justifyContent: "center",

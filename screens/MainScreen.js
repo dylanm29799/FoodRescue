@@ -66,8 +66,8 @@ const MainScreen = (props) => {
           longitude: parseFloat(doc.data().longitude),
           latitude: parseFloat(doc.data().latitude),
         };
-        //Getting the distance from the user - Issue where it was 29km off location every time
-        var distance = haversine(userLoc, BusinessLocation) - 29;
+        //Getting the distance from the user
+        var distance = haversine(userLoc, BusinessLocation);
         distance = distance.toFixed(2);
         //Pushing to array
         businessLoc.push({

@@ -16,7 +16,13 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 import Colour from "../constants/Colour";
 import { scale } from "../components/ResponsiveText";
 
@@ -26,6 +32,7 @@ import "firebase/storage";
 
 import NormalProduct from "../components/NormalProduct";
 import FoodCountdown from "../components/FoodCountdown";
+const { height } = Dimensions.get("window");
 
 const BusinessAddProduct = () => {
   const dbconnection = firebase.firestore();
@@ -121,9 +128,9 @@ const BusinessAddProduct = () => {
 //Stylesheet
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    height: height - 40,
   },
   content: {
     borderTopWidth: 0,

@@ -121,16 +121,13 @@ BusinessProfile.navigationOptions = {
   headerTintColor: "white",
 };
 
-BusinessEdit.navigationOptions = (props) => {
-  const productTitle = props.navigation.getParam("productName");
-  return {
-    headerTitle: productTitle,
-    headerStyle: {
-      backgroundColor: Colour.primaryColour,
-    },
-    headerTitleAlign: "center",
-    headerTintColor: "white",
-  };
+BusinessEdit.navigationOptions = {
+  headerTitle: "Edit Your Product",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
 };
 
 forgotPassword.navigationOptions = {
@@ -151,16 +148,13 @@ CartScreen.navigationOptions = {
   headerTintColor: "white",
 };
 
-ItemDetailScreen.navigationOptions = (props) => {
-  const title = props.navigation.getParam("BusinessName");
-  return {
-    headerTitle: title,
-    headerStyle: {
-      backgroundColor: Colour.primaryColour,
-    },
-    headerTitleAlign: "center",
-    headerTintColor: "white",
-  };
+ItemDetailScreen.navigationOptions = {
+  headerTitle: "Item Details",
+  headerStyle: {
+    backgroundColor: Colour.primaryColour,
+  },
+  headerTitleAlign: "center",
+  headerTintColor: "white",
 };
 
 aboutus.navigationOptions = {

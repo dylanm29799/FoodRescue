@@ -300,7 +300,7 @@ const ProfileScreen = (props) => {
         <Dialog.Container visible={confirm}>
           <Dialog.Title>Enter Password</Dialog.Title>
           <Dialog.Description>
-            To update information, Please enter you're password.
+            To update information, Please enter your password.
           </Dialog.Description>
           <Dialog.Input
             style={styles.textInputAlert}

@@ -75,7 +75,8 @@ const BusinessFoodCountdownProduct = (props) => {
     //Get the start of food countdown hours and minutes
     var startAsMin = start.getHours() * 60 + start.getMinutes();
 
-    //Getting current progress and total interval as per https://math.stackexchange.com/questions/1667064/formula-to-get-percentage-from-a-target-start-and-current-numbers    var Current_Start = todayAsMin - startAsMin;
+    //Getting current progress and total interval as per https://math.stackexchange.com/questions/1667064/formula-to-get-percentage-from-a-target-start-and-current-numbers
+    var Current_Start = todayAsMin - startAsMin;
     var total_start = endAsMin - startAsMin;
     if (total_start === 0) {
       total_start = total_start + 60;
@@ -87,9 +88,16 @@ const BusinessFoodCountdownProduct = (props) => {
     //Minutes remaining on food rescue
     var minutesRemaining = finishDate.getMinutes() - today.getMinutes();
     //Get minutes remaining - Went negative if lower than 45 so changed it to always be positive
+    if (hoursRemaining * 60 + minutesRemaining > itemData.item.hours * 60) {
+      hoursRemaining -= 1;
+    }
 
     if (minutesRemaining < 0) {
       minutesRemaining = 60 + minutesRemaining;
+      hoursRemaining -= 1;
+    }
+    if (hoursRemaining < 0) {
+      hoursRemaining += 1;
     }
     //Getting the final price of the product
     var discount = itemData.item.usualPrice - itemData.item.newPrice;
@@ -121,12 +129,12 @@ const BusinessFoodCountdownProduct = (props) => {
           />
           <View
             style={{
-              width: scale(40),
+              width: scale(50),
               height: scale(40),
               position: "absolute",
               backgroundColor: "white",
               alignItems: "center",
-              borderRadius: 30,
+              borderRadius: 10,
               borderWidth: 2,
               borderColor: "rgba(154, 18, 179, 1)",
               justifyContent: "center",
