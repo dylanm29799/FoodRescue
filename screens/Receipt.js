@@ -26,7 +26,8 @@ import { Feather } from "@expo/vector-icons";
 
 const Receipt = (props) => {
   //Getting order param
-  var orderID = props.navigation.getParam("orderID");
+  var orderID = "";
+
   //User and firebase details
   var user = firebase.auth().currentUser;
   const dbconnection = firebase.firestore();
@@ -51,6 +52,7 @@ const Receipt = (props) => {
 
   useEffect(() => {
     //Getting order details
+    orderID = props.navigation.getParam("orderID");
     dbconnection
       .collection("OrderDetails")
       .doc(orderID)
@@ -60,7 +62,7 @@ const Receipt = (props) => {
           setBusinessID(doc.data().businessID);
           setID(doc.id);
           setCreated(doc.data().created.toDate());
-          setPrice(parseInt(doc.data().pricePerItem));
+          setPrice(parseFloat(doc.data().pricePerItem));
           setProductId(doc.data().productID);
           setQuantity(doc.data().quantityOrdered);
           setLong(doc.data().userLongitude);
@@ -70,7 +72,7 @@ const Receipt = (props) => {
           setBusLat(doc.data().busLat);
           setBusNumber(doc.data().busNumber);
           setProductName(doc.data().productName);
-          setProductUsualPrice(parseInt(doc.data().productUsualPrice));
+          setProductUsualPrice(parseFloat(doc.data().productUsualPrice));
           setStatus(doc.data().Status);
         } else {
           console.log("Nothing There");
@@ -98,7 +100,7 @@ const Receipt = (props) => {
   var saveAmount = 1 - price / productUsualPrice;
   var newSaveAmount = 100 * saveAmount;
   var finalSave = Math.round(newSaveAmount);
-  var totalPrice = parseInt(quantity) * parseInt(price);
+  var totalPrice = parseFloat(quantity) * parseFloat(price);
   return (
     <View style={{ flex: 1, backgroundColor: "#fff2e0" }}>
       <ScrollView
