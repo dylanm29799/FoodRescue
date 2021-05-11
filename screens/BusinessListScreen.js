@@ -46,21 +46,11 @@ const BusinessListScreen = (props) => {
   const [businessLoadData, setBusinessLoadData] = useState({});
   [(long = global.longitude)];
   [(lat = global.latitude)];
-  var businessName = "";
-  var busLong = "";
-  var busLat = "";
-  var busID = "";
+  var businessName = props.navigation.getParam("BusinessName");
+  var busLong = props.navigation.getParam("busLong");
+  var busLat = props.navigation.getParam("busLat");
+  var busID = props.navigation.getParam("ID");
   var today = new Date();
-
-  try {
-    //Getting Parameters from previous page
-    busLong = props.navigation.getParam("busLong");
-    busLat = props.navigation.getParam("busLat");
-    busID = props.navigation.getParam("ID");
-    businessName = props.navigation.getParam("BusinessName");
-  } catch (error) {
-    console.log(error);
-  }
 
   useEffect(() => {
     console.log(busID);
@@ -204,13 +194,17 @@ const BusinessListScreen = (props) => {
     }
 
     //Get minutes remaining - Went negative if lower than 45 so changed it to always be positive
-    if (minutesRemaining < 0) {
-      minutesRemaining = 60 + minutesRemaining;
-    }
-    if (hoursRemaining < 0) {
-      hoursRemaining = 1 + hoursRemaining;
+    if (hoursRemaining * 60 + minutesRemaining > itemData.item.hours * 60) {
+      hoursRemaining -= 1;
     }
 
+    if (minutesRemaining < 0) {
+      minutesRemaining = 60 + minutesRemaining;
+      hoursRemaining -= 1;
+    }
+    if (hoursRemaining <= 0) {
+      hoursRemaining += 1;
+    }
     //Getting the final price of the product
     var discount = itemData.item.usualPrice - itemData.item.newPrice;
     var newDiscount = discount * hourlyPrice;
@@ -228,7 +222,7 @@ const BusinessListScreen = (props) => {
             props.navigation.navigate({
               routeName: "ItemDetail",
               params: {
-                BusinessID: businessName,
+                BusinessID: busID,
                 productID: itemData.item.key,
                 image: itemData.item.image,
                 itemName: itemData.item.itemName,

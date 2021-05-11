@@ -68,6 +68,11 @@ const BusinessFoodCountdownProduct = (props) => {
     var finishDate = new Date(
       myDate.setHours(myDate.getHours() + parseInt(itemData.item.hours))
     );
+    //Getting the date as a string
+    var dateAsString = today.toDateString().substring(4, 10);
+    //Getting the firebase date as a string
+    var startDateAsString = start.toDateString().substring(4, 10);
+
     //Get todays hours and minutes
     var todayAsMin = today.getHours() * 60 + today.getMinutes();
     //Get the end of food countdown hours and minutes

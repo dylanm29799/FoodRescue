@@ -31,20 +31,19 @@ import { EvilIcons } from "@expo/vector-icons";
 const ItemDetailScreen = (props) => {
   const dbconnection = firebase.firestore();
   //Getting Params
-  const businessID = props.navigation.getParam("BusinessID");
-  const productID = props.navigation.getParam("productID");
-  const itemName = props.navigation.getParam("itemName");
+  var businessID = "";
+  var productID = props.navigation.getParam("productID");
+  var itemName = props.navigation.getParam("itemName");
   var quantity = props.navigation.getParam("quantity");
   var newQuantity = quantity;
-  const hours = props.navigation.getParam("hours");
+  var hours = props.navigation.getParam("hours");
   //Firebase and User variables
   var docRef = dbconnection.collection("Products").doc(productID);
   var user = firebase.auth().currentUser;
   //Getting more params
-  const image = props.navigation.getParam("image");
-  const newPrice = props.navigation.getParam("newPrice");
-  const usualPrice = props.navigation.getParam("usualPrice");
-  const foodCountdown = props.navigation.getParam("foodCountdown");
+  var image = props.navigation.getParam("image");
+  var newPrice = props.navigation.getParam("newPrice");
+  var usualPrice = props.navigation.getParam("usualPrice");
 
   //How much the user will save as a percentage
   var saveAmount = 1 - newPrice / usualPrice;
@@ -65,7 +64,9 @@ const ItemDetailScreen = (props) => {
 
   useEffect(() => {
     //Getting business details
-    console.log(productID);
+    console.log("Param:", props.navigation.getParam("BusinessID"));
+    businessID = props.navigation.getParam("BusinessID");
+
     dbconnection
       .collection("businessDetails")
       .doc(businessID)

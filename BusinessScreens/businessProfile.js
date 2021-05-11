@@ -34,6 +34,7 @@ import { scale } from "../components/ResponsiveText";
 import Dialog from "react-native-dialog";
 import { AntDesign } from "@expo/vector-icons";
 import DropDownPicker from "react-native-dropdown-picker";
+import { Entypo } from "@expo/vector-icons";
 
 const ProfileScreen = (props) => {
   //Setting states
@@ -291,6 +292,31 @@ const ProfileScreen = (props) => {
           Log Out
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.logout}
+        onPress={() =>
+          props.navigation.navigate({ routeName: "CorrectLocation" })
+        }
+      >
+        <Entypo
+          name="location"
+          size={24}
+          color="black"
+          onPress={() =>
+            props.navigation.navigate({ routeName: "CorrectLocation" })
+          }
+        />
+
+        <Text
+          onPress={() =>
+            props.navigation.navigate({ routeName: "CorrectLocation" })
+          }
+          style={styles.signOut}
+        >
+          Change Location
+        </Text>
+      </TouchableOpacity>
+
       <Text onPress={deleteProfile} style={styles.delete}>
         Delete Account
       </Text>
